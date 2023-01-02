@@ -1,38 +1,60 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import { BsChevronCompactDown } from 'react-icons/bs'
 
 const LandingPage = () => {
+  const [service, setService] = useState('');
+  const toggleService = () => {
+    if (typeof window !== 'undefined') {
+      document.getElementById("service-list").classList.toggle("hidden");
+    }
+  }
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      var date = new Date();
+      var day = date.getDate();
+      var month = date.getMonth() + 1;
+      var year = date.getFullYear();
+      if (month < 10) month = "0" + month;
+      if (day < 10) day = "0" + day;
+      var today = year + "-" + month + "-" + day;
+      document.getElementById('datePicker').value = today;
+    }
+
+    if(typeof window!=='undefined'){
+      
+    }
+  }, [])
   return (
     <>
-    <style jsx>
-
-        {`
-        input:focus{
-            outline:none !important;
-        }
-        `}
-    </style>
-    <div style={{ height: 'calc(100vh - 72px)' }} className="flex flex-col justify-center items-center">
-          <h2 className="md:text-5xl text-3xl text-center font-semibold font-[helvetica] text-white drop-shadow-lg">Book With Us And Enjoy Your Journey!</h2>
-          <div className="flex justify-center items center border-white border rounded md:w-3/4 w-full">
-            <div className="flex items-center bg-white rounded-l w-full">
-              <select name="service" id="service" className='border-none focus:outline-none w-full'>
-                <optgroup label='UAE Tour'>
-                  <option value="">Desert Safari</option>
-                  <option value="">Burj Khalifa</option>
-                  <option value="">Dhow Cruise</option>
-                  <option value="">Wild Wadi Water Park</option>
-                </optgroup>
-                <optgroup label='Visa'>
-                  <option value="">UAE Visa</option>
-                  <option value="">International Visa</option>
-                </optgroup>
-              </select>
+    <div className="home">
+        <div style={{ height: 'calc(100vh - 72px)' }} className="flex flex-col justify-center items-center p-1">
+          <h2 className="md:text-5xl text-3xl text-center font-semibold font-[helvetica] text-white drop-shadow-lg mb-8">Book With Us And Enjoy Your Journey!</h2>
+          <div className="flex md:flex-row flex-col justify-center items center border-white border rounded md:w-3/4 w-full p-1">
+            <div className="flex items-center bg-white md:rounded-l md:rounded-r-none rounded-t  p-1  w-full relative">
+              <button onClick={toggleService} className="w-full px-2 py-1 flex items-center text-gray-500 font-semibold">{service?service:'Burj Khalifa'} <BsChevronCompactDown className='mx-2 ' /></button>
+              <div id='service-list' className="w-full hidden border-b border-l border-r border-gray-400 absolute -ml-[4.5px] top-10  rounded-b bg-white p-1 z-50">
+                <ul className='w-full'>
+                  <li className='w-full bg-gray-700 p-1 text-white font-semibold'>UAE Tours</li>
+                  <li className=' text-gray-400 hover:text-white hover:bg-gray-600 cursor-pointer mb-1 p-1' onClick={()=>{setService("Desert Safari");toggleService()}}>Desert Safari</li>
+                  <li className='text-gray-400 hover:text-white hover:bg-gray-600 cursor-pointer mb-1 p-1'  onClick={()=>{setService("Burj Khalifa");toggleService()}}>Burj Khalifa</li>
+                  <li className=' text-gray-400 hover:text-white hover:bg-gray-600 cursor-pointer mb-1 p-1'  onClick={()=>{setService("Dhow Cruise");toggleService()}}>Dhow Cruise</li>
+                  <li className='text-gray-400 hover:text-white hover:bg-gray-600 cursor-pointer mb-1 p-1'  onClick={()=>{setService("Wild Wadi Water Park");toggleService()}}>Wild Wadi Water Park</li>
+                  <hr />
+                  <li className='w-full bg-gray-700 p-1 text-white font-semibold'>Visa</li>
+                  <li className='text-gray-400 hover:text-white hover:bg-gray-600 cursor-pointer mb-1 p-1'  onClick={()=>{setService("UAE Visa");toggleService()}}>UAE Visa</li>
+                  <li className=' text-gray-400 hover:text-white hover:bg-gray-600 cursor-pointer mb-1 p-1'  onClick={()=>{setService("International Visa");toggleService()}}>International Visa</li>
+                </ul>
+              </div>
             </div>
-            <div className="flex items-center bg-white w-full">
-              <input type="date" className='w-full outline-none border-none focus:outline-white focus:border-white' />
+            <div className="flex md:rounded-r rounded-b items-center bg-white w-full md:my-0 my-1">
+              <input type="date" id='datePicker' className='w-full md:rounded-none rounded-l outline-none border-none focus:border-none focus:outline-none p-2' />
+              <input type="submit" value={"Book Now"} className='flex justify-center items-center bg-white md:rounded-r rounded-br w-[200px] bg-blue-600 hover:bg-blue-700 cursor-pointer text-white font-semibold p-2' />
             </div>
           </div>
+          <p className='text-center md:w-3/4 w-full my-5 text-white drop-shadow'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Est ad non cupiditate cum eveniet, recusandae neque doloribus alias quaerat deleniti eligendi a qui asperiores quisquam quasi libero magni! Porro, impedit?</p>
         </div>
+      </div>
+
     </>
   )
 }
