@@ -1,13 +1,9 @@
 import Head from 'next/head'
-import { useEffect } from 'react'
-import Image from 'next/image'
-import Script from 'next/script'
 import Navbar from '../components/Navbar'
 import '@animxyz/core'
 import Service from '../components/Service'
 import LandingPage from '../components/LandingPage'
 import Testimonial from '../components/Testimonial'
-import Tour from '../components/Tour'
 import Footer from '../components/Footer'
 export default function Home() {
   
