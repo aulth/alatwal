@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import { BsChevronCompactDown } from 'react-icons/bs'
-
 const LandingPage = () => {
   const [service, setService] = useState('');
   const toggleService = () => {

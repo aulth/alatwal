@@ -1,0 +1,9 @@
+[
+    {
+        "id":"user-1",
+        "name":"Mohd Usman",
+        "email":"usman@gmail.com",
+        "password":"1234",
+        "level":"user"
+    }
+]
