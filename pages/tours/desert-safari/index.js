@@ -1,18 +1,8 @@
 import React from 'react'
 import Navbar from '../../../components/Navbar'
 import Tourcard from '../../../components/Tourcard'
-
-const DesertSafari = () => {
-  const desertSafari = [
-    {
-      price:'200',
-      title:'Morning Desert Safari',
-      description:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis dolore eaque quisquam quas tempore sint, ipsam laborum magnam reiciendis unde. Consequuntur, aspernatur? Dolores laudantium cupiditate aliquid tempore expedita accusantium accusamus.',
-      location:'Dubai',
-      duration:'3-4',
-      url:'/'
-    }
-  ]
+import data from '../../data.json';
+const DesertSafari = ({tours}) => {
   return (
     <>
       <Navbar />
@@ -24,7 +14,7 @@ const DesertSafari = () => {
       </div>
       <div className="w-full flex flex-wrap m-auto p-2 box-border">
         {
-          desertSafari.map((data, index)=>{
+          tours.map((data, index)=>{
             return [<Tourcard key={index} data={data} />]
           })
         }
@@ -35,3 +25,12 @@ const DesertSafari = () => {
 }
 
 export default DesertSafari
+export async function getServerSideProps(context) {
+  let tours = data.filter(data=>data.category=="desert-safari");
+  console.log(tours)
+  return {
+    props: {
+      tours:tours
+    }, // will be passed to the page component as props
+  }
+}

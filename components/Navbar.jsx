@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { AiOutlineMenu } from 'react-icons/ai'
 import '@animxyz/core'
+import Link from 'next/link'
 const Navbar = () => {
     const toggleMenu = ()=>{
         if(typeof window!=='undefined'){
@@ -18,6 +19,9 @@ const Navbar = () => {
                 document.getElementById('visa-list').classList.add('hidden');
             }
         }
+        setTimeout(() => {
+            hideList(id);
+        }, 4000);
     }
     const hideList = (id)=>{
         if(typeof window!=='undefined'){
@@ -43,19 +47,19 @@ const Navbar = () => {
                         </button>
                     </div>
                     <ul className="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:items-center lg:w-auto lg:space-x-6">
-                    <li><a className="text-sm text-gray-400 hover:text-gray-500 hover:font-semibold" href="#">Home</a></li>
+                    <li><Link className="text-sm text-gray-400 hover:text-gray-500 hover:font-semibold" href="/">Home</Link></li>
                         <li className="text-gray-300">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" className="w-4 h-4 current-fill" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
                             </svg>
                         </li>
-                        <li   onMouseEnter={()=>{showList('tour-list')}} ><a className="text-sm text-gray-400 hover:text-gray-500 hover:font-semibold" href="#">UAE Tours</a>
+                        <li   onMouseEnter={()=>{showList('tour-list')}} ><Link href="/tours"  className="text-sm text-gray-400 hover:text-gray-500 hover:font-semibold" > Tours</Link>
                         <div  onMouseLeave={()=>{hideList('tour-list')}} id='tour-list' className="rounded-b hidden bg-white border border-gray-200 p-4 absolute mt-6 -ml-6">
                             <ul>
-                                <li><a className="text-sm text-gray-400 hover:text-gray-500 flex mb-2" href="#">Desert Safari</a></li>
-                                <li><a className="text-sm text-gray-400 hover:text-gray-500 flex mb-2" href="#">Burj Khalifa</a></li>
-                                <li><a className="text-sm text-gray-400 hover:text-gray-500 flex mb-2" href="#">Dhow Cruise</a></li>
-                                <li><a className="text-sm text-gray-400 hover:text-gray-500 flex mt-2" href="#">Wild Wadi Water Park</a></li>
+                                <li><Link href="/tours/desert-safari" className="text-sm text-gray-400 hover:text-gray-500 flex mb-2">Desert Safari</Link></li>
+                                <li><Link href="/tours/burj-khalifa" className="text-sm text-gray-400 hover:text-gray-500 flex mb-2">Burj Khalifa</Link></li>
+                                <li><Link href="/tours/dhow-cruise" className="text-sm text-gray-400 hover:text-gray-500 flex mb-2">Dhow Cruise</Link></li>
+                                <li><Link href="/tours/wild-wide-water-park" className="text-sm text-gray-400 hover:text-gray-500 flex mt-2">Wild Wadi Water Park</Link></li>
                             </ul>
                         </div>
                         </li>
@@ -107,11 +111,11 @@ const Navbar = () => {
                         <div>
                             <ul>
                                 <li className="mb-1">
-                                    <a className="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="#">Home</a>
+                                    <Link  className="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="/">Home</Link>
                                 </li>
                                 
                                 <li className="mb-1">
-                                    <a className="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="#">UAE Tours</a>
+                                    <Link className="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="/tours">UAE Tours</Link>
                                 </li>
                                 <li className="mb-1">
                                     <a className="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="#">UAE Visa</a>

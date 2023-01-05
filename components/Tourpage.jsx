@@ -9,10 +9,10 @@ import { GrFormDown } from 'react-icons/gr'
 import { CiCalendarDate } from 'react-icons/ci'
 import { MdVerified } from 'react-icons/md'
 import { ToastContainer, toast } from 'react-toastify';
-  import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';
 import Carousel from './Carousel'
 import Navbar from './Navbar'
-const DesertSafari = () => {
+const DesertSafari = ({ data }) => {
     const router = useRouter();
     const { slag } = router.query;
     const [overviewStatus, setOverviewStatus] = useState(false)
@@ -20,9 +20,9 @@ const DesertSafari = () => {
     const [bookingPolicyStatus, setBookingPolicyStatus] = useState(false)
     const [importantInformationStatus, setImportantInformationStatus] = useState(false)
     const [covidPrecautionStatus, setCovidPrecautionStatus] = useState(false)
-    const [tourData, setTourData] = useState({ id: '', title:'', adult: 0, child: 0, infant: 0, date: null, time: null, price: null, tax: null, totalPrice: null, lastDateToCancel:null })
-    let time = ['7:00 AM', '8:00 Am', '9:00 AM'];
-    let price = { adult: 200, child: 100, infant: 50 };
+    const [tourData, setTourData] = useState({ id: data.id, title: data.title, adult: 0, child: 0, infant: 0, date: null, time: null, price: null, tax: null, totalPrice: null, lastDateToCancel: null })
+    let time = data.time;
+    let price = { adult: data.adultRate, child: data.childRate, infant: data.infantRate };
     const toggleAccordian = id => {
         if (typeof window !== 'undefined') {
             let accordian = document.querySelector(`#${id}`);
@@ -57,10 +57,10 @@ const DesertSafari = () => {
     const handleOnChange = e => {
         e.preventDefault();
         setTourData({ ...tourData, [e.target.name]: e.target.value });
-        if(e.target.name=='date'){
+        if (e.target.name == 'date') {
             let date = new Date(e.target.value); // get the date from the input element
             date.setMonth(date.getMonth() - 2);
-            setTourData({...tourData, lastDateToCancel:date.toISOString().substring(0, 10), date:e.target.value})
+            setTourData({ ...tourData, lastDateToCancel: date.toISOString().substring(0, 10), date: e.target.value })
         }
         console.log(tourData);
     }
@@ -76,28 +76,29 @@ const DesertSafari = () => {
         setTourData({ ...tourData, time: time });
         console.log(tourData)
     }
-    const showPriceBreakdown = ()=>{
-        if(typeof window!=='undefined'){
-            if(tourData.adult<=0 && tourData.child<=0 && tourData.infant<=0){
+    const showPriceBreakdown = () => {
+        if (typeof window !== 'undefined') {
+            if (tourData.adult <= 0 && tourData.child <= 0 && tourData.infant <= 0) {
                 toast.info("Please select the booking")
                 return;
             }
-            if(!tourData.date){
+            if (!tourData.date) {
                 toast.info("Please choose the tour date");
                 return;
             }
             document.querySelector('#price-breakdown').classList.remove('hidden')
-            setTourData({...tourData, price:(price.adult*tourData.adult)+(price.child*tourData.child)+(price.infant*tourData.infant)})
+            setTourData({ ...tourData, price: (price.adult * tourData.adult) + (price.child * tourData.child) + (price.infant * tourData.infant) })
         }
     }
-    const addToCart = ()=>{
-        if(!tourData.time){
-            toast.info("Please choode the time");
+    const addToCart = () => {
+        if (!tourData.time) {
+            toast.info("Please choose the time");
             return;
         }
-        if(typeof window!=='undefined'){
-            let cart = localStorage.getItem('tour-cart')?JSON.parse(localStorage.getItem('tour-cart')):[];
+        if (typeof window !== 'undefined') {
+            let cart = localStorage.getItem('tour-cart') ? JSON.parse(localStorage.getItem('tour-cart')) : [];
             localStorage.setItem('tour-cart', JSON.stringify(cart.concat(tourData)));
+            toast.success("Tour added")
         }
     }
     return (
@@ -107,14 +108,14 @@ const DesertSafari = () => {
             <div className="w-full flex lg:flex-row  flex-col bg-gray-50 m-auto lg:rounded-l rounded">
                 <div className='lg:w-[70%] w-full p-4'>
                     <div className="w-full flex items-center justify-start mb-4">
-                        <h2 className="lg:text-3xl text-2xl font-bold">Morning Desert Safari</h2>
+                        <h2 className="lg:text-3xl text-2xl font-bold">{data.title ? data.title : "Title goes here"}</h2>
                         <button className='flex items-center mx-2 text-sm'>
                             <AiTwotoneStar className='text-yellow-500' />
                             <AiTwotoneStar className='text-yellow-500 ml-1' />
                             <AiTwotoneStar className='text-yellow-500 ml-1' />
                             <AiTwotoneStar className='text-yellow-500 ml-1' />
                             <AiTwotoneStar className='text-yellow-500 mx-1' />
-                            <span>(89 Reviews)</span>
+                            <span>({data && data.reviews && data.reviews.length} Reviews)</span>
                         </button>
                     </div>
                     <div className="w-full flex flex-col lg:flex-row justify-between">
@@ -122,18 +123,17 @@ const DesertSafari = () => {
                             <Carousel images={['https://source.unsplash.com/random/?Desert', 'https://source.unsplash.com/random/?Mountain', 'https://source.unsplash.com/random/?Nature']} />
                         </div>
                         <div className='w-full lg:w-1/2 pl-2'>
-                            <button className='text-sm flex items-center mt-2 xl:mt-0'><CiLocationOn className='bg-gray-100 rounded-full p-1 text-xl mr-2' /> Dubai</button>
-                            <h3 className="text-xl font-bold  my-2">AED 200.00<span className='text-sm '>/person</span></h3>
-                            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatibus, fugit numquam error modi eum eveniet accusantium rerum ut adipisci, corporis nam provident quasi, laboriosam repellat aut aperiam veritatis excepturi veniam.</p>
+                            <button className='text-sm flex items-center mt-2 xl:mt-0'><CiLocationOn className='bg-gray-100 rounded-full p-1 text-xl mr-2' /> {data.location ? data.location : 'Location'}</button>
+                            <h3 className="text-xl font-bold  my-2">AED {data.adultRate ? data.adultRate : '00.00'}<span className='text-sm '>/person</span></h3>
+                            <p>{data.description ? data.description.slice(0, 250) + '..' : "Lorem ipsum Lorem ipsum  ipsum Lorem ipsum  ipsum Lorem ipsum  ipsum Lorem ipsum  ipsum Lorem ipsum  ipsum Lorem ipsum  ipsum Lorem ipsum "}</p>
                             <div className="w-full my-2">
                                 <span className='font-semibold '>Highlights:-</span>
                                 <ul className='flex text-sm w-full flex-wrap justify-start list-inside list-style-image my-1'>
-                                    <li className='flex items-start m-1 w-[48%]'><AiOutlineCheckCircle className='mr-1 mt-1' />4x4 pickup</li>
-                                    <li className='flex items-start m-1 w-[48%]'><AiOutlineCheckCircle className='mr-1 mt-1' />4x4 pick up and something</li>
-                                    <li className='flex items-start m-1 w-[48%]'><AiOutlineCheckCircle className='mr-1 mt-1' />4x4 pickup</li>
-                                    <li className='flex items-start m-1 w-[48%]'><AiOutlineCheckCircle className='mr-1 mt-1' />4x4 pick up and something</li>
-                                    <li className='flex items-start m-1 w-[48%]'><AiOutlineCheckCircle className='mr-1 mt-1' />4x4 pick up and something</li>
-                                    <li className='flex items-start m-1 w-[48%]'><AiOutlineCheckCircle className='mr-1 mt-1' />4x4 pickup</li>
+                                    {
+                                        data.highlights.map((highlight, index) => {
+                                            return [<li key={index} className='flex items-start m-1 w-[48%]'><AiOutlineCheckCircle className='mr-1 mt-1' />{highlight}</li>]
+                                        })
+                                    }
                                 </ul>
                             </div>
                         </div>
@@ -145,7 +145,7 @@ const DesertSafari = () => {
                             Overview {overviewStatus ? <GrFormDown className='absolute right-0 mr-1' /> : <MdNavigateNext className='absolute opacity-30 right-0 mr-1' />}
                         </button>
                         <div id='overview' className="  border-gray-200 h-0 overflow-hidden relative transition-all duration-100">
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto minus quia expedita porro voluptates quasi sit dicta consequatur impedit perspiciatis eaque ipsum odit, repellendus magni velit enim ab ipsam facere?
+                            {data.overview ? data.overview : "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto minus quia expedita porro voluptates quasi sit dicta consequatur impedit perspiciatis eaque ipsum odit, repellendus magni velit enim ab ipsam facere?"}
                         </div>
                     </div>
                     <div className='w-full border rounded bg-white border-gray-200 my-2 p-2'>
@@ -153,7 +153,7 @@ const DesertSafari = () => {
                             Description {descriptionStatus ? <GrFormDown className='absolute right-0 mr-1' /> : <MdNavigateNext className='absolute opacity-30 right-0 mr-1' />}
                         </button>
                         <div id='description' className=" border-gray-200 h-0 overflow-hidden relative transition-all duration-100">
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto minus quia expedita porro voluptates quasi sit dicta consequatur impedit perspiciatis eaque ipsum odit, repellendus magni velit enim ab ipsam facere?
+                            {data.description ? data.description : "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto minus quia expedita porro voluptates quasi sit dicta consequatur impedit perspiciatis eaque ipsum odit, repellendus magni velit enim ab ipsam facere?"}
                         </div>
                     </div>
                     <div className='w-full border rounded bg-white border-gray-200 my-2 p-2'>
@@ -161,7 +161,7 @@ const DesertSafari = () => {
                             Booking Policy {bookingPolicyStatus ? <GrFormDown className='absolute right-0 mr-1' /> : <MdNavigateNext className='absolute opacity-30 right-0 mr-1' />}
                         </button>
                         <div id='booking-policy' className=" border-gray-200 h-0 overflow-hidden relative transition-all duration-100">
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto minus quia expedita porro voluptates quasi sit dicta consequatur impedit perspiciatis eaque ipsum odit, repellendus magni velit enim ab ipsam facere?
+                            {data.bookingPolicy ? data.bookingPolicy : "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto minus quia expedita porro voluptates quasi sit dicta consequatur impedit perspiciatis eaque ipsum odit, repellendus magni velit enim ab ipsam facere?"}
                         </div>
                     </div>
                     <div className='w-full border rounded bg-white border-gray-200 my-2 p-2'>
@@ -169,7 +169,7 @@ const DesertSafari = () => {
                             Important Information {importantInformationStatus ? <GrFormDown className='absolute right-0 mr-1' /> : <MdNavigateNext className='absolute opacity-30 right-0 mr-1' />}
                         </button>
                         <div id='important-information' className=" border-gray-200 h-0 overflow-hidden relative transition-all duration-100">
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto minus quia expedita porro voluptates quasi sit dicta consequatur impedit perspiciatis eaque ipsum odit, repellendus magni velit enim ab ipsam facere?
+                            {data.importantInformation ? data.importantInformation : "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto minus quia expedita porro voluptates quasi sit dicta consequatur impedit perspiciatis eaque ipsum odit, repellendus magni velit enim ab ipsam facere?"}
                         </div>
                     </div>
                     <div className='w-full border rounded bg-white border-gray-200 my-2 p-2'>
@@ -177,12 +177,12 @@ const DesertSafari = () => {
                             Covid Precautions {covidPrecautionStatus ? <GrFormDown className='absolute right-0 mr-1' /> : <MdNavigateNext className='absolute opacity-30 right-0 mr-1' />}
                         </button>
                         <div id='covid-precaution' className=" border-gray-200 h-0 overflow-hidden relative transition-all duration-100">
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto minus quia expedita porro voluptates quasi sit dicta consequatur impedit perspiciatis eaque ipsum odit, repellendus magni velit enim ab ipsam facere?
+                            {data.covidPrecaution ? data.covidPrecaution : "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto minus quia expedita porro voluptates quasi sit dicta consequatur impedit perspiciatis eaque ipsum odit, repellendus magni velit enim ab ipsam facere?"}
                         </div>
                     </div>
                     <div className="w-full border-t border-b bg-white border-gray-200 p-2 my-2 mt-4 flex justify-between text-sm md:text-base">
-                        <span>Tours and Travels ID : #001</span>
-                        <span>Posted : 05-01-2023</span>
+                        <span>Tours and Travels ID : #{data.id ? data.id : "id_goes_here"}</span>
+                        <span>Posted : {data.postedDate ? data.postedDate : "date_goes_here"}</span>
                     </div>
                     <div className="w-full  py-2 my-2 flex justify-between ">
                         <span></span>
@@ -196,16 +196,20 @@ const DesertSafari = () => {
                         </button>
                         <div className=" border-gray-200 border-t mt-1 overflow-hidden relative transition-all duration-100">
                             {/* Review card start  */}
-                            <div className="w-full flex mb-4 items-start mt-2">
-                                <div className="w-24 h-24 overflow-hidden relative rounded-full mt-1">
-                                    <img src="https://i.pravatar.cc/100?img=2" className='w-full rounded-full' alt="" />
-                                </div>
-                                <div className="flex-grow pl-3">
-                                    <h6 className="font-bold text-sm uppercase text-gray-600 flex items-center cursor-default">Stevie Tifft <MdVerified className='text-green-500 mx-1' /></h6>
-                                    <span className='flex items-center text-[12px] cursor-default'><CiCalendarDate className=' text-sm mr-1' /> <span>05-01-2023</span> <CiLocationOn className='mx-1 ml-2 text-sm' /> Dubai</span>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima reiciendis quos temporibus consectetur sequi assumenda numquam voluptatum, asperiores beatae distinctio nostrum sint omnis sed soluta exercitationem nesciunt quibusdam doloribus eligendi.</p>
-                                </div>
-                            </div>
+                            {
+                                data.reviews.map((review, index) => {
+                                    return [<div key={index} className="w-full flex mb-4 items-start mt-2">
+                                        <div className="w-24 h-24 overflow-hidden relative rounded-full mt-1">
+                                            <img src={review.profile?review.profile:"https://i.pravatar.cc/100?img=2"} className='w-full rounded-full' alt="" />
+                                        </div>
+                                        <div className="flex-grow pl-3">
+                                            <h6 className="font-bold text-sm uppercase text-gray-600 flex items-center cursor-default">{review.name?review.name:"name_here"}<MdVerified className='text-green-500 mx-1' /></h6>
+                                            <span className='flex items-center text-[12px] cursor-default'><CiCalendarDate className=' text-sm mr-1' /> <span>{review.date?review.date:"date_here"}</span> <CiLocationOn className='mx-1 ml-2 text-sm' /> {review.location?review.location:"location_here"}</span>
+                                            <p>{review.review?review.review:"Lorem ipsum lorem ipsum  lorem ipsum  lorem ipsum  lorem ipsum  lorem ipsum  lorem ipsum "}</p>
+                                        </div>
+                                    </div>]
+                                })
+                            }
                             {/* Review card end here  */}
                         </div>
                     </div>
@@ -268,21 +272,21 @@ const DesertSafari = () => {
                         {
                             tourData.adult >= 1 && <div className="w-full flex justify-between border-b border-gray-100 py-2 text-sm">
                                 <span>Adult x {tourData.adult} </span>
-                                <span className='uppercase font-semibold'>Aed {price.adult*tourData.adult}</span>
+                                <span className='uppercase font-semibold'>Aed {price.adult * tourData.adult}</span>
                             </div>
                         }
                         {
-                            tourData.child>=1 && <div className="w-full flex justify-between border-b border-gray-100 py-2 text-sm">
-                            <span>Child x {tourData.child} </span>
-                            <span className='uppercase font-semibold'>Aed {price.child*tourData.child}</span>
-                        </div>
+                            tourData.child >= 1 && <div className="w-full flex justify-between border-b border-gray-100 py-2 text-sm">
+                                <span>Child x {tourData.child} </span>
+                                <span className='uppercase font-semibold'>Aed {price.child * tourData.child}</span>
+                            </div>
                         }
-                       {
-                        tourData.infant>=1 &&  <div className="w-full flex justify-between border-b border-gray-100 py-2 text-sm">
-                        <span>Infant x {tourData.infant} </span>
-                        <span className='uppercase font-semibold'>Aed {price.infant*tourData.infant}</span>
-                    </div>
-                       }
+                        {
+                            tourData.infant >= 1 && <div className="w-full flex justify-between border-b border-gray-100 py-2 text-sm">
+                                <span>Infant x {tourData.infant} </span>
+                                <span className='uppercase font-semibold'>Aed {price.infant * tourData.infant}</span>
+                            </div>
+                        }
                         <div className="w-full flex flex-col justify-between border-b border-gray-100 py-2 text-sm">
                             <p className="text-center">Select Starting Time</p>
                             <div className="w-full flex flex-wrap justify-center my-1">
@@ -301,8 +305,8 @@ const DesertSafari = () => {
                     </div>
                     <div className="w-full  border border-gray-100 rounded-lg p-1 my-2">
                         <h2 className="text-lg font-semibold border-b border-gray-100">Need help for any details?</h2>
-                        <a href="+tel:9839098390" className='flex items-center'><IoCallOutline className='text-2xl mt-2' />+91 9839098390</a>
-                        <a href="+tel:9839098390" className='flex items-center'><IoCallOutline className='text-2xl mt-2' />+91 9839098390</a>
+                        <a href="+tel:9839098390" className='flex items-center'><IoCallOutline className='text-xl mt-1' />+91 9839098390</a>
+                        <a href="+tel:9839098390" className='flex items-center'><IoCallOutline className='text-xl mt-1' />+91 9839098390</a>
                     </div>
                 </div>
             </div>
