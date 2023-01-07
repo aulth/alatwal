@@ -60,15 +60,15 @@ const Dashboard = () => {
                             label: month[new Date().getMonth()],
                             backgroundColor: "#4B66BF",
                             borderColor: "#4B66BF",
-                            data: [0,2,4,6,8,10,12,32,12,22,3,24,22,26,22,21,12,13,14,15,17,18,15,10,1,3,23,25,11,13,8],
+                            data: [0, 2, 4, 6, 8, 10, 12, 32, 12, 22, 3, 24, 22, 26, 22, 21, 12, 13, 14, 15, 17, 18, 15, 10, 1, 3, 23, 25, 11, 13, 8],
                             fill: false,
                         },
                         {
-                            label: month[(new Date().getFullYear() - 1)==0?new Date().getFullYear() - 1 :"11"],
+                            label: month[(new Date().getFullYear() - 1) == 0 ? new Date().getFullYear() - 1 : "11"],
                             fill: false,
                             backgroundColor: "#94A3B8",
                             borderColor: "#94A3B8",
-                            data: [10,14,5,6,8,10,12,13,19,14,30,15,10,13,18,20,8,5,2,20,29,23,10,5,10,30,18,20,10,5,14],
+                            data: [10, 14, 5, 6, 8, 10, 12, 13, 19, 14, 30, 15, 10, 13, 18, 20, 8, 5, 2, 20, 29, 23, 10, 5, 10, 30, 18, 20, 10, 5, 14],
                         },
                     ],
                 },
@@ -148,105 +148,105 @@ const Dashboard = () => {
         }
     }, [])
 
-  return (
-    <>
-    <div className="w-full p-4 overflow-y-auto">
-                        <div className="w-full flex justify-between">
-                            <h6 className=" font-semibold">Dashboard</h6>
-                            <button className="flex items-center text-[#1F41AF]"> <TfiReload className='mx-2' /> Reload Data</button>
-                        </div>
-                        <div className="w-full flex flex-wrap items-center justify-between my-2 box-border">
-                            {/* Card  */}
-                            <div className='lg:w-[23%] md:w--[48%] w-full m-1  flex justify-center items-center relative hover:drop-shadow-xl h-48 hover:scale-105 cursor-pointer duration-150'>
-                                <div className=" absolute top-0 w-[92%] h-44 border border-gray-300 rounded-lg z-0 bg-gray-50  drop-shadow-xl"></div>
-                                <div className=" absolute top-0 w-full h-40 border border-gray-300 rounded-lg z-10 bg-white drop-shadow-xl p-4 flex flex-col justify-between">
-                                    <div className="w-full flex justify-between items-center">
-                                        <SlLocationPin className='text-3xl text-blue-500' />
-                                        <button className="px-[6px] py-[3px] rounded-lg bg-[rgb(132,204,22)] text-white flex items-center font-semibold text-[12px]">
-                                            33% <HiChevronDown className=' text-white ml-1 rotate-180' />
-                                        </button>
-                                    </div>
-                                    <div className="w-full">
-                                        <span className='text-4xl font-bold font-[helvetica] block'>101</span>
-                                        <span className='block font-semibold text-gray-500'>Available Destinations</span>
-                                    </div>
-                                </div>
+    return (
+        <>
+            <div className="w-full p-4 overflow-y-auto">
+                <div className="w-full flex justify-between">
+                    <h6 className=" font-semibold">Dashboard</h6>
+                    <button className="flex items-center text-[#1F41AF]"> <TfiReload className='mx-2' /> Reload Data</button>
+                </div>
+                <div className="w-full flex flex-wrap items-center justify-between my-2 box-border">
+                    {/* Card  */}
+                    <div className='lg:w-[23%] md:w--[48%] w-full m-1  flex justify-center items-center relative hover:drop-shadow-xl h-48 hover:scale-105 cursor-pointer duration-150'>
+                        <div className=" absolute top-0 w-[92%] h-44 border border-gray-300 rounded-lg z-0 bg-gray-50  drop-shadow-xl"></div>
+                        <div className=" absolute top-0 w-full h-40 border border-gray-300 rounded-lg z-10 bg-white drop-shadow-xl p-4 flex flex-col justify-between">
+                            <div className="w-full flex justify-between items-center">
+                                <SlLocationPin className='text-3xl text-blue-500' />
+                                <button className="px-[6px] py-[3px] rounded-lg bg-[rgb(132,204,22)] text-white flex items-center font-semibold text-[12px]">
+                                    33% <HiChevronDown className=' text-white ml-1 rotate-180' />
+                                </button>
                             </div>
-                            {/* Card  */}
-                            <div className='lg:w-[23%] md:w--[48%] w-full m-1  flex justify-center items-center relative hover:drop-shadow-xl h-48 hover:scale-105 cursor-pointer duration-150'>
-                                <div className=" absolute top-0 w-[92%] h-44 border border-gray-300 rounded-lg z-0 bg-gray-50  drop-shadow-xl"></div>
-                                <div className=" absolute top-0 w-full h-40 border border-gray-300 rounded-lg z-10 bg-white drop-shadow-xl p-4 flex flex-col justify-between">
-                                    <div className="w-full flex justify-between items-center">
-                                        <BiTrip className='text-3xl text-red-500' />
-                                        <button className="px-[6px] py-[3px] rounded-lg bg-[rgb(132,204,22)] text-white flex items-center font-semibold text-[12px]">
-                                            33% <HiChevronDown className=' text-white ml-1 rotate-180' />
-                                        </button>
-                                    </div>
-                                    <div className="w-full">
-                                        <span className='text-4xl font-bold font-[helvetica] block'>110</span>
-                                        <span className='block font-semibold text-gray-500'>Trips Completed</span>
-                                    </div>
-                                </div>
-                            </div>
-                            {/* Card  */}
-                            <div className='lg:w-[23%] md:w--[48%] w-full m-1  flex justify-center items-center relative hover:drop-shadow-xl h-48 hover:scale-105 cursor-pointer duration-150'>
-                                <div className=" absolute top-0 w-[92%] h-44 border border-gray-300 rounded-lg z-0 bg-gray-50  drop-shadow-xl"></div>
-                                <div className=" absolute top-0 w-full h-40 border border-gray-300 rounded-lg z-10 bg-white drop-shadow-xl p-4 flex flex-col justify-between">
-                                    <div className="w-full flex justify-between items-center">
-                                        <GiTakeMyMoney className='text-3xl text-yellow-500' />
-                                        <button className="px-[6px] py-[3px] rounded-lg bg-[rgb(132,204,22)] text-white flex items-center font-semibold text-[12px]">
-                                            33% <HiChevronDown className=' text-white ml-1 rotate-180' />
-                                        </button>
-                                    </div>
-                                    <div className="w-full">
-                                        <span className='text-4xl font-bold font-[helvetica] block'>1100 AED</span>
-                                        <span className='block font-semibold text-gray-500'>Revenue</span>
-                                    </div>
-                                </div>
-                            </div>
-                            {/* Card  */}
-                            <div className='lg:w-[23%] md:w--[48%] w-full m-1  flex justify-center items-center relative hover:drop-shadow-xl h-48 hover:scale-105 cursor-pointer duration-150'>
-                                <div className=" absolute top-0 w-[92%] h-44 border border-gray-300 rounded-lg z-0 bg-gray-50  drop-shadow-xl"></div>
-                                <div className=" absolute top-0 w-full h-40 border border-gray-300 rounded-lg z-10 bg-white drop-shadow-xl p-4 flex flex-col justify-between">
-                                    <div className="w-full flex justify-between items-center">
-                                        <HiUsers className='text-3xl text-green-500' />
-                                        <button className="px-[6px] py-[3px] rounded-lg bg-[rgb(132,204,22)] text-white flex items-center font-semibold text-[12px]">
-                                            33% <HiChevronDown className=' text-white ml-1 rotate-180' />
-                                        </button>
-                                    </div>
-                                    <div className="w-full">
-                                        <span className='text-4xl font-bold font-[helvetica] block'>500</span>
-                                        <span className='block font-semibold text-gray-500'>Registered Users</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div className="w-full rounded border border-gray-300">
-                            <h6 className="text-xl font-semibold py-2 px-2 border-b border-gray-300">Bookings Overview</h6>
-                            <div className="w-full flex flex-col-reverse md:flex-row md:jusitfy-around p-4">
-                                <div className='md:w-1/2 w-full  flex-col md:justify-around'>
-                                    <div>
-                                        <h5 className="text-4xl font-semibold">500</h5>
-                                        <span className='my-2'>Bookings This Month</span>
-                                    </div>
-                                    <div>
-                                        <ul className='w-full'>
-                                            <li className='flex items-center my-4 '><AiFillCaretDown className='w-7  h-7 p-2 text-gray-500 bg-green-300 rounded aspect-square mr-2' /><span className='text-green-300 mr-1 flex items-center'>56 % More Bookings </span> In Comparision To Last Month</li>
-                                            <li className='flex items-center my-4 '><AiFillCaretDown className='w-7  h-7 p-2 text-gray-500 bg-red-300 rounded aspect-square mr-2' /><span className='text-red-300 mr-1 flex items-center'>90 % Revenue Per Bookings </span> In Comparision To Last Month</li>
-                                        </ul>
-                                        <button className="w-full text-center px-2 py-1 rounded bg-blue-500 text-white">View Details</button>
-                                    </div>
-                                </div>
-                                <div className='md:w-1/2 w-full p-4 flex md:flex-col md:justify-around h-full'>
-                                        <canvas id="line-chart"></canvas>
-                                </div>
+                            <div className="w-full">
+                                <span className='text-4xl font-bold font-[helvetica] block'>101</span>
+                                <span className='block font-semibold text-gray-500'>Available Destinations</span>
                             </div>
                         </div>
-
                     </div>
-    </>
-  )
+                    {/* Card  */}
+                    <div className='lg:w-[23%] md:w--[48%] w-full m-1  flex justify-center items-center relative hover:drop-shadow-xl h-48 hover:scale-105 cursor-pointer duration-150'>
+                        <div className=" absolute top-0 w-[92%] h-44 border border-gray-300 rounded-lg z-0 bg-gray-50  drop-shadow-xl"></div>
+                        <div className=" absolute top-0 w-full h-40 border border-gray-300 rounded-lg z-10 bg-white drop-shadow-xl p-4 flex flex-col justify-between">
+                            <div className="w-full flex justify-between items-center">
+                                <BiTrip className='text-3xl text-red-500' />
+                                <button className="px-[6px] py-[3px] rounded-lg bg-[rgb(132,204,22)] text-white flex items-center font-semibold text-[12px]">
+                                    33% <HiChevronDown className=' text-white ml-1 rotate-180' />
+                                </button>
+                            </div>
+                            <div className="w-full">
+                                <span className='text-4xl font-bold font-[helvetica] block'>110</span>
+                                <span className='block font-semibold text-gray-500'>Trips Completed</span>
+                            </div>
+                        </div>
+                    </div>
+                    {/* Card  */}
+                    <div className='lg:w-[23%] md:w--[48%] w-full m-1  flex justify-center items-center relative hover:drop-shadow-xl h-48 hover:scale-105 cursor-pointer duration-150'>
+                        <div className=" absolute top-0 w-[92%] h-44 border border-gray-300 rounded-lg z-0 bg-gray-50  drop-shadow-xl"></div>
+                        <div className=" absolute top-0 w-full h-40 border border-gray-300 rounded-lg z-10 bg-white drop-shadow-xl p-4 flex flex-col justify-between">
+                            <div className="w-full flex justify-between items-center">
+                                <GiTakeMyMoney className='text-3xl text-yellow-500' />
+                                <button className="px-[6px] py-[3px] rounded-lg bg-[rgb(132,204,22)] text-white flex items-center font-semibold text-[12px]">
+                                    33% <HiChevronDown className=' text-white ml-1 rotate-180' />
+                                </button>
+                            </div>
+                            <div className="w-full">
+                                <span className='text-4xl font-bold font-[helvetica] block'>1100 AED</span>
+                                <span className='block font-semibold text-gray-500'>Revenue</span>
+                            </div>
+                        </div>
+                    </div>
+                    {/* Card  */}
+                    <div className='lg:w-[23%] md:w--[48%] w-full m-1  flex justify-center items-center relative hover:drop-shadow-xl h-48 hover:scale-105 cursor-pointer duration-150'>
+                        <div className=" absolute top-0 w-[92%] h-44 border border-gray-300 rounded-lg z-0 bg-gray-50  drop-shadow-xl"></div>
+                        <div className=" absolute top-0 w-full h-40 border border-gray-300 rounded-lg z-10 bg-white drop-shadow-xl p-4 flex flex-col justify-between">
+                            <div className="w-full flex justify-between items-center">
+                                <HiUsers className='text-3xl text-green-500' />
+                                <button className="px-[6px] py-[3px] rounded-lg bg-[rgb(132,204,22)] text-white flex items-center font-semibold text-[12px]">
+                                    33% <HiChevronDown className=' text-white ml-1 rotate-180' />
+                                </button>
+                            </div>
+                            <div className="w-full">
+                                <span className='text-4xl font-bold font-[helvetica] block'>500</span>
+                                <span className='block font-semibold text-gray-500'>Registered Users</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div className="w-full rounded border border-gray-300">
+                    <h6 className="text-xl font-semibold py-2 px-2 border-b border-gray-300">Bookings Overview</h6>
+                    <div className="w-full flex flex-col-reverse md:flex-row md:jusitfy-around p-4">
+                        <div className='md:w-1/2 w-full h-full flex-col justify-around'>
+                            <div>
+                                <h5 className="text-4xl font-semibold">500</h5>
+                                <span className='my-2'>Bookings This Month</span>
+                            </div>
+                            <div className='mt-10'>
+                                <ul className='w-full'>
+                                    <li className='flex items-center my-4 '><AiFillCaretDown className='w-7  h-7 p-2 text-gray-500 bg-green-300 rounded aspect-square mr-2' /><span className='text-green-300 mr-1 flex items-center'>56 % More Bookings </span> In Comparision To Last Month</li>
+                                    <li className='flex items-center my-4 '><AiFillCaretDown className='w-7  h-7 p-2 text-gray-500 bg-red-300 rounded aspect-square mr-2' /><span className='text-red-300 mr-1 flex items-center'>90 % Revenue Per Bookings </span> In Comparision To Last Month</li>
+                                </ul>
+                                <button className="w-full text-center px-2 py-1 rounded bg-blue-500 text-white">View Details</button>
+                            </div>
+                        </div>
+                        <div className='md:w-1/2 w-full p-4 flex md:flex-col md:justify-around h-full'>
+                            <canvas id="line-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </>
+    )
 }
 
 export default Dashboard

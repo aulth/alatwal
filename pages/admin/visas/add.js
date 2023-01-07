@@ -11,7 +11,8 @@ import Head from 'next/head'
 import AddNewLocation from '../../../components/AddNewLocation'
 import AdminNavbar from '../../../components/AdminNavbar'
 import AdminSidebar from '../../../components/AdminSidebar'
-const CategoryPage = () => {
+import AddNewVisa from '../../../components/AddNewVisa'
+const VisaPage = () => {
     const showList = (id) => {
         if (typeof window !== 'undefined') {
             let list = document.querySelector(`#${id}`);
@@ -31,12 +32,12 @@ const CategoryPage = () => {
             <div className="w-full bg-gray-50">
                 <AdminNavbar/>
                 <div style={{ height: 'calc(100vh - 57px)' }} className="w-full flex justify-center ">
-                   <AdminSidebar activePage={"Add Location"}/>
-                    <AddNewLocation/>
+                   <AdminSidebar  activePage={"Add Visa"}/>
+                    <AddNewVisa/>
                 </div>
             </div>
         </>
     )
 }
 
-export default CategoryPage
+export default VisaPage

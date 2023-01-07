@@ -8,10 +8,11 @@ import { AiFillPlusSquare } from 'react-icons/ai'
 import { GiJourney } from 'react-icons/gi'
 import '@animxyz/core'
 import Head from 'next/head'
-import AddNewLocation from '../../../components/AddNewLocation'
+import Location from '../../../components/Location'
 import AdminNavbar from '../../../components/AdminNavbar'
 import AdminSidebar from '../../../components/AdminSidebar'
-const CategoryPage = () => {
+import AdminVisa from '../../../components/AdminVisa'
+const VisaPage = () => {
     const showList = (id) => {
         if (typeof window !== 'undefined') {
             let list = document.querySelector(`#${id}`);
@@ -31,12 +32,12 @@ const CategoryPage = () => {
             <div className="w-full bg-gray-50">
                 <AdminNavbar/>
                 <div style={{ height: 'calc(100vh - 57px)' }} className="w-full flex justify-center ">
-                   <AdminSidebar activePage={"Add Location"}/>
-                    <AddNewLocation/>
+                    <AdminSidebar  activePage={"View Visas"}/>
+                    <AdminVisa/>
                 </div>
             </div>
         </>
     )
 }
 
-export default CategoryPage
+export default VisaPage

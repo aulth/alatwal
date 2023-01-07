@@ -8,10 +8,10 @@ import { AiFillPlusSquare } from 'react-icons/ai'
 import { GiJourney } from 'react-icons/gi'
 import '@animxyz/core'
 import Head from 'next/head'
-import AddNewLocation from '../../../components/AddNewLocation'
-import AdminNavbar from '../../../components/AdminNavbar'
-import AdminSidebar from '../../../components/AdminSidebar'
-const CategoryPage = () => {
+import AdminNavbar from '../../../../components/AdminNavbar'
+import AdminSidebar from '../../../../components/AdminSidebar'
+import AdminContactCMS from '../../../../components/AdminContactCMS'
+const ContactCMSPage = () => {
     const showList = (id) => {
         if (typeof window !== 'undefined') {
             let list = document.querySelector(`#${id}`);
@@ -31,12 +31,12 @@ const CategoryPage = () => {
             <div className="w-full bg-gray-50">
                 <AdminNavbar/>
                 <div style={{ height: 'calc(100vh - 57px)' }} className="w-full flex justify-center ">
-                   <AdminSidebar activePage={"Add Location"}/>
-                    <AddNewLocation/>
+                   <AdminSidebar activePage={"Contact"}/>
+                   <AdminContactCMS />
                 </div>
             </div>
         </>
     )
 }
 
-export default CategoryPage
+export default ContactCMSPage

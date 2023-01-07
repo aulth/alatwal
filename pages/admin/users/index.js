@@ -32,7 +32,7 @@ const UsersPage = () => {
             <div className="w-full bg-gray-50">
                 <AdminNavbar/>
                 <div style={{ height: 'calc(100vh - 57px)' }} className="w-full flex justify-center ">
-                    <AdminSidebar/>
+                    <AdminSidebar  activePage={"View Users"}/>
                     <Users/>
                 </div>
             </div>
