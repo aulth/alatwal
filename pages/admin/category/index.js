@@ -8,7 +8,7 @@ import { AiFillPlusSquare } from 'react-icons/ai'
 import { GiJourney } from 'react-icons/gi'
 import '@animxyz/core'
 import Head from 'next/head'
-import Category from '../../../components/Admin/category/Category'
+import Category from '../../../components/Admin/Category/Category'
 import AdminNavbar from '../../../components/Admin/AdminNavbar'
 import AdminSidebar from '../../../components/Admin/AdminSidebar'
 const CategoryPage = () => {

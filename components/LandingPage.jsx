@@ -27,7 +27,7 @@ const LandingPage = () => {
     <>
     <div className="home">
         <div style={{ height: 'calc(100vh - 72px)' }} className="flex flex-col justify-center items-center p-1">
-          <h2 className="md:text-5xl text-3xl text-center font-semibold font-[helvetica] text-white drop-shadow-lg mb-8">Best Partner in Your Trave Dairy!</h2>
+          <h2 className="md:text-5xl text-3xl text-center font-semibold font-[helvetica] text-white drop-shadow-lg mb-8">Best Partner in Your Travel Dairy!</h2>
           <div className="flex md:flex-row flex-col justify-center items center border-white border rounded md:w-3/4 w-full p-1">
             <div className="flex items-center bg-white md:rounded-l md:rounded-r-none rounded-t  p-1  w-full relative">
               <button onClick={toggleService} className="w-full px-2 py-1 flex items-center text-gray-500 font-semibold">{service?service:'Burj Khalifa'} <BsChevronCompactDown className='mx-2 ' /></button>
