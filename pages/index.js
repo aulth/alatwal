@@ -2,9 +2,9 @@ import Head from 'next/head'
 import Navbar from '../components/Navbar'
 import '@animxyz/core'
 import Service from '../components/Service'
-import LandingPage from '../components/LandingPage'
 import Testimonial from '../components/Testimonial'
 import Footer from '../components/Footer'
+import LandingPage from '../components/LandingPage'
 export default function Home() {
   
   return (

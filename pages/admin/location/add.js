@@ -8,9 +8,9 @@ import { AiFillPlusSquare } from 'react-icons/ai'
 import { GiJourney } from 'react-icons/gi'
 import '@animxyz/core'
 import Head from 'next/head'
-import AddNewLocation from '../../../components/AddNewLocation'
-import AdminNavbar from '../../../components/AdminNavbar'
-import AdminSidebar from '../../../components/AdminSidebar'
+import AddNewLocation from '../../../components/Admin/Location/AddNewLocation'
+import AdminNavbar from '../../../components/Admin/AdminNavbar'
+import AdminSidebar from '../../../components/Admin/AdminSidebar'
 const CategoryPage = () => {
     const showList = (id) => {
         if (typeof window !== 'undefined') {

@@ -7,7 +7,7 @@ import { HiViewGridAdd, HiViewGrid, HiUsers } from 'react-icons/hi'
 import { AiFillPlusSquare, AiFillSetting } from 'react-icons/ai'
 import { GiJourney } from 'react-icons/gi'
 import Link from 'next/link'
-import AppContext from '../AppContext'
+import AppContext from '../../AppContext'
 import '@animxyz/core'
 
 const AdminSidebar = ({activePage}) => {

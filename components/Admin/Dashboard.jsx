@@ -1,8 +1,4 @@
 import React, { useEffect } from 'react'
-import Navbar from './../components/Navbar'
-import Link from 'next/link'
-import { IoIosExpand } from 'react-icons/io'
-import { BiChevronDown } from 'react-icons/bi'
 import { FaUserEdit, FaUsers, FaFileExport, FaQuestionCircle, FaListAlt } from 'react-icons/fa'
 import { MdDashboard, MdAddLocationAlt, MdOutlinePlaylistAdd, MdList, MdBook, MdAddCircle, MdShoppingCart, MdContacts, MdInfo } from 'react-icons/md'
 import { SlLocationPin } from 'react-icons/sl'

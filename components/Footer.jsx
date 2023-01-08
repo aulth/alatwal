@@ -98,17 +98,17 @@ const Footer = () => {
                                 </nav>
                             </div>
                             <div>
-                                <p className="font-medium text-gray-900">Legal</p>
+                                <p className="font-medium text-gray-900">Quick Contacts</p>
                                 <nav aria-label="Footer Navigation - Legal" className="mt-6">
                                     <ul className="space-y-4 text-sm">
                                         <li>
-                                            <a href="#" className="text-gray-700 transition hover:opacity-75">
-                                                Privacy Policy
+                                            <a href="tel:+971-45752644" className="text-gray-700 transition hover:opacity-75">
+                                            +971-45752644
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#" className="text-gray-700 transition hover:opacity-75">
-                                                Refund Policy
+                                            <a href="tel:+971-583938039" className="text-gray-700 transition hover:opacity-75">
+                                            +971-583938039
                                             </a>
                                         </li>
                                     </ul>

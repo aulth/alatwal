@@ -8,10 +8,9 @@ import { AiFillPlusSquare } from 'react-icons/ai'
 import { GiJourney } from 'react-icons/gi'
 import '@animxyz/core'
 import Head from 'next/head'
-import Location from '../../../components/Location'
-import Users from '../../../components/Users'
-import AdminSidebar from '../../../components/AdminSidebar'
-import AdminNavbar from '../../../components/AdminNavbar'
+import Users from '../../../components/Admin/Users/Users'
+import AdminNavbar from '../../../components/Admin/AdminNavbar'
+import AdminSidebar from '../../../components/Admin/AdminSidebar'
 const UsersPage = () => {
     const showList = (id) => {
         if (typeof window !== 'undefined') {

@@ -8,9 +8,9 @@ import { AiFillPlusSquare } from 'react-icons/ai'
 import { GiJourney } from 'react-icons/gi'
 import '@animxyz/core'
 import Head from 'next/head'
-import AdminNavbar from '../../../../components/AdminNavbar'
-import AdminSidebar from '../../../../components/AdminSidebar'
-import AdminFAQCMS from '../../../../components/AdminFAQCMS'
+import AdminNavbar from '../../../../components/Admin/AdminNavbar'
+import AdminSidebar from '../../../../components/Admin/AdminSidebar'
+import AdminFAQCMS from '../../../../components/Admin/CMS/AdminFAQCMS'
 const ServiceCMSPage = () => {
     const showList = (id) => {
         if (typeof window !== 'undefined') {

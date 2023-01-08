@@ -8,11 +8,9 @@ import { AiFillPlusSquare } from 'react-icons/ai'
 import { GiJourney } from 'react-icons/gi'
 import '@animxyz/core'
 import Head from 'next/head'
-import AddNewLocation from '../../../components/AddNewLocation'
-import AddNewTour from '../../../components/AddNewTour'
-import AddNewPackage from '../../../components/AddNewPackage'
-import AdminSidebar from '../../../components/AdminSidebar'
-import AdminNavbar from '../../../components/AdminNavbar'
+import AddNewPackage from '../../../components/Admin/Package/AddNewPackage'
+import AdminNavbar from '../../../components/Admin/AdminNavbar'
+import AdminSidebar from '../../../components/Admin/AdminSidebar'
 const PackagesPage = () => {
     const showList = (id) => {
         if (typeof window !== 'undefined') {

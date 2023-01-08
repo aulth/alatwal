@@ -8,11 +8,9 @@ import { AiFillPlusSquare } from 'react-icons/ai'
 import { GiJourney } from 'react-icons/gi'
 import '@animxyz/core'
 import Head from 'next/head'
-import Location from '../../../components/Location'
-import Users from '../../../components/Users'
-import AdminSidebar from '../../../components/AdminSidebar'
-import AdminNavbar from '../../../components/AdminNavbar'
-import AdminSubscribers from '../../../components/AdminSubscribers'
+import AdminSidebar from '../../../components/Admin/AdminSidebar'
+import AdminNavbar from '../../../components/Admin/AdminNavbar'
+import AdminSubscribers from '../../../components/Admin/AdminSubscribers'
 const SubscriberPage = () => {
     const showList = (id) => {
         if (typeof window !== 'undefined') {

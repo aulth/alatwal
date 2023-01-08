@@ -8,10 +8,9 @@ import { AiFillPlusSquare } from 'react-icons/ai'
 import { GiJourney } from 'react-icons/gi'
 import '@animxyz/core'
 import Head from 'next/head'
-import AddNewLocation from '../../../components/AddNewLocation'
-import AdminNavbar from '../../../components/AdminNavbar'
-import AdminSidebar from '../../../components/AdminSidebar'
-import AddNewVisa from '../../../components/AddNewVisa'
+import AdminNavbar from '../../../components/Admin/AdminNavbar'
+import AdminSidebar from '../../../components/Admin/AdminSidebar'
+import AddNewVisa from '../../../components/Admin/Visa/AddNewVisa'
 const VisaPage = () => {
     const showList = (id) => {
         if (typeof window !== 'undefined') {
