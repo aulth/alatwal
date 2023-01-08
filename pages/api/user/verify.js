@@ -1,4 +1,4 @@
-import connectToDb from '../../../middleware/connecttodb';
+import connectToDb from '../../../middleware/connectToDb';
 import User from '../../../models/User'
 connectToDb();
 
