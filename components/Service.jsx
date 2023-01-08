@@ -7,8 +7,8 @@ const Service = () => {
         <h2 className="text-2xl md:text-3xl font-[helvetica] md:mb-3 my-3">
           Select a Service
         </h2>
-        <p className="text-center md:w-3/4 w-full mb-3">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, a optio autem adipisci commodi, quibusdam nam iste repellendus sed architecto, delectus magnam eveniet non repudiandae earum doloribus molestias laborum consequatur.
+        <p className="text-center text-xl md:w-3/4 w-full mb-3">
+        Up and running, Alatwal Travel & Tourism is one stop solution for all your travel needs. We are a destination management company based in UAE offering the best of UAE tours, UEA Visa services and International Visa services.
         </p>
         <div className="w-full flex md:flex-row flex-col justify-around items-center my-3">
           <div className='md:w-[200px] m-2 mt-4 flex flex-col items-center rounded font-[helvetica] border border-transparent hover:border hover:border-blue-400 hover:shadow-lg md:p-2 py-8 text-white hover:bg-gray-100 hover:brightness-105'>

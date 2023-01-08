@@ -63,19 +63,19 @@ const Navbar = () => {
                         </button>
                     </div>
                     <ul className="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:items-center lg:w-auto lg:space-x-6">
-                        <li><Link className="text-sm text-gray-400 hover:text-gray-500 hover:font-semibold" href="/">Home</Link></li>
+                        <li><Link className="text-sm text-blue-400 hover:text-orange-500 hover:font-semibold" href="/">Home</Link></li>
                         <li className="text-gray-300">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" className="w-4 h-4 current-fill" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
                             </svg>
                         </li>
-                        <li onMouseEnter={() => { showList('tour-list') }} ><Link href="/tours" className="text-sm text-gray-400 hover:text-gray-500 hover:font-semibold" > Tours</Link>
+                        <li onMouseEnter={() => { showList('tour-list') }} ><Link href="/tours" className="text-sm text-blue-400 hover:text-orange-500 hover:font-semibold" > Tours</Link>
                             <div onMouseLeave={() => { hideList('tour-list') }} id='tour-list' className="rounded-b hidden bg-white border border-gray-200 p-4 absolute mt-6 -ml-6">
                                 <ul>
-                                    <li><Link href="/tours/desert-safari" className="text-sm text-gray-400 hover:text-gray-500 flex mb-2">Desert Safari</Link></li>
-                                    <li><Link href="/tours/burj-khalifa" className="text-sm text-gray-400 hover:text-gray-500 flex mb-2">Burj Khalifa</Link></li>
-                                    <li><Link href="/tours/dhow-cruise" className="text-sm text-gray-400 hover:text-gray-500 flex mb-2">Dhow Cruise</Link></li>
-                                    <li><Link href="/tours/wild-wide-water-park" className="text-sm text-gray-400 hover:text-gray-500 flex mt-2">Wild Wadi Water Park</Link></li>
+                                    <li><Link href="/tours/desert-safari" className="text-sm text-blue-400 hover:text-orange-500 flex mb-2">Desert Safari</Link></li>
+                                    <li><Link href="/tours/burj-khalifa" className="text-sm text-blue-400 hover:text-orange-500 flex mb-2">Burj Khalifa</Link></li>
+                                    <li><Link href="/tours/dhow-cruise" className="text-sm text-blue-400 hover:text-orange-500 flex mb-2">Dhow Cruise</Link></li>
+                                    <li><Link href="/tours/wild-wide-water-park" className="text-sm text-blue-400 hover:text-orange-500 flex mt-2">Wild Wadi Water Park</Link></li>
                                 </ul>
                             </div>
                         </li>
@@ -84,11 +84,11 @@ const Navbar = () => {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
                             </svg>
                         </li>
-                        <li id="visa-btn" onMouseEnter={() => { showList('visa-list') }} ><a className="text-sm text-gray-400 hover:text-gray-500 hover:font-semibold" href="#">Visas</a>
+                        <li id="visa-btn" onMouseEnter={() => { showList('visa-list') }} ><a className="text-sm text-blue-400 hover:text-orange-500 hover:font-semibold" href="#">Visas</a>
                             <div onMouseLeave={() => { hideList('visa-list') }} id='visa-list' className="rounded-b hidden bg-white border border-gray-200 p-4 absolute mt-6 -ml-6">
                                 <ul>
-                                    <li><a className="text-sm text-gray-400 hover:text-gray-500 flex mb-2" href="#">UAE Visa</a></li>
-                                    <li><a className="text-sm text-gray-400 hover:text-gray-500 flex mt-2" href="#">International Visa</a></li>
+                                    <li><a className="text-sm text-blue-400 hover:text-orange-500 flex mb-2" href="#">UAE Visa</a></li>
+                                    <li><a className="text-sm text-blue-400 hover:text-orange-500 flex mt-2" href="#">International Visa</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -98,24 +98,24 @@ const Navbar = () => {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
                             </svg>
                         </li>
-                        <li><a className="text-sm text-gray-400 hover:text-gray-500" href="#">About</a></li>
+                        <li><a className="text-sm text-blue-400 hover:text-orange-500" href="#">About</a></li>
                         <li className="text-gray-300">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" className="w-4 h-4 current-fill" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
                             </svg>
                         </li>
-                        <li><a className="text-sm text-gray-400 hover:text-gray-500" href="#">Contact</a></li>
+                        <li><a className="text-sm text-blue-400 hover:text-orange-500" href="#">Contact</a></li>
                     </ul>
                     {
                         isLoggedIn && <>
                             <button className="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200">My Bookings</button>
-                            <button onClick={handleOnLogout} className="hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-xl transition duration-200">Logout</button>
+                            <button onClick={handleOnLogout} className="hidden lg:inline-block py-2 px-6 bg-blue-400 hover:bg-blue-500 text-sm text-white font-bold rounded-xl transition duration-200">Logout</button>
                         </>
                     }
                     {
                         !isLoggedIn && <>
                             <Link className="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200" href="/login">Sign In</Link>
-                            <Link className="hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-xl transition duration-200" href="/register">Register</Link>
+                            <Link className="hidden lg:inline-block py-2 px-6 bg-[#FF7E13]  text-sm text-white font-bold rounded-xl transition duration-200" href="/register">Register</Link>
                         </>
                     }
 
@@ -130,7 +130,7 @@ const Navbar = () => {
                                 </svg>
                             </a>
                             <button onClick={toggleMenu} className="navbar-close">
-                                <svg className="h-6 w-6 text-gray-400 cursor-pointer hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg className="h-6 w-6 text-blue-400 cursor-pointer hover:text-orange-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                                 </svg>
                             </button>
@@ -138,23 +138,23 @@ const Navbar = () => {
                         <div>
                             <ul>
                                 <li className="mb-1">
-                                    <Link className="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="/">Home</Link>
+                                    <Link className="block p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="/">Home</Link>
                                 </li>
 
                                 <li className="mb-1">
-                                    <Link className="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="/tours">UAE Tours</Link>
+                                    <Link className="block p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="/tours">UAE Tours</Link>
                                 </li>
                                 <li className="mb-1">
-                                    <a className="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="#">UAE Visa</a>
+                                    <a className="block p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="#">UAE Visa</a>
                                 </li>
                                 <li className="mb-1">
-                                    <a className="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="#">International Visa</a>
+                                    <a className="block p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="#">International Visa</a>
                                 </li>
                                 <li className="mb-1">
-                                    <a className="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="#">About Us</a>
+                                    <a className="block p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="#">About Us</a>
                                 </li>
                                 <li className="mb-1">
-                                    <a className="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="#">Contact</a>
+                                    <a className="block p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="#">Contact</a>
                                 </li>
                             </ul>
                         </div>
@@ -163,17 +163,17 @@ const Navbar = () => {
                                 {
                                     !isLoggedIn && <>
                                         <Link className="block px-4 py-3 mb-3 leading-loose text-xs text-center font-semibold leading-none bg-gray-50 hover:bg-gray-100 rounded-xl" href="/login">Sign in</Link>
-                                        <Link className="block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-500 hover:bg-blue-600  rounded-xl" href="/register">Register</Link>
+                                        <Link className="block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-orange-500 hover:bg-orange-400  rounded-xl" href="/register">Register</Link>
                                     </>
                                 }
                                 {
                                     isLoggedIn && <>
-                                        <button className='className="block px-4 py-3 mb-3 leading-loose text-xs text-center font-semibold leading-none bg-gray-50 hover:bg-gray-100 rounded-xl"'>My Booking</button>
-                                        <button onClick={handleOnLogout} className="block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-500 hover:bg-blue-600  rounded-xl">Logout</button>
+                                        <button className=' w-full block px-4 py-3 mb-3 leading-loose text-xs text-center font-semibold leading-none bg-gray-50 hover:bg-gray-100 rounded-xl'>My Booking</button>
+                                        <button onClick={handleOnLogout} className=" w-full block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-orange-500 hover:bg-orange-400  rounded-xl">Logout</button>
                                     </>
                                 }
                             </div>
-                            {/* <p className="my-4 text-xs text-center text-gray-400">
+                            {/* <p className="my-4 text-xs text-center text-blue-400">
                                 <span>Copyright © 2022</span>
                             </p> */}
                         </div>
