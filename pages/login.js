@@ -81,6 +81,7 @@ const Login = () => {
                 router.push("/");
             }
         } else {
+            setLoading(false)
             toast.error(apiData.msg);
         }
     }
