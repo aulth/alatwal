@@ -66,7 +66,7 @@ const AddNewLocation = ({locationUrl}) => {
         <>
             <ToastContainer />
             {
-                locationData && locationData.title && image && 
+                locationData && image && 
                 <div className="w-full p-4 overflow-y-auto">
                 <div className="w-full flex justify-between">
                     <h6 className=" font-semibold">Add New Location</h6>

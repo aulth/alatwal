@@ -52,7 +52,7 @@ const Edit = ({ categoryUrl }) => {
                 headers: {
                     'content-type': 'application/json'
                 },
-                body: JSON.stringify({ title: categoryData.title, image: image, status: categoryData.status, authtoken: localStorage.getItem('alatwal-admin') })
+                body: JSON.stringify({ title: categoryData.title, image: image, status: categoryData.status, id:categoryData.id, authtoken: localStorage.getItem('alatwal-admin') })
             })
             const addCategoryData = await addCategory.json();
             if (!addCategoryData.success) {
@@ -67,7 +67,7 @@ const Edit = ({ categoryUrl }) => {
         <>
             <ToastContainer />
             {
-                categoryData && categoryData.title && image &&
+                categoryData && image &&
                 <div className="w-full p-4 overflow-y-auto">
                 <div className="w-full flex justify-between">
                     <h6 className=" font-semibold">Edit Category</h6>
