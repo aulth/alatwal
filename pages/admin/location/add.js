@@ -12,18 +12,6 @@ import AddNewLocation from '../../../components/Admin/Location/AddNewLocation'
 import AdminNavbar from '../../../components/Admin/AdminNavbar'
 import AdminSidebar from '../../../components/Admin/AdminSidebar'
 const CategoryPage = () => {
-    const showList = (id) => {
-        if (typeof window !== 'undefined') {
-            let list = document.querySelector(`#${id}`);
-            list.classList.remove("hidden");
-        }
-    }
-    const hideList = (id) => {
-        if (typeof window !== 'undefined') {
-            let list = document.querySelector(`#${id}`);
-            list.classList.add("hidden");
-        }
-    }
     return (
         <>
             <Head>

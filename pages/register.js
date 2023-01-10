@@ -81,6 +81,7 @@ const Register = () => {
 
         } else {
             toast.error(apiData.msg);
+            setLoading(false)
         }
     }
     const handleOnEnterOtp = (e) => {

@@ -4,7 +4,8 @@ const Location = new mongoose.Schema({
     country: String,
     featured: String,
     status: String,
-    images: Array
+    image: Array,
+    url:String
 }, { timestamps: true })
 
 mongoose.models = {};

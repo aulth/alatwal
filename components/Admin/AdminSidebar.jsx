@@ -6,13 +6,23 @@ import { HiMapPin } from 'react-icons/hi2'
 import { HiViewGridAdd, HiViewGrid, HiUsers } from 'react-icons/hi'
 import { AiFillPlusSquare, AiFillSetting } from 'react-icons/ai'
 import { GiJourney } from 'react-icons/gi'
+import {FiLogOut} from 'react-icons/fi'
 import Link from 'next/link'
 import AppContext from '../../AppContext'
 import '@animxyz/core'
+import { useRouter } from 'next/router'
 
 const AdminSidebar = ({activePage}) => {
+    let router = useRouter();
     activePage = activePage?activePage:"Dashboard"
     const sideBarState = useContext(AppContext);
+    const handleOnLogout = () => {
+        if (typeof window !== 'undefined') {
+            localStorage.removeItem("alatwal-admin");
+            sideBarState.setIsAdmin(false);
+            router.push("/admin/login")
+        }
+    }
     return (
         <>
             <div style={{height:"calc(100vh - 57px)"}} className={`w-[255px] ${sideBarState.adminSidebar?"flex w-[350px] absolute bg-white left-0 xyz-in":"hidden"} md:flex flex-col items-start h-full p-2 px-5 overflow-y-auto overflow-x-hidden z-50`} xyz="fade left">
@@ -85,10 +95,12 @@ const AdminSidebar = ({activePage}) => {
                         <Link href={"/admin/cms/about"}><button className={`my-1 flex items-center  hover:scale-105 duration-100 ${activePage=="About"?"font-semibold text-blue-400":""}`}><MdInfo className='mx-1' /> About</button></Link>
                     </ul>
                 </div>
+                
                 <div className='my-2'>
                     <label htmlFor="" className='uppercase text-gray-600'>Setting</label>
                     <ul className='text-gray-800 my-2'>
                         <Link href={"/admin/setting"}><button className={`my-1 flex items-center  hover:scale-105 duration-100 ${activePage=="Setting"?"font-semibold text-blue-400":""}`}><AiFillSetting className='mx-1' /> Setting </button></Link>
+                        <button onClick={handleOnLogout} className={`my-1 flex items-center  hover:scale-105 duration-100 ${activePage=="Setting"?"font-semibold text-blue-400":""}`}><FiLogOut className='mx-1' /> Logout </button>
                     </ul>
                 </div>
             </div>

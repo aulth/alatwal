@@ -6,7 +6,7 @@ const Visa = new mongoose.Schema({
     workingDays: String,
     overview: String,
     status: String,
-    images: Array
+    image: Array
 }, { timestamps: true })
 
 mongoose.models = {};

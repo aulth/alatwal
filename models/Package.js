@@ -17,7 +17,7 @@ const Package = new mongoose.Schema({
     returnSharingBasisTransferAdultRate: Number,
     returnSharingBasisTransferChildRate: Number,
     returnPrivateBasisTransferAdultRate: Number,
-    returnPrivateBaisTransferAdultRate:Number,
+    returnPrivateBaisTransferChildRate:Number,
     transferOptionRemark:String
 }, { timestamps: true })
 

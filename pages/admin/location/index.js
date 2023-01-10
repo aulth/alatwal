@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BiChevronDown } from 'react-icons/bi'
 import { FaUserEdit, FaUsers, FaFileExport, FaQuestionCircle, FaListAlt } from 'react-icons/fa'
 import { MdDashboard, MdAddLocationAlt, MdOutlinePlaylistAdd, MdList, MdBook, MdAddCircle, MdShoppingCart, MdContacts, MdInfo } from 'react-icons/md'
@@ -12,18 +12,20 @@ import Location from '../../../components/Admin/Location/Location'
 import AdminNavbar from '../../../components/Admin/AdminNavbar'
 import AdminSidebar from '../../../components/Admin/AdminSidebar'
 const LocationPage = () => {
-    const showList = (id) => {
-        if (typeof window !== 'undefined') {
-            let list = document.querySelector(`#${id}`);
-            list.classList.remove("hidden");
+    const [location, setLocation] = useState([])
+    const fetchLocation = async ()=>{
+        const response = await fetch("/api/location/fetch", {
+            method:'GET'
+        });
+        const responseData = await response.json();
+        console.log(responseData)
+        if(responseData.success){
+            setLocation(responseData.location);
         }
     }
-    const hideList = (id) => {
-        if (typeof window !== 'undefined') {
-            let list = document.querySelector(`#${id}`);
-            list.classList.add("hidden");
-        }
-    }
+    useEffect(() => {
+      fetchLocation();
+    }, [])
     return (
         <>
             <Head>
@@ -32,7 +34,9 @@ const LocationPage = () => {
                 <AdminNavbar/>
                 <div style={{ height: 'calc(100vh - 57px)' }} className="w-full flex justify-center ">
                     <AdminSidebar activePage={"View Location"}/>
-                    <Location/>
+                    {
+                       location && location.length>0 && <Location location={location} fetchLocation={fetchLocation}/>
+                    }
                 </div>
             </div>
         </>

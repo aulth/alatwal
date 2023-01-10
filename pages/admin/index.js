@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
+import AppContext from '../../AppContext'
 import { BiChevronDown } from 'react-icons/bi'
 import { FaUserEdit, FaUsers, FaFileExport, FaQuestionCircle, FaListAlt } from 'react-icons/fa'
 import { MdDashboard, MdAddLocationAlt, MdOutlinePlaylistAdd, MdList, MdBook, MdAddCircle, MdShoppingCart, MdContacts, MdInfo } from 'react-icons/md'
@@ -11,7 +12,17 @@ import Head from 'next/head'
 import Dashboard from './../../components/Admin/Dashboard'
 import AdminNavbar from '../../components/Admin/AdminNavbar'
 import AdminSidebar from '../../components/Admin/AdminSidebar'
+import { useRouter } from 'next/router'
+
 const Adminpage = () => {
+    const {isAdmin} = useContext(AppContext);
+    const router = useRouter();
+    useEffect(() => {
+      if(!isAdmin){
+        router.push("/admin/login");
+      }
+    }, [])
+    
     const showList = (id) => {
         if (typeof window !== 'undefined') {
             let list = document.querySelector(`#${id}`);

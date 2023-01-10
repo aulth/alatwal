@@ -4,7 +4,8 @@ const UserSchema  = new mongoose.Schema({
     email:String,
     password:String,
     avatar:String,
-    verified:Boolean
+    verified:Boolean,
+    admin:Boolean
 },{timestamps:true})
 
 mongoose.models={};

@@ -1,4 +1,4 @@
-import React, { useEffect ,useContext, useState} from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import AppContext from '../../AppContext'
 import { BiChevronDown } from 'react-icons/bi'
 import { FaUserEdit, FaUsers, FaFileExport, FaQuestionCircle, FaListAlt } from 'react-icons/fa'
@@ -13,29 +13,32 @@ const AdminNavbar = () => {
     const router = useRouter();
     const sideBarState = useContext(AppContext)
     const [screenSizeBig, setScreenSizeBig] = useState(true)
-    const toggleAdminSidebar = ()=>{
-        if(sideBarState.adminSidebar){
+    const toggleAdminSidebar = () => {
+        if (sideBarState.adminSidebar) {
             sideBarState.setAdminSidebar(false);
-        }else{
+        } else {
             sideBarState.setAdminSidebar(true);
         }
     }
     useEffect(() => {
-      sideBarState.setAdminSidebar(false);
+        sideBarState.setAdminSidebar(false);
     }, [screenSizeBig])
 
     useEffect(() => {
-        if(window.innerWidth>=500){
+        if (window.innerWidth >= 500) {
             setScreenSizeBig(true);
         }
-        window.addEventListener("resize", ()=>{
-        if(window.innerWidth>=500){
-            setScreenSizeBig(true)
-            sideBarState.setAdminSidebar(false)
-        }else{
-            setScreenSizeBig(false)
-        }
-      })
+        window.addEventListener("resize", () => {
+            if (window.innerWidth >= 500) {
+                setScreenSizeBig(true)
+                sideBarState.setAdminSidebar(false)
+            } else {
+                setScreenSizeBig(false)
+            }
+        })
+        // if (!sideBarState.isAdmin) {
+        //     router.push("/admin/login")
+        // }
     }, [])
     
     const showList = (id) => {
@@ -53,10 +56,10 @@ const AdminNavbar = () => {
     return (
         <>
             <nav onMouseLeave={() => hideList("admin-menu")} className="relative px-4 py-2 flex justify-between items-center bg-white border-b border-gray-200">
-                <Link  className="text-3xl font-bold leading-none" href={"/"}>
+                <Link className="text-3xl font-bold leading-none" href={"/"}>
                     <img src="/logo.png" className='w-16' />
                 </Link>
-                <div className="lg:hidden md:hidden">
+                <div className="lg:hidden md:hidden flex items-center ">
                     <button onClick={toggleAdminSidebar} className="navbar-burger flex items-center text-blue-600 p-3">
                         <svg className="block h-4 w-4 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <title>Mobile menu</title>
@@ -72,7 +75,6 @@ const AdminNavbar = () => {
                             <ul>
                                 <li className='flex items-center py-2 cursor-pointer hover:text-gray-500'><FaUserEdit className='text-base mx-1 ' />Edit My Profile</li>
                                 <li className='flex items-center  border-b border-gray-200 py-2 cursor-pointer hover:text-gray-500'><FaUserEdit className='text-base mx-1  ' />Tasks</li>
-                                <li className='flex items-center py-2 cursor-pointer hover:text-gray-500'><FaUserEdit className='text-base mx-1 ' />Log out</li>
                             </ul>
                         </div>
                     </div>
