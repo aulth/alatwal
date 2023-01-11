@@ -156,7 +156,7 @@ const Login = () => {
 
                                 }
                                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                                    New Admin? <Link href="/register" className="font-medium text-blue-600 hover:underline dark:text-blue-500">Register here</Link>
+                                    New Admin? <Link href="/admin/register" className="font-medium text-blue-600 hover:underline dark:text-blue-500">Register here</Link>
                                 </p>
                             </form>
                         </div>
