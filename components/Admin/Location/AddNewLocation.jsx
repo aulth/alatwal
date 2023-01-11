@@ -5,18 +5,17 @@ import { AiOutlineSwap, AiOutlineDelete } from 'react-icons/ai'
 import { TfiReload } from 'react-icons/tfi'
 import { BiImageAdd } from 'react-icons/bi'
 import UploadImage from '../Upload/UploadImage'
-import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router'
+import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import '@animxyz/core'
 const AddNewLocation = () => {
     const router = useRouter();
-    const [locationData, setLocationData] = useState({title:'', country:'', featured:'yes',  status:'active'});
     const [image, setImage] = useState([]);
+    const [locationData, setLocationData] = useState({title:'', country:'', featured:'yes',  status:'active'});
     const handleOnChange = (e)=>{
         e.preventDefault();
         setLocationData({...locationData, [e.target.name]:e.target.value});
-        console.log(locationData);
     }
     const handleOnAdd = async (e)=>{
         e.preventDefault();

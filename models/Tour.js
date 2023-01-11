@@ -6,11 +6,14 @@ const Tour = new mongoose.Schema({
     availability: String,
     description: String,
     category: String,
+    categoryTitle:String,
+    categoryUrl:String,
+    location:String,
     duration: String,
     adultRate: Number,
     childRate: Number,
     infantRate: Number,
-    startingTime: Array,
+    startingTime: String,
     tourLanguage: String,
     transferOption: String,
     importantInformation: String,
@@ -21,7 +24,9 @@ const Tour = new mongoose.Schema({
     googleMapLocation: String,
     featuredTour: Boolean,
     paymentMethod: String,
-    image: Array
+    status:String,
+    image: Array,
+    url:String,
 }, { timestamps: true })
 
 mongoose.models = {};

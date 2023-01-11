@@ -15,10 +15,11 @@ const QuillNoSSRWrapper = dynamic(import('react-quill'), {
     ssr: false,
     loading: () => <p>Loading ...</p>,
 })
-const AddNewTour = () => {
-    const [tourData, setTourData] = useState({ title: "", overview: "", highlights: "", availability: "daily", status:'active', description: "", category: "", location:'', duration: "", adultRate: "", childRate: "", infantRate: "", startingTime: "7:00 AM", tourLanguage: "", transferOption: "", importantInformation: "", bookingPolicy: "", covid19: "", tourVideo: "", tourAddress: "", googleMapLocation: "", featuredTour: true, paymentMethod: "merchant" });
+const EditTour = ({tourUrl}) => {
+    const [tourData, setTourData] = useState({ title: "", overview: "", highlights: "", availability: "daily", status:'active', description: "", category: "", location:'', duration: "", adultRate: "", childRate: "", infantRate: "", startingTime: "7:00 AM", tourLanguage: "", transferOption: "", importantInformation: "", bookingPolicy: "", covid19: "", tourVideo: "", tourAddress: "", googleMapLocation: "", featuredTour: true, paymentMethod: "merchant", id:"", success:false });
     const [category, setCategory] = useState([])
     const [location, setLocation] = useState([])
+    const [tourDataLoaded, setTourDataLoaded] = useState(false)
     const router = useRouter();
     const [image, setImage] = useState([]);
     const handleOnTextChange = (e) => {
@@ -28,30 +29,47 @@ const AddNewTour = () => {
     const setOverview = (e) => {
         setTourData({ ...tourData, overview: e });
     }
-    const handleOnAdd = async (e)=>{
+    const fetchTour = async ()=>{
+        if(typeof window!=='undefined'){
+            const response = await fetch('/api/tour/fetchone', {
+                method:'POST',
+                headers:{
+                    'content-type':'application/json'
+                },
+                body:JSON.stringify({url:tourUrl})
+            })
+            const responseData = await response.json();
+            if(responseData.success){
+                setTourData({ title: responseData.tour.title, overview: responseData.tour.overview, highlights:responseData.tour.highlights, availability: responseData.tour.availability, status:responseData.tour.status, description: responseData.tour.description, category:responseData.tour.category, location:responseData.tour.location, duration: responseData.tour.duration, adultRate: responseData.tour.adultRate, childRate: responseData.tour.childRate, infantRate: responseData.tour.infantRate, startingTime: responseData.tour.startingTime, tourLanguage: responseData.tour.tourLanguage, transferOption: responseData.tour.transferOption, importantInformation: responseData.tour.importantInformation, bookingPolicy: responseData.tour.bookingPolicy, covid19: responseData.tour.covid19, tourVideo: responseData.tour.tourVideo, tourAddress: responseData.tour.tourAddress, googleMapLocation: responseData.tour.googleMapLocation, featuredTour: responseData.tour.featuredTour, paymentMethod: responseData.tour.paymentMethod, id:responseData.tour._id, success:true });
+                setImage(responseData.tour.image)
+                setTourDataLoaded(true)
+            }
+        }
+    }
+    
+    const handleOnEdit = async (e)=>{
         e.preventDefault();
         if(typeof window!=='undefined'){
             if(!tourData.title || !image || !tourData.featuredTour || !tourData.availability || !tourData.bookingPolicy || !tourData.category || !tourData.childRate || !tourData.covid19 || !tourData.description || !tourData.duration || !tourData.googleMapLocation || !tourData.highlights || !tourData.importantInformation){
                 toast.info("All fields required");
                 return;
             }
-            const add = await fetch('/api/tour/add', {
+            const add = await fetch("/api/tour/update", {
                 method:"POST",
                 headers:{
                     'content-type':'application/json'
                 },
-                body:JSON.stringify({tourData:tourData, image:image ,authtoken:localStorage.getItem('alatwal-admin')})
+                body:JSON.stringify({title:tourData.title, overview:tourData.overview, highlights:tourData.highlights, availability:tourData.availability, status:tourData.status, description:tourData.description, category:tourData.category, duration:tourData.duration, adultRate:tourData.adultRate, childRate:tourData.childRate, infantRate:tourData.infantRate, startingTime:tourData.startingTime, tourLanguage:tourData.tourLanguage, transferOption:tourData.transferOption, importantInformation:tourData.importantInformation, bookingPolicy:tourData.bookingPolicy, covid19:tourData.covid19, tourVideo:tourData.tourVideo, tourAddress:tourData.tourAddress, googleMapLocation:tourData.googleMapLocation, featuredTour:tourData.featuredTour, paymentMethod:tourData.paymentMethod, authtoken:localStorage.getItem('alatwal-admin'), id:tourData.id , image:image, location:tourData.location})
             })
             const addData = await add.json();
             if(!addData.success){
                 toast.error(addData.msg);
                 return;
             }
-            toast.success("Added Succesfully");
+            toast.success("Edited Succesfully");
             router.push("/admin/tours");
         }
     }
-
     const fetchCategory = async ()=>{
         const response = await fetch("/api/category/fetch", {
             method:'GET'
@@ -59,7 +77,6 @@ const AddNewTour = () => {
         const responseData = await response.json();
         if(responseData.success){
             setCategory(responseData.category);
-            setTourData({...tourData, category:responseData.category[0]._id})
         }
     }
     const fetchLocation = async ()=>{
@@ -69,10 +86,10 @@ const AddNewTour = () => {
         const responseData = await response.json();
         if(responseData.success){
             setLocation(responseData.location);
-            setTourData({...tourData, location:responseData.location[0].title})
         }
     }
     useEffect(() => {
+        fetchTour()
       fetchCategory()
       fetchLocation()
     }, [])
@@ -117,43 +134,43 @@ const AddNewTour = () => {
         <ToastContainer/>
             <div className="w-full p-4 overflow-y-auto">
                 <div className="w-full flex justify-between">
-                    <h6 className=" font-semibold">Add New Tour</h6>
-                    <button className="flex items-center text-[#1F41AF]"> <span className='text-gray-700 mr-1'>Tours</span> / Add</button>
+                    <h6 className=" font-semibold">Edit Tour</h6>
+                    <button className="flex items-center text-[#1F41AF]"> <span className='text-gray-700 mr-1'>Tours</span> / Edit</button>
                 </div>
                 <div className="w-full rounded border border-gray-300  my-6 box-border">
-                    <h5 className="text-2xl font-semibold p-4 text-left border-b border-gray-300">Add New Tour</h5>
+                    <h5 className="text-2xl font-semibold p-4 text-left border-b border-gray-300">Edit Tour</h5>
                     {
-                        category && location && location.length>0 && category.length>0 && 
-                        <form onSubmit={handleOnAdd} className='w-full p-4 ' action="">
+                    category.length>0 && location.length>0 && tourData.success &&
+                        <form onSubmit={handleOnEdit} className='w-full p-4 ' >
                         <div className="w-full flex flex-col md:flex-row md:justify-between mb-6">
-                            <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">Title  <sup className='text-red-600'>*</sup></label>
-                            <input type="text" name="title" onChange={handleOnTextChange} placeholder="Tour Title Here" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' />
+                            <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">Title<sup className='text-red-600'>*</sup></label>
+                            <input type="text" value={tourData.title} name="title" onChange={handleOnTextChange} placeholder="Tour Title Here" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' />
                         </div>
                         <div className="w-full flex md:items-start flex-col md:flex-row md:justify-between mb-6">
                             <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">Overview  <sup className='text-red-600'>*</sup></label>
                             <div className="w-full  border p-4 rounded bg-white">
-                                <QuillNoSSRWrapper onChange={setOverview} placeholder="Tour Overview" className='' modules={modules} formats={formats} theme="snow" />
+                                <QuillNoSSRWrapper  value={tourData.overview}  onChange={setOverview} placeholder="Tour Overview" className='' modules={modules} formats={formats} theme="snow" />
                             </div>
                         </div>
                         <div className="w-full flex flex-col md:flex-row md:justify-between mb-6">
                             <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">Highlights  <sup className='text-red-600'>*</sup></label>
-                            <input type="text" name="highlights" onChange={handleOnTextChange} placeholder="Separated by comma ," className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' />
+                            <input type="text"  value={tourData.highlights}  name="highlights" onChange={handleOnTextChange} placeholder="Separated by comma ," className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' />
                         </div>
                         <div className="w-full flex flex-col md:flex-row md:justify-between my-6">
                             <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">Availability  <sup className='text-red-600'>*</sup></label>
-                            <select name="availability" onChange={handleOnTextChange} className='w-full focus:outline focus:outline-blue-400 p-1 rounded border cursor-pointer' >
+                            <select  value={tourData.availability}  name="availability" onChange={handleOnTextChange} className='w-full focus:outline focus:outline-blue-400 p-1 rounded border cursor-pointer' >
                                 <option value="daily">Daily</option>
                                 <option value="weekly">Weekly</option>
                             </select>
                         </div>
                         <div className="w-full flex flex-col md:items-start md:flex-row md:justify-between mb-6">
                             <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">Description  <sup className='text-red-600'>*</sup></label>
-                            <textarea name="description" onChange={handleOnTextChange} placeholder="Description here" id="" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' >
+                            <textarea  value={tourData.description}  name="description" onChange={handleOnTextChange} placeholder="Description here" id="" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' >
                             </textarea>
                         </div>
                         <div className="w-full flex flex-col md:flex-row md:justify-between my-6">
                             <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">Category  <sup className='text-red-600'>*</sup></label>
-                            <select name="category" onChange={handleOnTextChange} className='w-full focus:outline focus:outline-blue-400 p-1 rounded border cursor-pointer' >
+                            <select name="category"  value={tourData.category}  onChange={handleOnTextChange} className='w-full focus:outline focus:outline-blue-400 p-1 rounded border cursor-pointer' >
                                 {
                                     category && category.length>0 && 
                                     category.map((category, index)=>{
@@ -164,7 +181,7 @@ const AddNewTour = () => {
                         </div>
                         <div className="w-full flex flex-col md:flex-row md:justify-between my-6">
                             <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">Location  <sup className='text-red-600'>*</sup></label>
-                            <select name="location" onChange={handleOnTextChange} className='w-full focus:outline focus:outline-blue-400 p-1 rounded border cursor-pointer' >
+                            <select name="location"  value={tourData.location}  onChange={handleOnTextChange} className='w-full focus:outline focus:outline-blue-400 p-1 rounded border cursor-pointer' >
                                 {
                                     location && location.length>0 && 
                                     location.map((location, index)=>{
@@ -175,23 +192,23 @@ const AddNewTour = () => {
                         </div>
                         <div className="w-full flex flex-col md:flex-row md:justify-between mb-6">
                             <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">Duration  <sup className='text-red-600'>*</sup></label>
-                            <input type="text" name="duration" onChange={handleOnTextChange} placeholder="Tour duration 0 hour" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' />
+                            <input type="text"  value={tourData.duration}  name="duration" onChange={handleOnTextChange} placeholder="Tour duration 0 hour" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' />
                         </div>
                         <div className="w-full flex flex-col md:flex-row md:justify-between mb-6">
                             <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">Adult Rate  <sup className='text-red-600'>*</sup></label>
-                            <input type="number" name="adultRate" onChange={handleOnTextChange} placeholder="200" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' />
+                            <input type="number"  value={tourData.adultRate}  name="adultRate" onChange={handleOnTextChange} placeholder="200" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' />
                         </div>
                         <div className="w-full flex flex-col md:flex-row md:justify-between mb-6">
                             <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">Child Rate  <sup className='text-red-600'>*</sup></label>
-                            <input type="number" name="childRate" onChange={handleOnTextChange} placeholder="100" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' />
+                            <input type="number"  value={tourData.childRate}  name="childRate" onChange={handleOnTextChange} placeholder="100" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' />
                         </div>
                         <div className="w-full flex flex-col md:flex-row md:justify-between mb-6">
                             <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">Infant Rate  <sup className='text-red-600'>*</sup></label>
-                            <input type="number" name="infantRate" onChange={handleOnTextChange} placeholder="50" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' />
+                            <input type="number"  value={tourData.infantRate}  name="infantRate" onChange={handleOnTextChange} placeholder="50" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' />
                         </div>
                         <div className="w-full flex flex-col md:flex-row md:justify-between my-6">
                             <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">Starting Time  <sup className='text-red-600'>*</sup></label>
-                            <select name="startingTime" onChange={handleOnTextChange} className='w-full focus:outline focus:outline-blue-400 p-1 rounded border cursor-pointer' >
+                            <select name="startingTime"  value={tourData.startingTime}  onChange={handleOnTextChange} className='w-full focus:outline focus:outline-blue-400 p-1 rounded border cursor-pointer' >
                                 <option value="7:00 AM">7:00 AM</option>
                                 <option value="8:00 AM">8:00 AM</option>
                                 <option value="9:00 AM">9:00 AM</option>
@@ -208,16 +225,16 @@ const AddNewTour = () => {
                         </div>
                         <div className="w-full flex flex-col md:flex-row md:justify-between mb-6">
                             <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">Tour Language  <sup className='text-red-600'>*</sup></label>
-                            <input type="text" name="tourLanguage" onChange={handleOnTextChange} placeholder="English" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' />
+                            <input type="text" name="tourLanguage"  value={tourData.tourLanguage}  onChange={handleOnTextChange} placeholder="English" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' />
                         </div>
                         <div className="w-full flex flex-col md:flex-row md:justify-between my-6">
                             <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">Transfer Option  <sup className='text-red-600'>*</sup></label>
                             <div className="w-full bg-white md:h-8 h-auto p-2 rounded flex md:flex-row flex-col justify-between   border">
                                 <div className='flex items-center'>
-                                    <input onChange={handleOnTextChange} name='transferOption' type="radio" /> <label htmlFor="withoutTransfer " className='mx-1'>Without Transfer</label>
+                                    <input onChange={handleOnTextChange}    name='transferOption' type="radio" /> <label htmlFor="withoutTransfer " className='mx-1'>Without Transfer</label>
                                 </div>
                                 <div className='flex items-center'>
-                                    <input onChange={handleOnTextChange} name='transferOption' type="radio" /> <label htmlFor="withoutTransfer " className='mx-1'>Shared Transfer</label>
+                                    <input onChange={handleOnTextChange}  name='transferOption' type="radio" /> <label htmlFor="withoutTransfer " className='mx-1'>Shared Transfer</label>
                                 </div>
                                 <div className='flex items-center'>
                                     <input onChange={handleOnTextChange} name='transferOption' type="radio" /> <label htmlFor="withoutTransfer " className='mx-1'>Private Transfer</label>
@@ -226,58 +243,58 @@ const AddNewTour = () => {
                         </div>
                         <div className="w-full flex flex-col md:items-start md:flex-row md:justify-between mb-6">
                             <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">Important Information  <sup className='text-red-600'>*</sup></label>
-                            <textarea name="importantInformation" onChange={handleOnTextChange} placeholder="Important Information" id="" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' >
+                            <textarea name="importantInformation"  value={tourData.importantInformation}  onChange={handleOnTextChange} placeholder="Important Information" id="" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' >
                             </textarea>
                         </div>
                         <div className="w-full flex flex-col md:items-start md:flex-row md:justify-between mb-6">
                             <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">Booking Policy  <sup className='text-red-600'>*</sup></label>
-                            <textarea name="bookingPolicy" onChange={handleOnTextChange} placeholder="Write your booking policy here" id="" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' >
+                            <textarea name="bookingPolicy"  value={tourData.bookingPolicy}  onChange={handleOnTextChange} placeholder="Write your booking policy here" id="" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' >
                             </textarea>
                         </div>
                         <div className="w-full flex flex-col md:items-start md:flex-row md:justify-between mb-6">
                             <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">Covid19 Precautions  <sup className='text-red-600'>*</sup></label>
-                            <textarea name="covid19" onChange={handleOnTextChange} placeholder="Covid-19 Precautions" id="" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' >
+                            <textarea name="covid19"  value={tourData.covid19}  onChange={handleOnTextChange} placeholder="Covid-19 Precautions" id="" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' >
                             </textarea>
                         </div>
                         <div className="w-full flex flex-col md:items-start md:flex-row md:justify-between mb-6">
                             <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">Tour Video  <sup className='text-red-600'>*</sup></label>
-                            <textarea placeholder='Youtube url' name="tourVideo" onChange={handleOnTextChange} id="" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' >
+                            <textarea placeholder='Youtube url'  value={tourData.tourVideo}  name="tourVideo" onChange={handleOnTextChange} id="" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' >
                             </textarea>
                         </div>
                         <div className="w-full flex flex-col md:items-start md:flex-row md:justify-between mb-6">
                             <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">Tour Address  <sup className='text-red-600'>*</sup></label>
-                            <textarea name="tourAddress" onChange={handleOnTextChange} placeholder="Address" id="" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' >
+                            <textarea name="tourAddress"  value={tourData.tourAddress}  onChange={handleOnTextChange} placeholder="Address" id="" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' >
                             </textarea>
                         </div>
                         <div className="w-full flex flex-col md:items-start md:flex-row md:justify-between mb-6">
                             <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">Google Map Location  <sup className='text-red-600'>*</sup></label>
-                            <textarea name="googleMapLocation" onChange={handleOnTextChange} placeholder="Google map url" id="" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' >
+                            <textarea name="googleMapLocation"  value={tourData.googleMapLocation}  onChange={handleOnTextChange} placeholder="Google map url" id="" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' >
                             </textarea>
                         </div>
                         <div className="w-full flex flex-col md:flex-row md:justify-between my-6">
                             <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">Featured Tour  <sup className='text-red-600'>*</sup></label>
-                            <select name="featuredTour" onChange={handleOnTextChange} className='w-full focus:outline focus:outline-blue-400 p-1 rounded border cursor-pointer' >
+                            <select name="featuredTour"  value={tourData.featuredTour}  onChange={handleOnTextChange} className='w-full focus:outline focus:outline-blue-400 p-1 rounded border cursor-pointer' >
                                 <option value={true}>Yes</option>
                                 <option value={false}>No</option>
                             </select>
                         </div>
                         <div className="w-full flex flex-col md:flex-row md:justify-between my-6">
                             <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">Payment Method  <sup className='text-red-600'>*</sup></label>
-                            <select name="paymentMethod" onChange={handleOnTextChange} className='w-full focus:outline focus:outline-blue-400 p-1 rounded border cursor-pointer' >
+                            <select name="paymentMethod"  value={tourData.paymentMethod}  onChange={handleOnTextChange} className='w-full focus:outline focus:outline-blue-400 p-1 rounded border cursor-pointer' >
                                 <option value="merchant">Merchant</option>
                                 <option value="non-merchant">Non Merchant</option>
                             </select>
                         </div>
                         <div className="w-full flex flex-col md:flex-row md:justify-between my-6">
                             <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">Status  <sup className='text-red-600'>*</sup></label>
-                            <select name="status" onChange={handleOnTextChange} className='w-full focus:outline focus:outline-blue-400 p-1 rounded border cursor-pointer' >
+                            <select name="status"  value={tourData.status}  onChange={handleOnTextChange} className='w-full focus:outline focus:outline-blue-400 p-1 rounded border cursor-pointer' >
                                 <option value="active">Active</option>
                                 <option value="inactive">Inactive</option>
                             </select>
                         </div>
                         <UploadImage labelWidth={'w-52'} multiple={true} image={image} setImage={setImage} prset={'category'} />
                         <div className="w-full flex flex-row md:justify-end justify-center mb-3">
-                            <button type='submit' className="bg-blue-400 px-2 py-1 text-white md:w-auto w-full justify-center rounded flex items-center hover:bg-blue-500">Add <IoAdd className='ml-1 text-xl' /></button>
+                            <button type='submit' className="bg-blue-400 px-2 py-1 text-white md:w-auto w-full justify-center rounded flex items-center hover:bg-blue-500">Edit <MdOutlineEdit className='ml-1 text-xl' /></button>
                         </div>
                     </form>
                         
@@ -288,4 +305,4 @@ const AddNewTour = () => {
     )
 }
 
-export default AddNewTour
+export default EditTour

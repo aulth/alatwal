@@ -13,18 +13,16 @@ import { ToastContainer, toast } from 'react-toastify';
 import UploadImage from '../Upload/UploadImage'
 const AddNewCategory = () => {
     const router = useRouter();
-    const [categoryData, setCategoryData] = useState({ title: '', status: 'active' });
+    const [categoryData, setCategoryData] = useState({ title: '', status: 'active', type:'tour', description:'' });
     const [image, setImage] = useState([]);
     const handleOnChange = (e) => {
         e.preventDefault();
         setCategoryData({ ...categoryData, [e.target.name]: e.target.value });
-        console.log(categoryData);
     }
     const handleOnAddCategory = async (e) => {
         e.preventDefault();
-        console.log(categoryData.title, categoryData.status, image)
         if (typeof window !== 'undefined') {
-            if (!categoryData.title || !image || !categoryData.status) {
+            if (!categoryData.title || !image || !categoryData.status || !categoryData.description) {
                 toast.info("All fields required");
                 return;
             }
@@ -33,7 +31,7 @@ const AddNewCategory = () => {
                 headers: {
                     'content-type': 'application/json'
                 },
-                body: JSON.stringify({ title: categoryData.title, image: image, status: categoryData.status, authtoken: localStorage.getItem('alatwal-admin') })
+                body: JSON.stringify({ title: categoryData.title, image: image, status: categoryData.status, type:categoryData.type, description:categoryData.description, authtoken: localStorage.getItem('alatwal-admin') })
             })
             const addCategoryData = await addCategory.json();
             if (!addCategoryData.success) {
@@ -59,12 +57,23 @@ const AddNewCategory = () => {
                             <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-14' htmlFor="">Title  <sup className='text-red-600'>*</sup></label>
                             <input type="text" onChange={handleOnChange} name='title' className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' />
                         </div>
+                        <div className="w-full flex flex-col md:flex-row md:justify-between mb-6">
+                            <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-14' htmlFor="">Description  <sup className='text-red-600'>*</sup></label>
+                            <textarea onChange={handleOnChange} name='description' className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' />
+                        </div>
                         <UploadImage labelWidth={'w-14'} multiple={false} image={image} setImage={setImage} prset={'category'} />
                         <div className="w-full flex flex-col md:flex-row md:justify-between mt-6">
                             <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-14' htmlFor="">Status  <sup className='text-red-600'>*</sup></label>
-                            <select name="status" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' >
+                            <select name="status"  onChange={handleOnChange}  className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' >
                                 <option value="active">Active</option>
                                 <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                        <div className="w-full flex flex-col md:flex-row md:justify-between mt-6">
+                            <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-14' htmlFor="">Type  <sup className='text-red-600'>*</sup></label>
+                            <select name="type"  onChange={handleOnChange}  className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' >
+                                <option value="tour">Tour</option>
+                                <option value="visa">Visa</option>
                             </select>
                         </div>
                         <div className="w-full flex flex-row md:justify-end justify-center mt-6">

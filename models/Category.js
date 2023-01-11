@@ -3,7 +3,9 @@ const Category = new mongoose.Schema({
     title: String,
     image:Array,
     status: String,
-    url:String
+    url:String,
+    type:String,
+    description:String
 }, { timestamps: true })
 
 mongoose.models = {};

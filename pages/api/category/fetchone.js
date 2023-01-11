@@ -10,6 +10,7 @@ const fetchOne = async (req, res) => {
             return res.json({ success: false, msg: "Method not allowed" })
         }
         let { url} = req.body;
+        console.log(req.body)
         if (!url) {
             return res.json({ success: false, msg: "Category url not provided" })
         }

@@ -18,11 +18,9 @@ const AdminAboutCMS = () => {
     const handleOnTextChange = (e) => {
         e.preventDefault();
         setAboutData({ ...aboutData, [e.target.name]: e.target.value });
-        console.log(aboutData)
     }
     const setOverview = (e) => {
         setAboutData({ ...aboutData, overview: e });
-        console.log(aboutData)
     }
 
     // rich text editor 

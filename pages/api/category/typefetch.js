@@ -1,20 +1,22 @@
 import connectToDb from '../../../middleware/connectToDb';
-import Tour from '../../../models/Tour'
+import Category from '../../../models/Category'
 import jwt from 'jsonwebtoken'
 connectToDb();
 
 const fetchOne = async (req, res) => {
+    const JWTSECRET = "HELLO"
     try {
         if (req.method != 'POST') {
             return res.json({ success: false, msg: "Method not allowed" })
         }
-        let { url} = req.body;
-        if (!url) {
-            return res.json({ success: false, msg: "Url not provided" })
+        let { type} = req.body;
+        if (!type) {
+            return res.json({ success: false, msg: "Category not provided" })
         }
-        let tour = await Tour.findOne({url: url})
-        if (tour) {
-            return res.json({ success: true, msg: 'Fetched successfully', tour:tour})
+       let category = await Category.find({type:type});
+       console.log(category)
+        if (category) {
+            return res.json({ success: true, msg: 'Category fetched successfully', category:category})
         }else{
             return res.json({success:false, msg:"Something went wrong"})
         }

@@ -30,7 +30,6 @@ const EditPage = ({locationUrl}) => {
 export default EditPage
 export async function getServerSideProps(context) {
     const {slug} = context.params;
-    console.log(slug)
     return {
       props: {
         locationUrl:slug

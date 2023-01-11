@@ -8,13 +8,10 @@ import { AiFillPlusSquare } from 'react-icons/ai'
 import { GiJourney } from 'react-icons/gi'
 import '@animxyz/core'
 import Head from 'next/head'
-import EditCategory from '../../../../components/Admin/Category/EditCategory'
+import EditTour from '../../../../components/Admin/Tour/EditTour'
 import AdminSidebar from '../../../../components/Admin/AdminSidebar'
 import AdminNavbar from '../../../../components/Admin/AdminNavbar'
-const EditPage = ({categoryUrl}) => {
-    const [category, setCategory] = useState({title:'', image:[], status:'',});
-    
-    
+const EditPage = ({tourUrl}) => {
     return (
         <>
             <Head>
@@ -22,8 +19,8 @@ const EditPage = ({categoryUrl}) => {
             <div className="w-full bg-gray-50">
                 <AdminNavbar/>
                 <div style={{ height: 'calc(100vh - 57px)' }} className="w-full flex justify-center ">
-                    <AdminSidebar activePage={"Add Category"}/>
-                    <EditCategory categoryUrl={categoryUrl} />
+                    <AdminSidebar activePage={"Add Location"}/>
+                    <EditTour tourUrl={tourUrl} />
                 </div>
             </div>
         </>
@@ -35,7 +32,7 @@ export async function getServerSideProps(context) {
     const {slug} = context.params;
     return {
       props: {
-        categoryUrl:slug
+        tourUrl:slug
       }, // will be passed to the page component as props
     }
   }

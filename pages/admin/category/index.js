@@ -5,6 +5,7 @@ import { MdDashboard, MdAddLocationAlt, MdOutlinePlaylistAdd, MdList, MdBook, Md
 import { HiMapPin } from 'react-icons/hi2'
 import { HiViewGridAdd, HiViewGrid, HiUsers } from 'react-icons/hi'
 import { AiFillPlusSquare } from 'react-icons/ai'
+import {TfiReload} from 'react-icons/tfi'
 import { GiJourney } from 'react-icons/gi'
 import '@animxyz/core'
 import Head from 'next/head'
@@ -18,7 +19,6 @@ const CategoryPage = () => {
             method:'GET'
         });
         const responseData = await response.json();
-        console.log(responseData)
         if(responseData.success){
             setCategory(responseData.category);
         }
@@ -36,7 +36,19 @@ const CategoryPage = () => {
                 <div style={{ height: 'calc(100vh - 57px)' }} className="w-full flex justify-center ">
                     <AdminSidebar activePage={"View Category"}/>
                     {
-                        category && category.length>0 && <Category category={category} fetchCategory={fetchCategory}/>
+                        (category && category.length>0)?<Category category={category} fetchCategory={fetchCategory}/>:
+                        <>
+                        <div className="w-full p-4 overflow-y-auto">
+                            <div className="w-full flex justify-between">
+                                <h6 className=" font-semibold">Category</h6>
+                                <button className="flex items-center text-[#1F41AF]"> <TfiReload className='mx-2' /> Reload Data</button>
+                            </div>
+                            <div className="w-full flex justify-between items-center my-4 rounded border border-gray-300">
+                                <input   type="text" className='w-full h-full p-2 border-none focus:outline-none' />
+                                <button className='p-2 bg-[#1F41AF] rounded-r px-3 text-[white]'>Search</button>
+                            </div>
+                        </div>
+                    </>
                     }
                 </div>
             </div>

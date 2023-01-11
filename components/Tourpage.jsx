@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { AiTwotoneStar } from 'react-icons/ai'
 import { CiLocationOn } from 'react-icons/ci'
@@ -21,7 +21,7 @@ const DesertSafari = ({ data }) => {
     const [importantInformationStatus, setImportantInformationStatus] = useState(false)
     const [covidPrecautionStatus, setCovidPrecautionStatus] = useState(false)
     const [tourData, setTourData] = useState({ id: data.id, title: data.title, adult: 0, child: 0, infant: 0, date: null, time: null, price: null, tax: null, totalPrice: null, lastDateToCancel: null })
-    let time = data.time;
+    let time = ['7:00 AM']
     let price = { adult: data.adultRate, child: data.childRate, infant: data.infantRate };
     const toggleAccordian = id => {
         if (typeof window !== 'undefined') {
@@ -101,6 +101,15 @@ const DesertSafari = ({ data }) => {
             toast.success("Tour added")
         }
     }
+    useEffect(() => {
+      if(typeof window!=='undefined'){
+        document.querySelector("#overview").innerHTML = data.overview
+        document.querySelector("#description").innerHTML = data.description
+        document.querySelector("#booking-policy").innerHTML = data.bookingPolicy
+        document.querySelector("#important-information").innerHTML = data.importantInformation
+      }
+    }, [])
+    
     return (
         <>
             <Navbar />
@@ -109,18 +118,10 @@ const DesertSafari = ({ data }) => {
                 <div className='lg:w-[70%] w-full p-4'>
                     <div className="w-full flex items-center justify-start mb-4">
                         <h2 className="lg:text-3xl text-2xl font-bold">{data.title ? data.title : "Title goes here"}</h2>
-                        <button className='flex items-center mx-2 text-sm'>
-                            <AiTwotoneStar className='text-yellow-500' />
-                            <AiTwotoneStar className='text-yellow-500 ml-1' />
-                            <AiTwotoneStar className='text-yellow-500 ml-1' />
-                            <AiTwotoneStar className='text-yellow-500 ml-1' />
-                            <AiTwotoneStar className='text-yellow-500 mx-1' />
-                            <span>({data && data.reviews && data.reviews.length} Reviews)</span>
-                        </button>
                     </div>
                     <div className="w-full flex flex-col lg:flex-row justify-between">
                         <div className="overflow-hidden w-full lg:w-1/2">
-                            <Carousel images={['https://source.unsplash.com/random/?Desert', 'https://source.unsplash.com/random/?Mountain', 'https://source.unsplash.com/random/?Nature']} />
+                            <Carousel images={data.image} />
                         </div>
                         <div className='w-full lg:w-1/2 pl-2'>
                             <button className='text-sm flex items-center mt-2 xl:mt-0'><CiLocationOn className='bg-gray-100 rounded-full p-1 text-xl mr-2' /> {data.location ? data.location : 'Location'}</button>
@@ -130,7 +131,7 @@ const DesertSafari = ({ data }) => {
                                 <span className='font-semibold '>Highlights:-</span>
                                 <ul className='flex text-sm w-full flex-wrap justify-start list-inside list-style-image my-1'>
                                     {
-                                        data.highlights.map((highlight, index) => {
+                                        data.highlights.split(', ').map((highlight, index) => {
                                             return [<li key={index} className='flex items-start m-1 w-[48%]'><AiOutlineCheckCircle className='mr-1 mt-1' />{highlight}</li>]
                                         })
                                     }
@@ -145,7 +146,6 @@ const DesertSafari = ({ data }) => {
                             Overview {overviewStatus ? <GrFormDown className='absolute right-0 mr-1' /> : <MdNavigateNext className='absolute opacity-30 right-0 mr-1' />}
                         </button>
                         <div id='overview' className="  border-gray-200 h-0 overflow-hidden relative transition-all duration-100">
-                            {data.overview ? data.overview : "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto minus quia expedita porro voluptates quasi sit dicta consequatur impedit perspiciatis eaque ipsum odit, repellendus magni velit enim ab ipsam facere?"}
                         </div>
                     </div>
                     <div className='w-full border rounded bg-white border-gray-200 my-2 p-2'>
@@ -153,7 +153,6 @@ const DesertSafari = ({ data }) => {
                             Description {descriptionStatus ? <GrFormDown className='absolute right-0 mr-1' /> : <MdNavigateNext className='absolute opacity-30 right-0 mr-1' />}
                         </button>
                         <div id='description' className=" border-gray-200 h-0 overflow-hidden relative transition-all duration-100">
-                            {data.description ? data.description : "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto minus quia expedita porro voluptates quasi sit dicta consequatur impedit perspiciatis eaque ipsum odit, repellendus magni velit enim ab ipsam facere?"}
                         </div>
                     </div>
                     <div className='w-full border rounded bg-white border-gray-200 my-2 p-2'>
@@ -161,7 +160,6 @@ const DesertSafari = ({ data }) => {
                             Booking Policy {bookingPolicyStatus ? <GrFormDown className='absolute right-0 mr-1' /> : <MdNavigateNext className='absolute opacity-30 right-0 mr-1' />}
                         </button>
                         <div id='booking-policy' className=" border-gray-200 h-0 overflow-hidden relative transition-all duration-100">
-                            {data.bookingPolicy ? data.bookingPolicy : "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto minus quia expedita porro voluptates quasi sit dicta consequatur impedit perspiciatis eaque ipsum odit, repellendus magni velit enim ab ipsam facere?"}
                         </div>
                     </div>
                     <div className='w-full border rounded bg-white border-gray-200 my-2 p-2'>
@@ -169,20 +167,19 @@ const DesertSafari = ({ data }) => {
                             Important Information {importantInformationStatus ? <GrFormDown className='absolute right-0 mr-1' /> : <MdNavigateNext className='absolute opacity-30 right-0 mr-1' />}
                         </button>
                         <div id='important-information' className=" border-gray-200 h-0 overflow-hidden relative transition-all duration-100">
-                            {data.importantInformation ? data.importantInformation : "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto minus quia expedita porro voluptates quasi sit dicta consequatur impedit perspiciatis eaque ipsum odit, repellendus magni velit enim ab ipsam facere?"}
                         </div>
                     </div>
-                    <div className='w-full border rounded bg-white border-gray-200 my-2 p-2'>
+                    {/* <div className='w-full border rounded bg-white border-gray-200 my-2 p-2'>
                         <button onClick={() => { toggleAccordian('covid-precaution') }} className="w-full relative  rounded-t flex items-center justify-between font-semibold">
                             Covid Precautions {covidPrecautionStatus ? <GrFormDown className='absolute right-0 mr-1' /> : <MdNavigateNext className='absolute opacity-30 right-0 mr-1' />}
                         </button>
                         <div id='covid-precaution' className=" border-gray-200 h-0 overflow-hidden relative transition-all duration-100">
                             {data.covidPrecaution ? data.covidPrecaution : "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto minus quia expedita porro voluptates quasi sit dicta consequatur impedit perspiciatis eaque ipsum odit, repellendus magni velit enim ab ipsam facere?"}
                         </div>
-                    </div>
+                    </div> */}
                     <div className="w-full border-t border-b bg-white border-gray-200 p-2 my-2 mt-4 flex justify-between text-sm md:text-base">
-                        <span>Tours and Travels ID : #{data.id ? data.id : "id_goes_here"}</span>
-                        <span>Posted : {data.postedDate ? data.postedDate : "date_goes_here"}</span>
+                        <span>Tours and Travels ID : #{data._id ? data._id : "id_goes_here"}</span>
+                        <span>Posted : {data.updatedAt ? data.updatedAt : "date_goes_here"}</span>
                     </div>
                     <div className="w-full  py-2 my-2 flex justify-between ">
                         <span></span>
@@ -190,12 +187,11 @@ const DesertSafari = ({ data }) => {
                     </div>
 
                     {/* Rating and Review section  */}
-                    <div className='w-full border rounded bg-white border-gray-200 my-2 p-2'>
+                    {/* <div className='w-full border rounded bg-white border-gray-200 my-2 p-2'>
                         <button className="w-full relative  rounded-t flex items-center justify-between font-semibold">
                             Rating and Reviews
                         </button>
                         <div className=" border-gray-200 border-t mt-1 overflow-hidden relative transition-all duration-100">
-                            {/* Review card start  */}
                             {
                                 data.reviews.map((review, index) => {
                                     return [<div key={index} className="w-full flex mb-4 items-start mt-2">
@@ -210,9 +206,8 @@ const DesertSafari = ({ data }) => {
                                     </div>]
                                 })
                             }
-                            {/* Review card end here  */}
                         </div>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="bg-white lg:rounded-tl-[40px] lg:w-[30%] w-full p-6">
                     <h2 className="text-lg font-semibold">Select your booking</h2>
@@ -305,8 +300,8 @@ const DesertSafari = ({ data }) => {
                     </div>
                     <div className="w-full  border border-gray-100 rounded-lg p-1 my-2">
                         <h2 className="text-lg font-semibold border-b border-gray-100">Need help for any details?</h2>
-                        <a href="+tel:9839098390" className='flex items-center'><IoCallOutline className='text-xl mt-1' />+91 9839098390</a>
-                        <a href="+tel:9839098390" className='flex items-center'><IoCallOutline className='text-xl mt-1' />+91 9839098390</a>
+                        <a href="+tel:+971-45752644" className='flex items-center'><IoCallOutline className='text-xl mt-1' />+971-45752644</a>
+                        <a href="+tel:+971-583938039" className='flex items-center'><IoCallOutline className='text-xl mt-1' />+971-583938039</a>
                     </div>
                 </div>
             </div>

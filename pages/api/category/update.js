@@ -9,23 +9,23 @@ const update = async (req, res) => {
         if (req.method != 'POST') {
             return res.json({ success: false, msg: "Method not allowed" })
         }
-        console.log(req.body);
-        let { title, image, status, authtoken, id} = req.body;
-        if (!title || !image || !status || !authtoken || !id) {
+        let { title, image, status, authtoken, id, type, description} = req.body;
+        console.log(req.body.description)
+        if (!title || !image || !status || !authtoken || !id || !type || !description) {
             return res.json({ success: false, msg: "All fields required" })
         }
         let {email} = jwt.verify(JSON.parse(authtoken), JWTSECRET);
         if(!email){
             return res.json({success:false, msg:"Invalid token"});
         }
-        console.log(req.body)
         let category = await Category.findOneAndUpdate({_id:id}, {
             title: title,
             image: image,
             status: status,
+            type:type,
+            description:description
         })
         if (category) {
-            console.log(category)
             return res.json({ success: true, msg: 'Updted successfully'})
         }else{
             return res.json({success:false, msg:"Something went wrong"})

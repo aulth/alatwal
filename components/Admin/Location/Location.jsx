@@ -13,7 +13,6 @@ const Location = ({ location, fetchLocation }) => {
     if(location){
         for (let item of location){
             locationData.push({title:item.title.toLowerCase().split(" ").join("-"), country:item.country.toLowerCase().split(" ").join("-")});
-            console.log(locationData)
         }
     }
     useEffect(() => {
@@ -52,7 +51,6 @@ const Location = ({ location, fetchLocation }) => {
                 body:JSON.stringify({title:title, image:image, status:status, country:country, featured:featured, authtoken:localStorage.getItem('alatwal-admin'), id:id })
             })
             const responseData = await response.json();
-            console.log(responseData);
             if(responseData.success){
                 toast.success(responseData.msg)
                 fetchLocation();
@@ -71,7 +69,6 @@ const Location = ({ location, fetchLocation }) => {
                 body:JSON.stringify({id:id, authtoken:localStorage.getItem('alatwal-admin') })
             })
             const responseData = await response.json();
-            console.log(responseData);
             if(responseData.success){
                 toast.success(responseData.msg)
                 fetchLocation();

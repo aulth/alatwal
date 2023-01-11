@@ -18,11 +18,9 @@ const AdminFAQCMS = () => {
     const handleOnTextChange = (e) => {
         e.preventDefault();
         setFaqData({ ...faqData, [e.target.name]: e.target.value });
-        console.log(faqData)
     }
     const setOverview = (e) => {
         setFaqData({ ...faqData, overview: e });
-        console.log(faqData)
     }
 
     // rich text editor 

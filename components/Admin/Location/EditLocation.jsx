@@ -11,13 +11,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import '@animxyz/core'
 const AddNewLocation = ({locationUrl}) => {
     const router = useRouter();
-    console.log(locationUrl)
     const [locationData, setLocationData] = useState({title:'', country:'', featured:'yes',  status:'active', id:''});
     const [image, setImage] = useState([]);
     const handleOnChange = (e)=>{
         e.preventDefault();
         setLocationData({...locationData, [e.target.name]:e.target.value});
-        console.log(locationData);
     }
     const fetchLocation = async ()=>{
         if(typeof window!=='undefined'){
@@ -65,9 +63,10 @@ const AddNewLocation = ({locationUrl}) => {
     return (
         <>
             <ToastContainer />
+            <div className="w-full p-4 overflow-y-auto">
             {
                 locationData && image && 
-                <div className="w-full p-4 overflow-y-auto">
+                <>
                 <div className="w-full flex justify-between">
                     <h6 className=" font-semibold">Add New Location</h6>
                     <button className="flex items-center text-[#1F41AF]"> <span className='text-gray-700 mr-1'>Location</span> / Add</button>
@@ -99,12 +98,13 @@ const AddNewLocation = ({locationUrl}) => {
                             </select>
                         </div>
                         <div className="w-full flex flex-row md:justify-end justify-center mt-6">
-                            <button className="bg-blue-400 px-2 py-1 text-white md:w-auto w-full justify-center rounded flex items-center hover:bg-blue-500">Edit <IoAdd className='ml-1 text-xl' /></button>
+                            <button className="bg-blue-400 px-2 py-1 text-white md:w-auto w-full justify-center rounded flex items-center hover:bg-blue-500">Edit <MdOutlineEdit className='ml-1 text-xl' /></button>
                         </div>
                     </form>
                 </div>
-            </div>
+                </>
             }
+            </div>
         </>
     )
 }

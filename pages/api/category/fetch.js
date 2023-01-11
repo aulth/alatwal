@@ -9,6 +9,7 @@ const fetchCategory = async (req, res) => {
         }
         let category = await Category.find({});
         if (category) {
+            console.log(category)
             return res.json({ success: true, msg: 'Category Fetched', category:category})
         }else{
             return res.json({success:false, msg:"No Category Found"})

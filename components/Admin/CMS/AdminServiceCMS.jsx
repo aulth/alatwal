@@ -18,11 +18,9 @@ const AdminAboutCMS = () => {
     const handleOnTextChange = (e) => {
         e.preventDefault();
         setServiceData({ ...serviceData, [e.target.name]: e.target.value });
-        console.log(serviceData)
     }
     const setOverview = (e) => {
         setServiceData({ ...serviceData, overview: e });
-        console.log(serviceData)
     }
 
     // rich text editor 

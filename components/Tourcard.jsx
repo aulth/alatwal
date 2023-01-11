@@ -11,7 +11,7 @@ const Tourcard = ({data}) => {
     <>
     <div className="lg:w-full md:w-[48%] w-full shadow-md hover:shadow-lg flex flex-col justify-center relative  lg:flex-row border rounded border-gray-200 my-2 mx-1">
           <div className="w-full lg:w-[40%] h-full overflow-hidden relative aspect-video lg:aspect-auto">
-            <img src="https://source.unsplash.com/random/?Dhow Cruise" className='object-cover w-full object-center' alt="" />
+            <img src={data.image[0]?data.image[0]:`https://source.unsplash.com/random/?${data.url}`} className='object-cover w-full object-center' alt="" />
           </div>
           <div className="w-full lg:w-[60%] h-full  aspect-video lg:aspect-auto p-4">
             <div className="w-full flex justify-between items-center pb-4 border-b border-gray-200">
@@ -35,9 +35,9 @@ const Tourcard = ({data}) => {
               <button className='flex items-center text-sm'> <IoTimeOutline className='bg-gray-200 p-1 rounded-full mr-2 text-xl aspect-square' /> {data.duration?data.duration:'00 hours'}</button>
             </div>
             <div className="w-full py-2 overflow-ellipsis mb-6">
-              {data.description?data.description:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis dolore eaque quisquam quas tempore sint, ipsam laborum magnam reiciendis unde. Consequuntur, aspernatur? Dolores laudantium cupiditate aliquid tempore expedita accusantium accusamus.'}
+              {data.description?data.description.slice(0, 420)+"..":'Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis dolore eaque quisquam quas tempore sint, ipsam laborum magnam reiciendis unde. Consequuntur, aspernatur? Dolores laudantium cupiditate aliquid tempore expedita accusantium accusamus.'}
             </div>
-            <Link href={pathName+'/'+data.url}><button className=" ml-4 mt-4 rounded bg-gray-200 px-2 py-1 absolute bottom-3 lg:left-[40%] left-0 hover:bg-gray-300">Book Now</button></Link>
+            <Link href={`/tour/${data.url}`}><button className=" ml-4 mt-4 rounded bg-gray-200 px-2 py-1 absolute bottom-3 lg:left-[40%] left-0 hover:bg-gray-300">Book Now</button></Link>
           </div>
         </div>
     </>

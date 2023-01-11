@@ -8,11 +8,11 @@ const fetchOne = async (req, res) => {
         if (req.method != 'POST') {
             return res.json({ success: false, msg: "Method not allowed" })
         }
-        let { url} = req.body;
-        if (!url) {
+        let { categoryUrl} = req.body;
+        if (!categoryUrl) {
             return res.json({ success: false, msg: "Url not provided" })
         }
-        let tour = await Tour.findOne({url: url})
+        let tour = await Tour.find({categoryUrl: categoryUrl});
         if (tour) {
             return res.json({ success: true, msg: 'Fetched successfully', tour:tour})
         }else{

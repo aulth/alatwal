@@ -18,11 +18,9 @@ const AdminContactCMS = () => {
     const handleOnTextChange = (e) => {
         e.preventDefault();
         setContactData({ ...contactData, [e.target.name]: e.target.value });
-        console.log(contactData)
     }
     const setOverview = (e) => {
         setContactData({ ...contactData, overview: e });
-        console.log(contactData)
     }
 
     // rich text editor 
