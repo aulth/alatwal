@@ -8,9 +8,9 @@ import { AiFillPlusSquare } from 'react-icons/ai'
 import { GiJourney } from 'react-icons/gi'
 import '@animxyz/core'
 import Head from 'next/head'
-import EditTour from '../../../../components/Admin/Tour/EditTour'
-import AdminSidebar from '../../../../components/Admin/AdminSidebar'
-import AdminNavbar from '../../../../components/Admin/AdminNavbar'
+import AdminSidebar from '../../../../../components/Admin/AdminSidebar'
+import EditPlatinum from '../../../../../components/Admin/Tour/Platinum/EditPlatinum'
+import AdminNavbar from '../../../../../components/Admin/AdminNavbar'
 const EditPage = ({tourUrl}) => {
     return (
         <>
@@ -20,7 +20,7 @@ const EditPage = ({tourUrl}) => {
                 <AdminNavbar/>
                 <div style={{ height: 'calc(100vh - 57px)' }} className="w-full flex justify-center ">
                     <AdminSidebar activePage={"Add Location"}/>
-                    <EditTour tourUrl={tourUrl} />
+                    <EditPlatinum tourUrl={tourUrl} />
                 </div>
             </div>
         </>

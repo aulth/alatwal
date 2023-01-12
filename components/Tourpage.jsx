@@ -17,12 +17,16 @@ const DesertSafari = ({ data }) => {
     const { slag } = router.query;
     const [overviewStatus, setOverviewStatus] = useState(false)
     const [descriptionStatus, setDescriptionStatus] = useState(false)
+    const [highlightStatus, setHighlightStatus] = useState(false)
     const [bookingPolicyStatus, setBookingPolicyStatus] = useState(false)
     const [importantInformationStatus, setImportantInformationStatus] = useState(false)
     const [covidPrecautionStatus, setCovidPrecautionStatus] = useState(false)
-    const [tourData, setTourData] = useState({ id: data.id, title: data.title, adult: 0, child: 0, infant: 0, date: null, time: null, price: null, tax: null, totalPrice: null, lastDateToCancel: null })
+    const [tourData, setTourData] = useState({ id: data._id, title: data.title, adultRate: data.adultRate, child: data.childRate, infant: data.infantRate, adultRatePrime: data.adultRatePrime, childRatePrime: data.childRatePrime, infantRatePrime: data.infantRatePrime, adultRateNonPrime: data.adultRateNonPrime, childRateNonPrime: data.childRateNonPrime, infantRateNonPrime: data.infantRateNonPrime, adultRateTicketOnly: data.adultRateTicketOnly, adultRateSharingTransport: data.adultRateSharingTransport, adultRatePrivateTransport: data.adultRatePrivateTransport, childRateTicketOnly: data.childRateTicketOnly, childRateSharingTransport: data.childRateSharingTransport, childRatePrivateTransport: data.childRatePrivateTransport, infantRateTicketOnly: data.infantRateTicketOnly, infantRateSharingTransport: data.infantRateSharingTransport, infantRatePrivateTransport: data.infantRatePrivateTransport, date: null, time: null, price: null, tax: null, totalPrice: null, lastDateToCancel: null, basic: data.basic, platinum: data.platinum, explorer: data.explorer })
+    const [isPrime, setIsPrime] = useState(false)
+    const [typeOfTicket, setTypeOfTicket] = useState('');
     let time = ['7:00 AM']
-    let price = { adult: data.adultRate, child: data.childRate, infant: data.infantRate };
+    // let price = { adult: data.adultRate, child: data.childRate, infant: data.infantRate };
+    const [price, setPrice] = useState({ adult: 0, child: 0, infant: 0 })
     const toggleAccordian = id => {
         if (typeof window !== 'undefined') {
             let accordian = document.querySelector(`#${id}`);
@@ -40,6 +44,9 @@ const DesertSafari = ({ data }) => {
                     break;
                 case 'description':
                     descriptionStatus ? setDescriptionStatus(false) : setDescriptionStatus(true);
+                    break;
+                case 'highlight':
+                    highlightStatus ? setHighlightStatus(false) : setHighlightStatus(true);
                     break;
                 case 'booking-policy':
                     bookingPolicyStatus ? setBookingPolicyStatus(false) : setBookingPolicyStatus(true);
@@ -62,6 +69,14 @@ const DesertSafari = ({ data }) => {
             date.setMonth(date.getMonth() - 2);
             setTourData({ ...tourData, lastDateToCancel: date.toISOString().substring(0, 10), date: e.target.value })
         }
+        if (e.target.name == 'time') {
+            togglePrime(e.target.value);
+            console.log(isPrime)
+        }
+        if (e.target.name == 'type') {
+            toggleTypeOfTicket(e.target.value);
+            console.log(typeOfTicket)
+        }
         console.log(tourData);
     }
     const selectTime = btnId => {
@@ -72,10 +87,10 @@ const DesertSafari = ({ data }) => {
         let button = document.querySelector(`#${btnId}`);
         button.classList.toggle("bg-gray-300");
     }
-    const setTime = time => {
-        setTourData({ ...tourData, time: time });
-        console.log(tourData)
-    }
+    // const setTime = time => {
+    //     setTourData({ ...tourData, time: time });
+    //     console.log(tourData)
+    // }
     const showPriceBreakdown = () => {
         if (typeof window !== 'undefined') {
             if (tourData.adult <= 0 && tourData.child <= 0 && tourData.infant <= 0) {
@@ -102,14 +117,161 @@ const DesertSafari = ({ data }) => {
         }
     }
     useEffect(() => {
-      if(typeof window!=='undefined'){
-        document.querySelector("#overview").innerHTML = data.overview
-        document.querySelector("#description").innerHTML = data.description
-        document.querySelector("#booking-policy").innerHTML = data.bookingPolicy
-        document.querySelector("#important-information").innerHTML = data.importantInformation
-      }
+        if (typeof window !== 'undefined') {
+            document.querySelector("#overview").innerHTML = data.overview
+            document.querySelector("#description").innerHTML = data.description
+            document.querySelector("#booking-policy").innerHTML = data.bookingPolicy
+            document.querySelector("#important-information").innerHTML = data.importantInformation
+            var today = new Date();
+            today.setDate(today.getDate() + 1);
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1;
+            var yyyy = today.getFullYear();
+            if (dd < 10) {
+                dd = '0' + dd
+            }
+            if (mm < 10) {
+                mm = '0' + mm
+            }
+            today = yyyy + '-' + mm + '-' + dd;
+            document.getElementById("date").setAttribute("min", today);
+        }
     }, [])
-    
+    const togglePrime = (time) => {
+        switch (time) {
+            case '7:00 AM':
+                setIsPrime(false)
+                break;
+            case '7:30 AM':
+                setIsPrime(false)
+                break;
+            case '8:00 AM':
+                setIsPrime(false)
+                break;
+            case '8:30 AM':
+                setIsPrime(false)
+                break;
+            case '9:00 AM':
+                setIsPrime(false)
+                break;
+            case '9:30 AM':
+                setIsPrime(false)
+                break;
+            case '10:00 AM':
+                setIsPrime(false)
+                break;
+            case '10:30 AM':
+                setIsPrime(false)
+                break;
+            case '11:00 AM':
+                setIsPrime(false)
+                break;
+            case '11:30 AM':
+                setIsPrime(false)
+                break;
+            case '12:00 PM':
+                setIsPrime(false)
+                break;
+            case '12:30 PM':
+                setIsPrime(false)
+                break;
+            case '1:00 PM':
+                setIsPrime(false)
+                break;
+            case '1:30 PM':
+                setIsPrime(false)
+                break;
+            case '2:00 PM':
+                setIsPrime(false)
+                break;
+            case '2:30 PM':
+                setIsPrime(true)
+                break;
+            case '3:00 PM':
+                setIsPrime(true)
+                break;
+            case '3:30 PM':
+                setIsPrime(true)
+                break;
+            case '4:00 PM':
+                setIsPrime(true)
+                break;
+            case '4:30 PM':
+                setIsPrime(true)
+                break;
+            case '5:00 PM':
+                setIsPrime(true)
+                break;
+            case '5:30 PM':
+                setIsPrime(true)
+                break;
+            case '6:00 PM':
+                setIsPrime(true)
+                break;
+            case '6:30 PM':
+                setIsPrime(true)
+                break;
+            case '7:00 PM':
+                setIsPrime(false)
+                break;
+            case '7:30 PM':
+                setIsPrime(false)
+                break;
+            case '8:00 PM':
+                setIsPrime(false)
+                break;
+            case '8:30 PM':
+                setIsPrime(false)
+                break;
+            case '9:00 PM':
+                setIsPrime(false)
+                break;
+            default:
+                break;
+        }
+    }
+    const toggleTypeOfTicket = (type) => {
+        switch (type) {
+            case 'onlyTicket':
+                setTypeOfTicket('onlyTicket');
+                break;
+            case 'sharingTransfer':
+                setTypeOfTicket('sharingTransfer');
+                break;
+            case 'privateTransfer':
+                setTypeOfTicket('privateTransfer');
+                break;
+            default:
+                break;
+        }
+    }
+    useEffect(() => {
+        if (isPrime) {
+            setPrice({ adult: tourData.adultRatePrime, child: tourData.childRatePrime, infant: tourData.infantRatePrime })
+        } else {
+            setPrice({ adult: tourData.adultRateNonPrime, child: tourData.childRateNonPrime, infant: tourData.infantRateNonPrime })
+        }
+    }, [isPrime])
+    useEffect(() => {
+        if (typeOfTicket == 'onlyTicket') {
+            setPrice({ adult: tourData.adultRateTicketOnly, child: tourData.childRateTicketOnly, infant: tourData.infantRateTicketOnly })
+        } else if (typeOfTicket == 'sharingTransfer') {
+            setPrice({ adult: tourData.adultRateSharingTransport, child: tourData.childRateSharingTransport, infant: tourData.infantRateSharingTransport })
+        } else {
+            setPrice({ adult: tourData.adultRatePrivateTransport, child: tourData.childRatePrivateTransport, infant: tourData.infantRatePrivateTransport })
+        }
+    }, [typeOfTicket])
+    useEffect(() => {
+        if (data.basic) {
+            setPrice({ adult: data.adultRate, child: data.childRate, infant: data.infantRate })
+        } else if (data.platinum) {
+            setPrice({ adult: tourData.adultRateNonPrime, child: tourData.childRateNonPrime, infant: tourData.infantRateNonPrime })
+        } else {
+            setPrice({ adult: tourData.adultRateTicketOnly, child: tourData.childRateTicketOnly, infant: tourData.infantRateTicketOnly })
+        }
+    }, [])
+
+
     return (
         <>
             <Navbar />
@@ -125,14 +287,14 @@ const DesertSafari = ({ data }) => {
                         </div>
                         <div className='w-full lg:w-1/2 pl-2'>
                             <button className='text-sm flex items-center mt-2 xl:mt-0'><CiLocationOn className='bg-gray-100 rounded-full p-1 text-xl mr-2' /> {data.location ? data.location : 'Location'}</button>
-                            <h3 className="text-xl font-bold  my-2">AED {data.adultRate ? data.adultRate : '00.00'}<span className='text-sm '>/person</span></h3>
+                            <h3 className="text-xl font-bold  my-2">AED {price.adult}<span className='text-sm '>/person</span></h3>
                             <p>{data.description ? data.description.slice(0, 250) + '..' : "Lorem ipsum Lorem ipsum  ipsum Lorem ipsum  ipsum Lorem ipsum  ipsum Lorem ipsum  ipsum Lorem ipsum  ipsum Lorem ipsum  ipsum Lorem ipsum "}</p>
                             <div className="w-full my-2">
                                 <span className='font-semibold '>Highlights:-</span>
                                 <ul className='flex text-sm w-full flex-wrap justify-start list-inside list-style-image my-1'>
                                     {
                                         data.highlights.split(', ').map((highlight, index) => {
-                                            return [<li key={index} className='flex items-start m-1 w-[48%]'><AiOutlineCheckCircle className='mr-1 mt-1' />{highlight}</li>]
+                                            return [<li key={index} className='flex items-start m-1 w-[48%]'><AiOutlineCheckCircle className='mr-1 mt-1' />{highlight.slice(0, 40) + '..'}</li>]
                                         })
                                     }
                                 </ul>
@@ -156,6 +318,20 @@ const DesertSafari = ({ data }) => {
                         </div>
                     </div>
                     <div className='w-full border rounded bg-white border-gray-200 my-2 p-2'>
+                        <button onClick={() => { toggleAccordian('highlight') }} className="w-full relative  rounded-t flex items-center justify-between font-semibold">
+                            Highlights {highlightStatus ? <GrFormDown className='absolute right-0 mr-1' /> : <MdNavigateNext className='absolute opacity-30 right-0 mr-1' />}
+                        </button>
+                        <div id='highlight' className=" border-gray-200 h-0 overflow-hidden relative transition-all duration-100">
+                            <ol className='list-decimal'>
+                            {
+                                data.highlights.split(', ').map((highlight, index) => {
+                                    return [<li key={index} className='flex items-start m-1 w-[48%]'><span className='mr-1'>{index+1}</span> {highlight}</li>]
+                                })
+                            }
+                            </ol>
+                        </div>
+                    </div>
+                    <div className='w-full border rounded bg-white border-gray-200 my-2 p-2'>
                         <button onClick={() => { toggleAccordian('booking-policy') }} className="w-full relative  rounded-t flex items-center justify-between font-semibold">
                             Booking Policy {bookingPolicyStatus ? <GrFormDown className='absolute right-0 mr-1' /> : <MdNavigateNext className='absolute opacity-30 right-0 mr-1' />}
                         </button>
@@ -169,23 +345,14 @@ const DesertSafari = ({ data }) => {
                         <div id='important-information' className=" border-gray-200 h-0 overflow-hidden relative transition-all duration-100">
                         </div>
                     </div>
-                    {/* <div className='w-full border rounded bg-white border-gray-200 my-2 p-2'>
-                        <button onClick={() => { toggleAccordian('covid-precaution') }} className="w-full relative  rounded-t flex items-center justify-between font-semibold">
-                            Covid Precautions {covidPrecautionStatus ? <GrFormDown className='absolute right-0 mr-1' /> : <MdNavigateNext className='absolute opacity-30 right-0 mr-1' />}
-                        </button>
-                        <div id='covid-precaution' className=" border-gray-200 h-0 overflow-hidden relative transition-all duration-100">
-                            {data.covidPrecaution ? data.covidPrecaution : "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto minus quia expedita porro voluptates quasi sit dicta consequatur impedit perspiciatis eaque ipsum odit, repellendus magni velit enim ab ipsam facere?"}
-                        </div>
-                    </div> */}
                     <div className="w-full border-t border-b bg-white border-gray-200 p-2 my-2 mt-4 flex justify-between text-sm md:text-base">
                         <span>Tours and Travels ID : #{data._id ? data._id : "id_goes_here"}</span>
-                        <span>Posted : {data.updatedAt ? data.updatedAt : "date_goes_here"}</span>
+                        <span>Posted : {new Date(data.createdAt).getDate() + '/' + new Date(data.createdAt).getMonth() + 1 + "/" + new Date(data.createdAt).getFullYear()}</span>
                     </div>
                     <div className="w-full  py-2 my-2 flex justify-between ">
                         <span></span>
                         <button className="bg-blue-400 rounded px-2 py-1 text-white hover:bg-blue-500">Book This Tour</button>
                     </div>
-
                     {/* Rating and Review section  */}
                     {/* <div className='w-full border rounded bg-white border-gray-200 my-2 p-2'>
                         <button className="w-full relative  rounded-t flex items-center justify-between font-semibold">
@@ -256,8 +423,56 @@ const DesertSafari = ({ data }) => {
                             <option value="10">Infant x 10</option>
                         </select>
                     </div>
+                    {
+                        data.platinum &&
+                        <div className="w-full  border border-gray-100 rounded-lg p-1 my-2">
+                            <select name="time" onChange={handleOnChange} id="" className='w-full p-1 focus:outline-none cursor-pointer'>
+                                <option value="">Select Time</option>
+                                <option value="7:00 AM">7:00 AM</option>
+                                <option value="7:30 AM">7:30 AM</option>
+                                <option value="8:00 AM">8:00 AM</option>
+                                <option value="8:30 AM">8:30 AM</option>
+                                <option value="9:00 AM">9:00 AM</option>
+                                <option value="9:30 AM">9:30 AM</option>
+                                <option value="10:00 AM">10:00 AM</option>
+                                <option value="10:30 AM">10:30 AM</option>
+                                <option value="11:00 AM">11:00 AM</option>
+                                <option value="11:30 AM">11:30 AM</option>
+                                <option value="12:00 PM">12:00 PM</option>
+                                <option value="12:30 PM">12:30 PM</option>
+                                <option value="1:00 PM">1:00 PM</option>
+                                <option value="1:30 PM">1:30 PM</option>
+                                <option value="2:00 PM">2:00 PM</option>
+                                <option value="2:30 PM">2:30 PM</option>
+                                <option value="3:00 PM">3:00 PM</option>
+                                <option value="3:30 PM">3:30 PM</option>
+                                <option value="4:00 PM">4:00 PM</option>
+                                <option value="4:30 PM">4:30 PM</option>
+                                <option value="5:00 PM">5:00 PM</option>
+                                <option value="5:30 PM">5:30 PM</option>
+                                <option value="6:00 PM">6:00 PM</option>
+                                <option value="6:30 PM">6:30 PM</option>
+                                <option value="7:00 PM">7:00 PM</option>
+                                <option value="7:30 PM">7:30 PM</option>
+                                <option value="8:00 PM">8:00 PM</option>
+                                <option value="8:30 PM">8:30 PM</option>
+                                <option value="9:00 PM">9:00 PM</option>
+                            </select>
+                        </div>
+                    }
+                    {
+                        data.explorer &&
+                        <div className="w-full  border border-gray-100 rounded-lg p-1 my-2">
+                            <select name="type" onChange={handleOnChange} id="" className='w-full p-1 focus:outline-none cursor-pointer'>
+                                <option value="">Select Type of Ticket</option>
+                                <option value="onlyTicket">Only Entry Ticket</option>
+                                <option value="sharingTransfer">Sharing Transfer</option>
+                                <option value="privateTransfer">Private Transfer</option>
+                            </select>
+                        </div>
+                    }
                     <div className="w-full  border border-gray-100 rounded-lg p-1 my-2">
-                        <input type="date" name="date" onChange={handleOnChange} id="" className='w-full p-1 focus:outline-none cursor-pointer' />
+                        <input type="date" name="date" pattern="\d{4}-\d{2}-\d{2}" placeholder="yyyy-mm-dd" onChange={handleOnChange} id="date" className='w-full p-1 focus:outline-none cursor-pointer' />
                     </div>
                     <button onClick={showPriceBreakdown} className="w-full  border border-gray-100 rounded-lg p-1 my-2 bg-gray-50 hover:bg-gray-100">
                         Book Now
@@ -282,7 +497,7 @@ const DesertSafari = ({ data }) => {
                                 <span className='uppercase font-semibold'>Aed {price.infant * tourData.infant}</span>
                             </div>
                         }
-                        <div className="w-full flex flex-col justify-between border-b border-gray-100 py-2 text-sm">
+                        {/* <div className="w-full flex flex-col justify-between border-b border-gray-100 py-2 text-sm">
                             <p className="text-center">Select Starting Time</p>
                             <div className="w-full flex flex-wrap justify-center my-1">
                                 {
@@ -292,7 +507,7 @@ const DesertSafari = ({ data }) => {
                                 }
                             </div>
 
-                        </div>
+                        </div> */}
                         <div className="w-full flex justify-between border-b border-gray-100 py-2 text-sm">
                             <span></span>
                             <button onClick={addToCart} className='uppercase font-semibold bg-gray-50 border-gray-100 border rounded px-2 py-1 hover:bg-gray-100'>Add to cart</button>

@@ -10,15 +10,16 @@ const addTour = async (req, res) => {
         if (req.method != 'POST') {
             return res.json({ success: false, msg: "Method not allowed" })
         }
-        let {tourData, authtoken, image} = req.body;
-        if (!tourData || !authtoken || !image ) {
+        let { tourData, authtoken, image } = req.body;
+        if (!tourData || !authtoken || !image) {
             return res.json({ success: false, msg: "All fields required" })
         }
-        let {email} = jwt.verify(JSON.parse(authtoken), JWTSECRET);
-        if(!email){
-            return res.json({success:false, msg:"Invalid token"});
+        let { email } = jwt.verify(JSON.parse(authtoken), JWTSECRET);
+        if (!email) {
+            return res.json({ success: false, msg: "Invalid token" });
         }
-        let category = await Category.findOne({_id:tourData.category});
+        console.log(tourData)
+        let category = await Category.findOne({ _id: tourData.category });
         let tour = await Tour.create({
             title: tourData.title,
             overview: tourData.overview,
@@ -26,10 +27,10 @@ const addTour = async (req, res) => {
             availability: tourData.availability,
             description: tourData.description,
             category: tourData.category,
-            categoryTitle:category.title,
-            categoryUrl:category.title.toLowerCase().split(/\s/).join("-"),
-            location:tourData.location,
-            status:tourData.status,
+            categoryTitle: category.title,
+            categoryUrl: category.title.toLowerCase().split(/\s/).join("-"),
+            location: tourData.location,
+            status: tourData.status,
             duration: tourData.duration,
             adultRate: tourData.adultRate,
             childRate: tourData.childRate,
@@ -46,14 +47,32 @@ const addTour = async (req, res) => {
             featuredTour: tourData.featuredTour,
             paymentMethod: tourData.paymentMethod,
             image: image,
-            url:tourData.title.toLowerCase().split(/\s/).join("-")
+            url: tourData.title.toLowerCase().split(/\s/).join("-"),
+            adultRatePrime: tourData.adultRatePrime,
+            childRatePrime: tourData.childRatePrime,
+            infantRatePrime: tourData.infantRatePrime,
+            adultRateNonPrime: tourData.adultRateNonPrime,
+            childRateNonPrime: tourData.childRateNonPrime,
+            infantRateNonPrime: tourData.infantRateNonPrime,
+            adultRateTicketOnly: tourData.adultRateTicketOnly,
+            adultRateSharingTransport: tourData.adultRateSharingTransport,
+            adultRatePrivateTransport: tourData.adultRatePrivateTransport,
+            childRateTicketOnly: tourData.childRateTicketOnly,
+            childRateSharingTransport: tourData.childRateSharingTransport,
+            childRatePrivateTransport: tourData.childRatePrivateTransport,
+            infantRateTicketOnly: tourData.infantRateTicketOnly,
+            infantRateSharingTransport: tourData.infantRateSharingTransport,
+            infantRatePrivateTransport: tourData.infantRatePrivateTransport,
+            basic: tourData.basic?true:false,
+            platinum: tourData.platinum?true:false,
+            explorer: tourData.explorer?true:false,
+            pickup:tourData.pickup
         })
         if (tour) {
             return res.json({ success: true, msg: 'Tour added successfully' })
         } else {
             return res.json({ success: false, msg: "Something went wrong" })
         }
-
     } catch (error) {
         return res.json({ success: false, msg: "Something went wrong 2" })
     }

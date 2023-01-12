@@ -10,7 +10,7 @@ const update = async (req, res) => {
         if (req.method != 'POST') {
             return res.json({ success: false, msg: "Method not allowed" })
         }
-        let {title, overview, highlights, availability, status, description, category, duration, adultRate, childRate, infantRate, startingTime, tourLanguage, transferOption, importantInformation, bookingPolicy, covid19, tourVideo, tourAddress, googleMapLocation, featuredTour, paymentMethod,authtoken, id, image, location} = req.body;
+        let {title, overview, highlights, availability, status, description, category, duration, adultRate, childRate, infantRate, startingTime, tourLanguage, transferOption, importantInformation, bookingPolicy, covid19, tourVideo, tourAddress, googleMapLocation, featuredTour, paymentMethod,authtoken, id, image, location, adultRatePrime,childRatePrime,infantRatePrime,adultRateNonPrime,childRateNonPrime,infantRateNonPrime,adultRateTicketOnly,adultRateSharingTransport,adultRatePrivateTransport,childRateTicketOnly,childRateSharingTransport,childRatePrivateTransport,infantRateTicketOnly,infantRateSharingTransport,infantRatePrivateTransport,basic, platinum, explorer, pickup} = req.body;
         let {email} = jwt.verify(JSON.parse(authtoken), JWTSECRET);
         if(!email){
             return res.json({success:false, msg:"Invalid token"});
@@ -42,14 +42,32 @@ const update = async (req, res) => {
             featuredTour:featuredTour,
             paymentMethod:paymentMethod,
             image: image,
-            url:title.toLowerCase().split(/\s/).join("-")
+            url:title.toLowerCase().split(/\s/).join("-"),
+            adultRatePrime: adultRatePrime,
+            childRatePrime: childRatePrime,
+            infantRatePrime: infantRatePrime,
+            adultRateNonPrime: adultRateNonPrime,
+            childRateNonPrime: childRateNonPrime,
+            infantRateNonPrime: infantRateNonPrime,
+            adultRateTicketOnly: adultRateTicketOnly,
+            adultRateSharingTransport: adultRateSharingTransport,
+            adultRatePrivateTransport: adultRatePrivateTransport,
+            childRateTicketOnly: childRateTicketOnly,
+            childRateSharingTransport: childRateSharingTransport,
+            childRatePrivateTransport: childRatePrivateTransport,
+            infantRateTicketOnly: infantRateTicketOnly,
+            infantRateSharingTransport: infantRateSharingTransport,
+            infantRatePrivateTransport: infantRatePrivateTransport,
+            basic: basic?true:false,
+            platinum: platinum?true:false,
+            explorer: explorer?true:false,
+            pickup:pickup
         })
         if (tour) {
             return res.json({ success: true, msg: 'Updted successfully'})
         }else{
             return res.json({success:false, msg:"Something went wrong"})
         }
-        
     } catch (error) {
         console.log(error)
         return res.json({success:false, msg:"Something went wrong 2"})
