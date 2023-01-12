@@ -98,13 +98,13 @@ const Navbar = () => {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
                             </svg>
                         </li>
-                        <li><a className="text-sm text-blue-400 hover:text-orange-500" href="#">About</a></li>
+                        <li><Link className="text-sm text-blue-400 hover:text-orange-500" href={'/p/about'}>About</Link></li>
                         <li className="text-gray-300">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" className="w-4 h-4 current-fill" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
                             </svg>
                         </li>
-                        <li><a className="text-sm text-blue-400 hover:text-orange-500" href="#">Contact</a></li>
+                        <li><Link className="text-sm text-blue-400 hover:text-orange-500" href={'/p/contact'}>Contact</Link></li>
                     </ul>
                     {
                         isLoggedIn && <>
@@ -151,10 +151,10 @@ const Navbar = () => {
                                     <a className="block p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="#">International Visa</a>
                                 </li>
                                 <li className="mb-1">
-                                    <a className="block p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="#">About Us</a>
+                                    <Link className="block p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600 rounded"  href={'/p/about'}>About Us</Link>
                                 </li>
                                 <li className="mb-1">
-                                    <a className="block p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="#">Contact</a>
+                                    <Link className="block p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600 rounded"  href={'/p/contact'}>Contact</Link>
                                 </li>
                             </ul>
                         </div>

@@ -3,20 +3,20 @@ import User from '../../../models/User'
 import jwt from 'jsonwebtoken'
 connectToDb();
 const JWTSECRET = "HELLO"
-const fetch = async (req, res)=>{
-    if(req.method!='POST'){
-        return res.json({success:false, msg:"Method not allowed"})
+const fetch = async (req, res) => {
+    if (req.method != 'POST') {
+        return res.json({ success: false, msg: "Method not allowed" })
     }
-    let {authtoken} = req.body;
-    let verifyToken = jwt.verify(authtoken, JWTSECRET);
-    if(!verifyToken){
-        return res.json({success:false, msg:"token invalid"})
+    let { authtoken } = req.body;
+    let { email } = jwt.verify(JSON.parse(authtoken), JWTSECRET);
+    if (!email) {
+        return res.json({ success: false, msg: "Invalid token" });
     }
     let user = await User.find({});
-    if(!user){
-       return res.json({success:false, msg:"No user found"}); 
+    if (!user) {
+        return res.json({ success: false, msg: "No user found" });
     }
-    return res.json({success:true, msg:"User fetched", user:user});
+    return res.json({ success: true, msg: "User fetched", user: user });
 }
 
 export default fetch;

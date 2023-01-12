@@ -5,6 +5,9 @@ import { AiOutlineSwap, AiOutlineDelete } from 'react-icons/ai'
 import { TfiReload } from 'react-icons/tfi'
 import { BiImageAdd } from 'react-icons/bi'
 import {RxUpdate} from 'react-icons/rx'
+import { useRouter } from 'next/router'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '@animxyz/core'
 import 'react-quill/dist/quill.snow.css'
 
@@ -14,15 +17,49 @@ const QuillNoSSRWrapper = dynamic(import('react-quill'), {
     loading: () => <p>Loading ...</p>,
 })
 const AdminContactCMS = () => {
-    const [contactData, setContactData] = useState({ title: "", overview:"", status:"" })
+    const router = useRouter();
+    const [contactData, setContactData] = useState({ title: "", overview:"", status:"active", id:'', success:false })
     const handleOnTextChange = (e) => {
         e.preventDefault();
         setContactData({ ...contactData, [e.target.name]: e.target.value });
+        console.log(contactData)
     }
     const setOverview = (e) => {
         setContactData({ ...contactData, overview: e });
+        console.log(contactData)
     }
-
+    const fetchContact = async ()=>{
+        const response = await fetch('/api/cms/fetch/contact');
+        const responseData = await response.json();
+        console.log(responseData)
+        if(responseData.success){
+            setContactData({title:responseData.cms.title, overview:responseData.cms.overview, status:responseData.cms.status, id:responseData.cms._id})
+        }else{
+            console.log(responseData.msg)
+        }
+    }
+    const updatePage = async (e)=>{
+        e.preventDefault();
+        const response = await fetch("/api/cms/update",{
+            method:'POST',
+            headers:{
+                'content-type':'application/json'
+            },
+            body:JSON.stringify({title:contactData.title, overview:contactData.overview, status:contactData.status, authtoken:localStorage.getItem("alatwal-admin"), id:contactData.id})
+        })
+        const responseData = await response.json();
+        console.log(responseData)
+        if(responseData.success){
+            toast.success(responseData.msg);
+            router.push("/admin")
+        }else{
+            toast.error(responseData.msg);
+        }
+    }
+    useEffect(() => {
+      fetchContact();
+    }, [])
+    
     // rich text editor 
     const modules = {
         toolbar: [
@@ -60,6 +97,7 @@ const AdminContactCMS = () => {
     ]
     return (
         <>
+        <ToastContainer/>
             <div className="w-full p-4 overflow-y-auto">
                 <div className="w-full flex justify-between">
                     <h6 className=" font-semibold">Edit Contact Page</h6>
@@ -67,20 +105,22 @@ const AdminContactCMS = () => {
                 </div>
                 <div className="w-full rounded border border-gray-300  my-6 box-border">
                     <h5 className="text-2xl font-semibold p-4 text-left border-b border-gray-300">Edit Contact Page</h5>
-                    <form className='w-full p-4 ' action="">
+                    {
+                        contactData  &&
+                        <form onSubmit={updatePage} className='w-full p-4 ' action="">
                         <div className="w-full flex flex-col md:flex-row md:justify-between mb-6">
                             <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-32' htmlFor="">Title  <sup className='text-red-600'>*</sup></label>
-                            <input type="text" name="title" onChange={handleOnTextChange} placeholder="Page Title" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' />
+                            <input type="text" name="title" value={contactData.title} onChange={handleOnTextChange} placeholder="Page Title" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' />
                         </div>
                         <div className="w-full flex md:items-start flex-col md:flex-row md:justify-between mb-6">
                             <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-32' htmlFor="">Overview  <sup className='text-red-600'>*</sup></label>
                             <div className="w-full  border p-4 rounded bg-white">
-                                <QuillNoSSRWrapper onChange={setOverview} placeholder="Page Overview" className='' modules={modules} formats={formats} theme="snow" />
+                                <QuillNoSSRWrapper  value={contactData.overview}  onChange={setOverview} placeholder="Page Overview" className='' modules={modules} formats={formats} theme="snow" />
                             </div>
                         </div>
                         <div className="w-full flex flex-col md:flex-row md:justify-between mt-6">
                             <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-32' htmlFor="">Status  <sup className='text-red-600'>*</sup></label>
-                            <select name='status' onChange={handleOnTextChange} className='w-full focus:outline focus:outline-blue-400 p-1 rounded border cursor-pointer' >
+                            <select name='status'  value={contactData.status}  onChange={handleOnTextChange} className='w-full focus:outline focus:outline-blue-400 p-1 rounded border cursor-pointer' >
                                 <option value="active">Active</option>
                                 <option value="inactive">Inactive</option>
                             </select>
@@ -89,6 +129,7 @@ const AdminContactCMS = () => {
                             <button className="bg-blue-400 px-2 py-1 text-white md:w-auto w-full justify-center rounded flex items-center hover:bg-blue-500">Update <RxUpdate className='ml-1 ' /></button>
                         </div>
                     </form>
+                    }
                 </div>
             </div>
         </>

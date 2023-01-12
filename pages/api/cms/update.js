@@ -15,17 +15,24 @@ const add = async (req, res) => {
         if (!title
             || !overview
             || !status
-            || !authtoken
-            || !id) {
+            || !authtoken) {
             return res.json({ success: false, msg: "All fields required" })
         }
-        let verifyAuthtoken = jwt.verify(authtoken, JWTSECRET);
-        if (!verifyAuthtoken) {
-            return res.json({ success: false, msg: "Invalid token" });
+        let {email} = jwt.verify(JSON.parse(authtoken), JWTSECRET);
+        if(!email){
+            return res.json({success:false, msg:"Invalid token"});
         }
-        let cms = await CMS.findOneAndUpdate({_id:id},{title, overview, status})
+        let cms;
+        if(id){
+            cms = await CMS.findOneAndUpdate({ _id: id }, { title, overview, status })
+        }else{
+            cms = await CMS.create({ title:title.toLowerCase(), overview:overview, status:status.toLowerCase() })
+        }
         if (cms) {
-            return res.json({ success: true, msg: 'Updated successfully' })
+            if(id){
+                return res.json({ success: true, msg: 'Updated successfully' })
+            }
+            return res.json({ success: true, msg: 'Created successfully' })
         } else {
             return res.json({ success: false, msg: "Something went wrong" })
         }

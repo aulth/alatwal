@@ -3,11 +3,14 @@ import { MdClose, MdCheck, MdOutlineEdit } from 'react-icons/md'
 import { AiOutlineSwap, AiOutlineDelete } from 'react-icons/ai'
 import { TfiReload } from 'react-icons/tfi'
 import '@animxyz/core'
-import Chart from "chart.js";
-import Head from 'next/head'
-const Users = () => {
-    let userData = [{ "name": "Mohd Usman", "email": "usman@gmail.com", id: "user-1" }, { "name": "Mohd Noman", "email": "noman@gmail.com", "id": "user-2" }, { "name": "Ashraf", "email": "ashraf@gmail.com", "id": "user-3" }]
-
+import UserComponent from './UserComponent'
+const Users = ({ user, fetchUser }) => {
+    let userData = []
+    if (user) {
+        for (let item of user) {
+            userData.push({ name: item.name.toLowerCase().split(" ").join("-"), email: item.email.toLowerCase().split(" ").join("-"), id: item._id });
+        }
+    }
     useEffect(() => {
         if (typeof window !== 'undefined') {
         }
@@ -29,10 +32,10 @@ const Users = () => {
                 }
             }
             for (let user of userData) {
-                document.querySelector(`#${user.id}`).classList.add("hidden");
+                document.querySelector(`#user-${user.id}`).classList.add("hidden");
             }
             for (let user of result) {
-                document.querySelector(`#${user}`).classList.remove("hidden");
+                document.querySelector(`#user-${user}`).classList.remove("hidden");
             }
         }
     }
@@ -58,57 +61,15 @@ const Users = () => {
                             <td className='p-1 border-l px-2 uppercase font-semibold'>Action</td>
                         </thead>
                         <tbody>
-                            <tr id='user-1' className='border-b border-l border-r'>
-                                <td className='p-1 text-center'>1</td>
-                                <td className='p-1 border-l px-2'>Mohd Usman</td>
-                                <td className='p-1 border-l px-2'>06-01-2023</td>
-                                <td className='p-1 border-l px-2'>usman@gmail.com</td>
-                                <td className='p-1 border-l px-2'>1234</td>
-                                <td className='p-1 border-l px-2'>
-                                    <div className="flex items-center">
-                                        <button className='px-2 py-1 border rounded-l hover:bg-gray-100'>
-                                            <MdOutlineEdit />
-                                        </button>
-                                        <button className='px-2 py-1 border-r border-t border-b rounded-r hover:bg-gray-100'>
-                                            <AiOutlineDelete />
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr id='user-2' className='border-b border-l border-r'>
-                                <td className='p-1 text-center'>2</td>
-                                <td className='p-1 border-l px-2'>Mohd Noman</td>
-                                <td className='p-1 border-l px-2'>06-01-2023</td>
-                                <td className='p-1 border-l px-2'>noman@gmail.com</td>
-                                <td className='p-1 border-l px-2'>1234</td>
-                                <td className='p-1 border-l px-2'>
-                                    <div className="flex items-center">
-                                        <button className='px-2 py-1 border rounded-l hover:bg-gray-100'>
-                                            <MdOutlineEdit />
-                                        </button>
-                                        <button className='px-2 py-1 border-r border-t border-b rounded-r hover:bg-gray-100'>
-                                            <AiOutlineDelete />
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr id='user-3' className='border-b border-l border-r'>
-                                <td className='p-1 text-center'>3</td>
-                                <td className='p-1 border-l px-2'>Ashraf</td>
-                                <td className='p-1 border-l px-2'>06-01-2023</td>
-                                <td className='p-1 border-l px-2'>ashraf@gmail.com</td>
-                                <td className='p-1 border-l px-2'>1234</td>
-                                <td className='p-1 border-l px-2'>
-                                    <div className="flex items-center">
-                                        <button className='px-2 py-1 border rounded-l hover:bg-gray-100'>
-                                            <MdOutlineEdit />
-                                        </button>
-                                        <button className='px-2 py-1 border-r border-t border-b rounded-r hover:bg-gray-100'>
-                                            <AiOutlineDelete />
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
+                            {
+                                user && user.length > 0 &&
+                                user.map((user, index) => {
+                                    return <tr key={index} id={`user-${user._id}`} className='border-b border-l border-r'>
+                                        <td className='p-1 text-center'>{index+1}</td>
+                                        <UserComponent user={user} fetchUser={fetchUser} />
+                                    </tr>
+                                })
+                            }
                         </tbody>
                     </table>
                 </div>

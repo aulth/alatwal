@@ -68,14 +68,14 @@ const Footer = () => {
                                 <nav aria-label="Footer Navigation - Company" className="mt-6">
                                     <ul className="space-y-4 text-sm">
                                         <li>
-                                            <a href="#" className="text-gray-700 transition hover:opacity-75">
+                                            <Link href={'/p/about'} className="text-gray-700 transition hover:opacity-75">
                                                 About
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a href="#" className="text-gray-700 transition hover:opacity-75">
+                                            <Link  href={'/p/contact'} className="text-gray-700 transition hover:opacity-75">
                                                 Contact
-                                            </a>
+                                            </Link>
                                         </li>
                                     </ul>
                                 </nav>
@@ -85,14 +85,14 @@ const Footer = () => {
                                 <nav aria-label="Footer Navigation - Company" className="mt-6">
                                     <ul className="space-y-4 text-sm">
                                         <li>
-                                            <a href="#" className="text-gray-700 transition hover:opacity-75">
+                                            <Link  href={'/register'} className="text-gray-700 transition hover:opacity-75">
                                                 Register
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a href="#" className="text-gray-700 transition hover:opacity-75">
+                                            <Link  href={'/p/faq'} className="text-gray-700 transition hover:opacity-75">
                                                 FAQs
-                                            </a>
+                                            </Link>
                                         </li>
                                     </ul>
                                 </nav>
