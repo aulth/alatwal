@@ -6,7 +6,7 @@ import Tourpage from '../../components/Tourpage'
 const DesertSafari = ({categoryUrl}) => {
   const [tourData, setTourData] = useState()
   const [allTour, setAllTour] = useState([])
-  const [categoryInfo, setCategoryInfo] = useState({title:'', image:''})
+  const [categoryInfo, setCategoryInfo] = useState({title:'', image:[]})
     const fetchTour = async () => {
         try {
           const response = await fetch("/api/tour/singlecategory", {
@@ -48,7 +48,7 @@ const DesertSafari = ({categoryUrl}) => {
     <>
       <Navbar />
       <div className="w-full h-56 overflow-hidden relative">
-        <img src="https://source.unsplash.com/random/?wild-wide-water-park" className='object-cover object-center w-full ' alt="" />
+        <img src={categoryInfo.image[1]?categoryInfo.image[1]:`https://source.unsplash.com/random/?${categoryInfo.url}`} className='object-cover object-center w-full ' alt="" />
         <div className="w-full absolute top-0 h-56 flex justify-center items-center">
         <h3 className="md:text-5xl text-3xl font-bold font-[helvetica] text-white drop-shadow  text-center">{categoryInfo.title?categoryInfo.title:"No Tour Found"}</h3>
         </div>

@@ -24,7 +24,7 @@ const add = async (req, res) => {
         }
         let cms;
         if(id){
-            cms = await CMS.findOneAndUpdate({ _id: id }, { title, overview, status })
+            cms = await CMS.findOneAndUpdate({ _id: id }, {overview, status })
         }else{
             cms = await CMS.create({ title:title.toLowerCase(), overview:overview, status:status.toLowerCase() })
         }

@@ -85,7 +85,10 @@ const Edit = ({ categoryUrl }) => {
                             <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-14' htmlFor="">Description  <sup className='text-red-600'>*</sup></label>
                             <textarea  value={categoryData.description} onChange={handleOnChange} name='description' className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' />
                         </div>
-                        <UploadImage labelWidth={'w-14'} multiple={false} image={image} setImage={setImage} prset={'category'} />
+                        <div>
+                        <label className='text-sm' htmlFor="">Please upload 2 images | 1st for icon, 2nd for banner</label>
+                        <UploadImage labelWidth={'w-14'} multiple={true} image={image} setImage={setImage} prset={'category'} />
+                        </div>
                         <div className="w-full flex flex-col md:flex-row md:justify-between mt-6">
                             <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-14' htmlFor="">Status  <sup className='text-red-600'>*</sup></label>
                             <select value={categoryData.status} onChange={handleOnChange} name="status" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' >
