@@ -10,11 +10,13 @@ const update = async (req, res) => {
         if (req.method != 'POST') {
             return res.json({ success: false, msg: "Method not allowed" })
         }
-        let {title, overview, highlights, availability, status, description, category, duration, adultRate, childRate, infantRate, startingTime, tourLanguage, transferOption, importantInformation, bookingPolicy, covid19, tourVideo, tourAddress, googleMapLocation, featuredTour, paymentMethod,authtoken, id, image, location, adultRatePrime,childRatePrime,infantRatePrime,adultRateNonPrime,childRateNonPrime,infantRateNonPrime,adultRateTicketOnly,adultRateSharingTransport,adultRatePrivateTransport,childRateTicketOnly,childRateSharingTransport,childRatePrivateTransport,infantRateTicketOnly,infantRateSharingTransport,infantRatePrivateTransport,basic, platinum, explorer, pickup} = req.body;
+        let {title, overview, highlights, availability, status, description, category, duration, adultRate, childRate, infantRate, startingTime, tourLanguage, transferOption, importantInformation, bookingPolicy, covid19, tourVideo, tourAddress, googleMapLocation, featuredTour, paymentMethod,authtoken, id, image, location, adultRatePrime,childRatePrime,infantRatePrime,adultRateNonPrime,childRateNonPrime,infantRateNonPrime,adultRateTicketOnly,adultRateSharingTransport,adultRatePrivateTransport,childRateTicketOnly,childRateSharingTransport,childRatePrivateTransport,infantRateTicketOnly,infantRateSharingTransport,infantRatePrivateTransport,basic, platinum, explorer, pickup, transport, fastTrackAddOn} = req.body;
         let {email} = jwt.verify(JSON.parse(authtoken), JWTSECRET);
         if(!email){
             return res.json({success:false, msg:"Invalid token"});
         }
+        console.log(transport)
+        console.log(fastTrackAddOn)
         let categoryData = await Category.findOne({_id:category});
         let tour = await Tour.findOneAndUpdate({_id:id}, {
             title:title,
@@ -61,7 +63,9 @@ const update = async (req, res) => {
             basic: basic?true:false,
             platinum: platinum?true:false,
             explorer: explorer?true:false,
-            pickup:pickup
+            pickup:pickup,
+            transport: transport,
+            fastTrackAddOn: fastTrackAddOn,
         })
         if (tour) {
             return res.json({ success: true, msg: 'Updted successfully'})

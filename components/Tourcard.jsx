@@ -17,7 +17,7 @@ const Tourcard = ({data}) => {
             <div className="w-full flex justify-between items-center pb-4 border-b border-gray-200">
               <div>
                 <button className='flex items-center'>
-                  {data.basic?<span className='flex items-center'>Basic <img className='w-4 h-4 mx-1' src='https://img.icons8.com/ultraviolet/40/null/star-half-empty.png'  /></span>:data.platinum?<span className='flex items-center'>Platinum <img className='w-4 h-4 mx-1' src='https://img.icons8.com/external-bearicons-gradient-bearicons/64/null/external-Platinum-miscellany-texts-and-badges-bearicons-gradient-bearicons.png'  /></span>:data.explorer?<span className='flex items-center'>Platinum <img className='w-4 h-4 mx-1' src='https://img.icons8.com/color-glass/48/null/sparkling-diamond--v1.png'  /></span>:''}
+                  {data.basic?<span className='flex items-center'>Basic <img className='w-4 h-4 mx-1' src='https://img.icons8.com/ultraviolet/40/null/star-half-empty.png'  /></span>:data.platinum?<span className='flex items-center'>Platinum <img className='w-4 h-4 mx-1' src='https://img.icons8.com/external-bearicons-gradient-bearicons/64/null/external-Platinum-miscellany-texts-and-badges-bearicons-gradient-bearicons.png'  /></span>:data.explorer?<span className='flex items-center'>Explorer <img className='w-4 h-4 mx-1' src='https://img.icons8.com/color-glass/48/null/sparkling-diamond--v1.png'  /></span>:''}
                 </button>           
                 <h3 className="md:text-lg font-semibold">{data.title?data.title:"Tour Title Here"}</h3>
               </div>

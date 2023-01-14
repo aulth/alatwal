@@ -63,10 +63,12 @@ const addTour = async (req, res) => {
             infantRateTicketOnly: tourData.infantRateTicketOnly,
             infantRateSharingTransport: tourData.infantRateSharingTransport,
             infantRatePrivateTransport: tourData.infantRatePrivateTransport,
-            basic: tourData.basic?true:false,
-            platinum: tourData.platinum?true:false,
-            explorer: tourData.explorer?true:false,
-            pickup:tourData.pickup
+            basic: tourData.basic ? true : false,
+            platinum: tourData.platinum ? true : false,
+            explorer: tourData.explorer ? true : false,
+            pickup: tourData.pickup,
+            transport: tourData.transport,
+            fastTrackAddOn: tourData.fastTrackAddOn,
         })
         if (tour) {
             return res.json({ success: true, msg: 'Tour added successfully' })

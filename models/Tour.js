@@ -45,7 +45,9 @@ const Tour = new mongoose.Schema({
     basic:Boolean,
     platinum:Boolean,
     explorer:Boolean,
-    pickup:String
+    pickup:String,
+    transport:Number,
+    fastTrackAddOn:Number,
 }, { timestamps: true })
 
 mongoose.models = {};

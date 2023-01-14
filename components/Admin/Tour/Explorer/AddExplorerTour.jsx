@@ -16,7 +16,7 @@ const QuillNoSSRWrapper = dynamic(import('react-quill'), {
     loading: () => <p>Loading ...</p>,
 })
 const AddNewTour = () => {
-    const [tourData, setTourData] = useState({ title: "", overview: "", highlights: "", pickup:"", availability: "daily", status: 'active', description: "", category: "", location: '', duration: "", adultRateTicketOnly: "", adultRateSharingTransport: "",adultRatePrivateTransport:'',childRateTicketOnly: "", childRateSharingTransport: "",childRatePrivateTransport:'', infantRateTicketOnly: "", infantRateSharingTransport: "",infantRatePrivateTransport:'', tourLanguage: "", importantInformation: "", bookingPolicy: "", tourVideo: "", tourAddress: "", googleMapLocation: "", featuredTour: true, paymentMethod: "merchant", explorer:true });
+    const [tourData, setTourData] = useState({ title: "", overview: "", highlights: "", pickup:"", availability: "daily", status: 'active', description: "", category: "", location: '', duration: "", adultRateTicketOnly: "", adultRateSharingTransport: "",adultRatePrivateTransport:'',childRateTicketOnly: "", childRateSharingTransport: "",childRatePrivateTransport:'', infantRateTicketOnly: "", infantRateSharingTransport: "",infantRatePrivateTransport:'', tourLanguage: "", importantInformation: "", bookingPolicy: "", tourVideo: "", tourAddress: "", googleMapLocation: "", featuredTour: true, paymentMethod: "merchant", explorer:true, transport:0, fastTrackAddOn:0 });
     const [category, setCategory] = useState([])
     const [location, setLocation] = useState([])
     const router = useRouter();
@@ -202,6 +202,14 @@ const AddNewTour = () => {
                                     <input type="number" name="infantRateSharingTransport" onChange={handleOnTextChange} placeholder="210" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border mx-1' />
                                     <input type="number" name="infantRatePrivateTransport" onChange={handleOnTextChange} placeholder="220" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border mx-1' />
                                 </div>
+                            </div>
+                            <div className="w-full flex flex-col md:flex-row md:justify-between mb-6">
+                                <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">Transport Rate  <sup className='text-red-600'>*</sup></label>
+                                <input type="Number" name="transport" onChange={handleOnTextChange} placeholder="90" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' />
+                            </div>
+                            <div className="w-full flex flex-col md:flex-row md:justify-between mb-6">
+                                <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">Fast Track Add On  <sup className='text-red-600'>*</sup></label>
+                                <input type="Number" name="fastTrackAddOn" onChange={handleOnTextChange} placeholder="100" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' />
                             </div>
                             <div className="w-full flex flex-col md:flex-row md:justify-between mb-6">
                                 <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">Tour Language  <sup className='text-red-600'>*</sup></label>

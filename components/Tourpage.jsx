@@ -21,7 +21,7 @@ const DesertSafari = ({ data }) => {
     const [bookingPolicyStatus, setBookingPolicyStatus] = useState(false)
     const [importantInformationStatus, setImportantInformationStatus] = useState(false)
     const [covidPrecautionStatus, setCovidPrecautionStatus] = useState(false)
-    const [tourData, setTourData] = useState({ id: data._id, title: data.title, adultRate: data.adultRate, child: data.childRate, infant: data.infantRate, adultRatePrime: data.adultRatePrime, childRatePrime: data.childRatePrime, infantRatePrime: data.infantRatePrime, adultRateNonPrime: data.adultRateNonPrime, childRateNonPrime: data.childRateNonPrime, infantRateNonPrime: data.infantRateNonPrime, adultRateTicketOnly: data.adultRateTicketOnly, adultRateSharingTransport: data.adultRateSharingTransport, adultRatePrivateTransport: data.adultRatePrivateTransport, childRateTicketOnly: data.childRateTicketOnly, childRateSharingTransport: data.childRateSharingTransport, childRatePrivateTransport: data.childRatePrivateTransport, infantRateTicketOnly: data.infantRateTicketOnly, infantRateSharingTransport: data.infantRateSharingTransport, infantRatePrivateTransport: data.infantRatePrivateTransport, date: null, time: null, price: null, tax: null, totalPrice: null, lastDateToCancel: null, basic: data.basic, platinum: data.platinum, explorer: data.explorer })
+    const [tourData, setTourData] = useState({ id: data._id, title: data.title, adultRate: data.adultRate, adult:0, child:0, infant:0, childRate: data.childRate, infantRate: data.infantRate, adultRatePrime: data.adultRatePrime, childRatePrime: data.childRatePrime, infantRatePrime: data.infantRatePrime, adultRateNonPrime: data.adultRateNonPrime, childRateNonPrime: data.childRateNonPrime, infantRateNonPrime: data.infantRateNonPrime, adultRateTicketOnly: data.adultRateTicketOnly, adultRateSharingTransport: data.adultRateSharingTransport, adultRatePrivateTransport: data.adultRatePrivateTransport, childRateTicketOnly: data.childRateTicketOnly, childRateSharingTransport: data.childRateSharingTransport, childRatePrivateTransport: data.childRatePrivateTransport, infantRateTicketOnly: data.infantRateTicketOnly, infantRateSharingTransport: data.infantRateSharingTransport, infantRatePrivateTransport: data.infantRatePrivateTransport, date: null, time: null, price: null, tax: null, totalPrice: null, lastDateToCancel: null, basic: data.basic, platinum: data.platinum, explorer: data.explorer, pickup:data.pickup, transport:data.transport, fastTrackAddOn:data.fastTrackAddOn, isFastTrackAddOn:false, typeOfTicket:'onlyTicket' })
     const [isPrime, setIsPrime] = useState(false)
     const [typeOfTicket, setTypeOfTicket] = useState('');
     let time = ['7:00 AM']
@@ -63,6 +63,7 @@ const DesertSafari = ({ data }) => {
     }
     const handleOnChange = e => {
         e.preventDefault();
+        console.log(e.target.value)
         setTourData({ ...tourData, [e.target.name]: e.target.value });
         if (e.target.name == 'date') {
             let date = new Date(e.target.value); // get the date from the input element
@@ -106,10 +107,10 @@ const DesertSafari = ({ data }) => {
         }
     }
     const addToCart = () => {
-        if (!tourData.time) {
-            toast.info("Please choose the time");
-            return;
-        }
+        // if (!tourData.time) {
+        //     toast.info("Please choose the time");
+        //     return;
+        // }
         if (typeof window !== 'undefined') {
             let cart = localStorage.getItem('tour-cart') ? JSON.parse(localStorage.getItem('tour-cart')) : [];
             localStorage.setItem('tour-cart', JSON.stringify(cart.concat(tourData)));
@@ -234,16 +235,34 @@ const DesertSafari = ({ data }) => {
         switch (type) {
             case 'onlyTicket':
                 setTypeOfTicket('onlyTicket');
+                setTourData({...tourData, typeOfTicket:'onlyTicket'})
                 break;
             case 'sharingTransfer':
                 setTypeOfTicket('sharingTransfer');
+                setTourData({...tourData, typeOfTicket:'sharingTransfer'})
                 break;
             case 'privateTransfer':
                 setTypeOfTicket('privateTransfer');
+                setTourData({...tourData, typeOfTicket:'privateTransfer'})
                 break;
             default:
                 break;
         }
+    }
+    const toggleFastTrackAddOn = ()=>{
+        if(typeof window!=='undefined'){
+            if(tourData.isFastTrackAddOn){
+                setTourData({...tourData, isFastTrackAddOn:false})
+                document.querySelector("#fastTrackBtn").classList.remove('bg-blue-400');
+                document.querySelector("#fastTrackBtn").classList.remove('text-white');
+            }else{
+                setTourData({...tourData, isFastTrackAddOn:true})
+                document.querySelector("#fastTrackBtn").classList.add('bg-blue-400');
+                document.querySelector("#fastTrackBtn").classList.add('text-white');
+            }
+            console.log(tourData)
+        }
+        
     }
     useEffect(() => {
         if (isPrime) {
@@ -462,14 +481,17 @@ const DesertSafari = ({ data }) => {
                     }
                     {
                         data.explorer &&
+                        <>
                         <div className="w-full  border border-gray-100 rounded-lg p-1 my-2">
-                            <select name="type" onChange={handleOnChange} id="" className='w-full p-1 focus:outline-none cursor-pointer'>
+                            <select value={tourData.typeOfTicket} name="type" onChange={handleOnChange} id="" className='w-full p-1 focus:outline-none cursor-pointer'>
                                 <option value="">Select Type of Ticket</option>
                                 <option value="onlyTicket">Only Entry Ticket</option>
                                 <option value="sharingTransfer">Sharing Transfer</option>
                                 <option value="privateTransfer">Private Transfer</option>
                             </select>
                         </div>
+                            <button onClick={toggleFastTrackAddOn} id='fastTrackBtn' className='w-full flex items-center  border border-gray-100 rounded-lg p-2 my-2 '>Fast Track Add On</button>
+                        </>
                     }
                     <div className="w-full  border border-gray-100 rounded-lg p-1 my-2">
                         <input type="date" name="date" pattern="\d{4}-\d{2}-\d{2}" placeholder="yyyy-mm-dd" onChange={handleOnChange} id="date" className='w-full p-1 focus:outline-none cursor-pointer' />
@@ -495,6 +517,18 @@ const DesertSafari = ({ data }) => {
                             tourData.infant >= 1 && <div className="w-full flex justify-between border-b border-gray-100 py-2 text-sm">
                                 <span>Infant x {tourData.infant} </span>
                                 <span className='uppercase font-semibold'>Aed {price.infant * tourData.infant}</span>
+                            </div>
+                        }
+                        {
+                            tourData.isFastTrackAddOn >= 1 && <div className="w-full flex justify-between border-b border-gray-100 py-2 text-sm">
+                                <span>Fast Track Add On </span>
+                                <span className='uppercase font-semibold'>Aed {tourData.fastTrackAddOn}</span>
+                            </div>
+                        }
+                        {
+                            tourData.explorer  && <div className="w-full flex justify-between border-b border-gray-100 py-2 text-sm">
+                                <span>Transportation </span>
+                                <span className='uppercase font-semibold'>Aed {tourData.transport}</span>
                             </div>
                         }
                         {/* <div className="w-full flex flex-col justify-between border-b border-gray-100 py-2 text-sm">

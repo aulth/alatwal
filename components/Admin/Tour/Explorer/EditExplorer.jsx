@@ -16,7 +16,7 @@ const QuillNoSSRWrapper = dynamic(import('react-quill'), {
     loading: () => <p>Loading ...</p>,
 })
 const EditTour = ({ tourUrl }) => {
-    const [tourData, setTourData] = useState({ title: "", overview: "", highlights: "", pickup:'', availability: "daily", status: 'active', description: "", category: "", location: '', duration: "", adultRateTicketOnly:'', adultRateSharingTransport:'', adultRatePrivateTransport:'', childRateTicketOnly:'', childRateSharingTransport:'', childRatePrivateTransport:'', infantRateTicketOnly:'', infantRateSharingTransport:'', infantRatePrivateTransport:'' , tourLanguage: "", importantInformation: "", bookingPolicy: "", tourVideo: "", tourAddress: "", googleMapLocation: "", featuredTour: true, paymentMethod: "merchant", explorer: true, id: '', success: false });
+    const [tourData, setTourData] = useState({ title: "", overview: "", highlights: "", pickup:'', availability: "daily", status: 'active', description: "", category: "", location: '', duration: "", adultRateTicketOnly:'', adultRateSharingTransport:'', adultRatePrivateTransport:'', childRateTicketOnly:'', childRateSharingTransport:'', childRatePrivateTransport:'', infantRateTicketOnly:'', infantRateSharingTransport:'', infantRatePrivateTransport:'' , tourLanguage: "", importantInformation: "", bookingPolicy: "", tourVideo: "", tourAddress: "", googleMapLocation: "", featuredTour: true, paymentMethod: "merchant", explorer: true, id: '', success: false, transport:0, fastTrackAddOn:0 });
     const [category, setCategory] = useState([])
     const [location, setLocation] = useState([])
     const [tourDataLoaded, setTourDataLoaded] = useState(false)
@@ -25,6 +25,7 @@ const EditTour = ({ tourUrl }) => {
     const handleOnTextChange = (e) => {
         e.preventDefault();
         setTourData({ ...tourData, [e.target.name]: e.target.value });
+        console.log(tourData)
     }
     const setOverview = (e) => {
         setTourData({ ...tourData, overview: e });
@@ -40,7 +41,7 @@ const EditTour = ({ tourUrl }) => {
             })
             const responseData = await response.json();
             if (responseData.success) {
-                setTourData({ title: responseData.tour.title, overview: responseData.tour.overview, highlights: responseData.tour.highlights, availability: responseData.tour.availability, status: responseData.tour.status, description: responseData.tour.description, category: responseData.tour.category, location: responseData.tour.location, duration: responseData.tour.duration, adultRateTicketOnly:responseData.tour.adultRateTicketOnly, adultRateSharingTransport:responseData.tour.adultRateSharingTransport, adultRatePrivateTransport:responseData.tour.adultRatePrivateTransport, childRateTicketOnly:responseData.tour.childRateTicketOnly, childRateSharingTransport:responseData.tour.childRateSharingTransport, childRatePrivateTransport:responseData.tour.childRatePrivateTransport, infantRateTicketOnly:responseData.tour.infantRateTicketOnly, infantRateSharingTransport:responseData.tour.infantRateSharingTransport, infantRatePrivateTransport:responseData.tour.infantRatePrivateTransport, pickup:responseData.tour.pickup, tourLanguage: responseData.tour.tourLanguage, importantInformation: responseData.tour.importantInformation, bookingPolicy: responseData.tour.bookingPolicy, tourVideo: responseData.tour.tourVideo, tourAddress: responseData.tour.tourAddress, googleMapLocation: responseData.tour.googleMapLocation, featuredTour: responseData.tour.featuredTour, paymentMethod: responseData.tour.paymentMethod, id: responseData.tour._id, success: true });
+                setTourData({ title: responseData.tour.title, overview: responseData.tour.overview, highlights: responseData.tour.highlights, availability: responseData.tour.availability, status: responseData.tour.status, description: responseData.tour.description, category: responseData.tour.category, location: responseData.tour.location, duration: responseData.tour.duration, adultRateTicketOnly:responseData.tour.adultRateTicketOnly, adultRateSharingTransport:responseData.tour.adultRateSharingTransport, adultRatePrivateTransport:responseData.tour.adultRatePrivateTransport, childRateTicketOnly:responseData.tour.childRateTicketOnly, childRateSharingTransport:responseData.tour.childRateSharingTransport, childRatePrivateTransport:responseData.tour.childRatePrivateTransport, infantRateTicketOnly:responseData.tour.infantRateTicketOnly, infantRateSharingTransport:responseData.tour.infantRateSharingTransport, infantRatePrivateTransport:responseData.tour.infantRatePrivateTransport, pickup:responseData.tour.pickup, tourLanguage: responseData.tour.tourLanguage, importantInformation: responseData.tour.importantInformation, bookingPolicy: responseData.tour.bookingPolicy, tourVideo: responseData.tour.tourVideo, tourAddress: responseData.tour.tourAddress, googleMapLocation: responseData.tour.googleMapLocation, featuredTour: responseData.tour.featuredTour, paymentMethod: responseData.tour.paymentMethod, id: responseData.tour._id, success: true, transport:responseData.tour.transport, fastTrackAddOn:responseData.tour.fastTrackAddOn });
                 setImage(responseData.tour.image)
                 setTourDataLoaded(true)
             }
@@ -49,6 +50,7 @@ const EditTour = ({ tourUrl }) => {
 
     const handleOnEdit = async (e) => {
         e.preventDefault();
+        console.log(tourData)
         if (typeof window !== 'undefined') {
             if (!tourData.title || !image.length > 0 || !tourData.featuredTour || !tourData.availability || !tourData.bookingPolicy || !tourData.category || !tourData.adultRateTicketOnly || !tourData.adultRateSharingTransport || !tourData.adultRatePrivateTransport || !tourData.childRateTicketOnly || !tourData.childRateSharingTransport || !tourData.childRatePrivateTransport || !tourData.infantRateTicketOnly || !tourData.infantRateSharingTransport || !tourData.infantRatePrivateTransport || !tourData.pickup ||  !tourData.description || !tourData.duration || !tourData.googleMapLocation || !tourData.highlights || !tourData.importantInformation) {
                 toast.info("All fields required");
@@ -59,7 +61,7 @@ const EditTour = ({ tourUrl }) => {
                 headers: {
                     'content-type': 'application/json'
                 },
-                body: JSON.stringify({ title: tourData.title, overview: tourData.overview, highlights: tourData.highlights, availability: tourData.availability, status: tourData.status, description: tourData.description, category: tourData.category, duration: tourData.duration,  adultRateTicketOnly:tourData.adultRateTicketOnly, adultRateSharingTransport:tourData.adultRateSharingTransport, adultRatePrivateTransport:tourData.adultRatePrivateTransport, childRateTicketOnly:tourData.childRateTicketOnly, childRateSharingTransport:tourData.childRateSharingTransport, childRatePrivateTransport:tourData.childRatePrivateTransport, infantRateTicketOnly:tourData.infantRateTicketOnly, infantRateSharingTransport:tourData.infantRateSharingTransport, infantRatePrivateTransport:tourData.infantRatePrivateTransport, pickup:tourData.pickup, tourLanguage: tourData.tourLanguage, importantInformation: tourData.importantInformation, bookingPolicy: tourData.bookingPolicy, tourVideo: tourData.tourVideo, tourAddress: tourData.tourAddress, googleMapLocation: tourData.googleMapLocation, featuredTour: tourData.featuredTour, paymentMethod: tourData.paymentMethod, authtoken: localStorage.getItem('alatwal-admin'), id: tourData.id, image: image, location: tourData.location, explorer:true })
+                body: JSON.stringify({ title: tourData.title, overview: tourData.overview, highlights: tourData.highlights, availability: tourData.availability, status: tourData.status, description: tourData.description, category: tourData.category, duration: tourData.duration,  adultRateTicketOnly:tourData.adultRateTicketOnly, adultRateSharingTransport:tourData.adultRateSharingTransport, adultRatePrivateTransport:tourData.adultRatePrivateTransport, childRateTicketOnly:tourData.childRateTicketOnly, childRateSharingTransport:tourData.childRateSharingTransport, childRatePrivateTransport:tourData.childRatePrivateTransport, infantRateTicketOnly:tourData.infantRateTicketOnly, infantRateSharingTransport:tourData.infantRateSharingTransport, infantRatePrivateTransport:tourData.infantRatePrivateTransport, pickup:tourData.pickup, tourLanguage: tourData.tourLanguage, importantInformation: tourData.importantInformation, bookingPolicy: tourData.bookingPolicy, tourVideo: tourData.tourVideo, tourAddress: tourData.tourAddress, googleMapLocation: tourData.googleMapLocation, featuredTour: tourData.featuredTour, paymentMethod: tourData.paymentMethod, authtoken: localStorage.getItem('alatwal-admin'), id: tourData.id, image: image, location: tourData.location, explorer:true, transport:tourData.transport, fastTrackAddOn:tourData.fastTrackAddOn })
             })
             const addData = await add.json();
             if (!addData.success) {
@@ -223,6 +225,14 @@ const EditTour = ({ tourUrl }) => {
                                     <input type="number" value={tourData.infantRateSharingTransport}  name="infantRateSharingTransport" onChange={handleOnTextChange} placeholder="210" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border mx-1' />
                                     <input type="number" value={tourData.infantRatePrivateTransport}  name="infantRatePrivateTransport" onChange={handleOnTextChange} placeholder="220" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border mx-1' />
                                 </div>
+                            </div>
+                            <div className="w-full flex flex-col md:flex-row md:justify-between mb-6">
+                                <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">Transport Rate  <sup className='text-red-600'>*</sup></label>
+                                <input type="Number" value={tourData.transport} name="transport" onChange={handleOnTextChange} placeholder="90 Rate" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' />
+                            </div>
+                            <div className="w-full flex flex-col md:flex-row md:justify-between mb-6">
+                                <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">Fast Track Add On  <sup className='text-red-600'>*</sup></label>
+                                <input type="Number" value={tourData.fastTrackAddOn} name="fastTrackAddOn" onChange={handleOnTextChange} placeholder="100" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' />
                             </div>
                             <div className="w-full flex flex-col md:flex-row md:justify-between mb-6">
                                 <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">Tour Language  <sup className='text-red-600'>*</sup></label>

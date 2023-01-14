@@ -37,14 +37,14 @@ const AdminTours = ({ tour, fetchTour }) => {
             }
         }
     }
-    const updateStatus = async (title, overview, highlights, availability, status, description, category, categoryTitle, duration, adultRate, childRate, infantRate, startingTime, tourLanguage, transferOption, importantInformation, bookingPolicy, covid19, tourVideo, tourAddress, googleMapLocation, featuredTour, paymentMethod, id, image, basic, platinum, explorer)=>{
+    const updateStatus = async (title, overview, highlights, availability, status, description, category, categoryTitle, duration, adultRate, childRate, infantRate, startingTime, tourLanguage, transferOption, importantInformation, bookingPolicy, covid19, tourVideo, tourAddress, googleMapLocation, featuredTour, paymentMethod, id, image, basic, platinum, explorer, transport, fastTrackAddOn)=>{
         if(typeof window!=='undefined'){
             const response = await fetch("/api/tour/update", {
                 method:'POST',
                 headers:{
                     'content-type':'application/json'
                 },
-                body:JSON.stringify({title, overview, highlights, availability, status, description, category, categoryTitle, duration, adultRate, childRate, infantRate, startingTime, tourLanguage, transferOption, importantInformation, bookingPolicy, covid19, tourVideo, tourAddress, googleMapLocation, featuredTour, paymentMethod, authtoken:localStorage.getItem('alatwal-admin'), id:id , image:image, basic:basic, platinum:platinum, explorer:explorer})
+                body:JSON.stringify({title, overview, highlights, availability, status, description, category, categoryTitle, duration, adultRate, childRate, infantRate, startingTime, tourLanguage, transferOption, importantInformation, bookingPolicy, covid19, tourVideo, tourAddress, googleMapLocation, featuredTour, paymentMethod, authtoken:localStorage.getItem('alatwal-admin'), id:id , image:image, basic:basic, platinum:platinum, explorer:explorer, transport:transport, fastTrackAddOn:fastTrackAddOn})
             })
             const responseData = await response.json();
             if(responseData.success){
@@ -109,7 +109,7 @@ const AdminTours = ({ tour, fetchTour }) => {
                                     <td className='p-1 border-l px-2 text-center'><button className={`px-2 py-1 ${tour.status=='active'?'bg-green-400':'bg-orange-400'} rounded text-[12px] text-white`}>{tour.status=='active'?'Active':'Inactive'}</button></td>
                                     <td className='p-1 border-l px-2 flex justify-center items-center'>
                                         <div className="flex items-center">
-                                            <button onClick={()=>{updateStatus(tour.title, tour.overview, tour.highlights, tour.availability, tour.status=='active'?'inactive':'active', tour.description, tour.category, tour.categoryTitle, tour.duration, tour.adultRate, tour.childRate, tour.infantRate, tour.startingTime, tour.tourLanguage, tour.transferOption, tour.importantInformation, tour.bookingPolicy, tour.covid19, tour.tourVideo, tour.tourAddress, tour.googleMapLocation, tour.featuredTour, tour.paymentMethod, tour._id, tour.image, tour.basic?true:false, tour.platinum?true:false, tour.explorer?true:false )}} className='px-2 py-1 border rounded-l hover:bg-gray-100'>
+                                            <button onClick={()=>{updateStatus(tour.title, tour.overview, tour.highlights, tour.availability, tour.status=='active'?'inactive':'active', tour.description, tour.category, tour.categoryTitle, tour.duration, tour.adultRate, tour.childRate, tour.infantRate, tour.startingTime, tour.tourLanguage, tour.transferOption, tour.importantInformation, tour.bookingPolicy, tour.covid19, tour.tourVideo, tour.tourAddress, tour.googleMapLocation, tour.featuredTour, tour.paymentMethod, tour._id, tour.image, tour.basic?true:false, tour.platinum?true:false, tour.explorer?true:false, tour.transport, tour.fastTrackAddOn )}} className='px-2 py-1 border rounded-l hover:bg-gray-100'>
                                                 <AiOutlineSwap />
                                             </button>
                                             <button  onClick={()=>{deleteTour(tour._id)}} className='px-2 py-1 border-r border-t border-b hover:bg-gray-100'>

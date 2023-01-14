@@ -13,6 +13,8 @@
     "@next/font": "13.1.1",
     "@splidejs/react-splide": "^0.7.12",
     "@splidejs/splide": "^4.1.4",
+    "@stripe/stripe-js": "^1.46.0",
+    "axios": "^1.2.2",
     "chart.js": "2.9.3",
     "eslint": "8.30.0",
     "eslint-config-next": "13.1.1",
@@ -26,7 +28,8 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.7.1",
     "react-quill": "^2.0.0",
-    "react-toastify": "^9.1.1"
+    "react-toastify": "^9.1.1",
+    "stripe": "^11.6.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",
