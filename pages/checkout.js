@@ -6,8 +6,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import Navbar from '../components/Navbar'
 import CartItem from '../components/CartItem'
 import Spinner from '../components/Spinner'
-const Checkout = () => {
 
+import { useRouter } from 'next/router';
+const Checkout = () => {
+    const router = useRouter();
     const [paymentMethod, setPaymentMethod] = useState('')
     const [cartData, setCartData] = useState();
     const [finalPayment, setFinalPayment] = useState({ totalAmount: 0, totalVat: 0, finalPayment: 0 })
@@ -75,9 +77,47 @@ const Checkout = () => {
         setBookingInfo({ ...bookingInfo, [e.target.name]: e.target.value });
         console.log(bookingInfo)
     }
-    const createCheckOutSession = async () => {
+    const initiateBooking = async(e)=>{
+        e.preventDefault();
+        if(paymentMethod=='stripe'){
+            setStripePayClicked(true)
+        }
+        console.log('initiate booking')
+        const response = await fetch('/api/booking/add', {
+            method:'POST',
+            headers:{
+                'content-type':'application/json'
+            },
+            body:JSON.stringify({firstName:bookingInfo.firstName,
+                lastName:bookingInfo.lastName,
+                email:bookingInfo.email,
+                contact:bookingInfo.contact,
+                specialRequest:bookingInfo.specialRequest,
+                pickupLocation:bookingInfo.pickupLocation,
+                paymentMethod:bookingInfo.paymentMethod,
+                item:bookingInfo.item,
+                bookingFor:'tour',
+                price:finalPayment.finalPayment,
+                paymentStatus:'pending',
+                authtoken:localStorage.getItem('tour-user')})
+        })
+        const responseData = await response.json();
+        console.log(responseData)
+        if(responseData.success){
+            console.log(responseData)
+            if(paymentMethod=='stripe'){
+                createCheckOutSession(responseData.bookingNumber);
+            }else{
+                router.push('/success?id='+responseData.bookingNumber)
+            }
+        }else{
+            toast.error(responseData.msg)
+            setStripePayClicked(false)
+        }
+    }
+    const createCheckOutSession = async (bookingNumber) => {
         let name='';
-        setStripePayClicked(true)
+        // setStripePayClicked(true)
         for(let item of cartData){
             name = name + name?', ':'' + item.title;
         }
@@ -89,7 +129,7 @@ const Checkout = () => {
                 price:finalPayment.finalPayment,
                 description:name,
                 quantity:cartData.length,
-                bookingInfo:bookingInfo
+                bookingNumber:bookingNumber
             },
         });
         const result = await stripe.redirectToCheckout({
@@ -104,40 +144,40 @@ const Checkout = () => {
             <Navbar />
             <ToastContainer />
             <div className="w-full flex lg:flex-row  flex-col bg-gray-50 m-auto lg:rounded-l rounded">
-                <div className='lg:w-[70%] w-full p-4'>
+                <form onSubmit={initiateBooking} className='lg:w-[70%] w-full p-4'>
                     <div className="w-full flex flex-col lg:flex-row justify-between">
                     </div>
                     <div className='w-full border rounded bg-white border-gray-200 my-1 p-2'>
-                        <button className="w-full relative  text-lg rounded-t flex items-center justify-between font-semibold">
+                        <h2 className="w-full relative  text-lg rounded-t flex items-center justify-between font-semibold">
                             Personal Information
-                        </button>
+                        </h2>
                         <div id='' className="  border-gray-200 mt-1 border-t overflow-hidden relative transition-all duration-100">
                             <div className="w-full flex md:flex-row flex-col justify-between my-1">
                                 <div className="w-full md:w-1/2 mx-1">
                                     <label htmlFor="" className='text-sm font-semibold'>First Name</label>
-                                    <input type="text" placeholder='Mohd' name='firstName' onChange={handleOnChange} className='focus:outline-none w-full rounded border border-gray-100 bg-gray-50 p-1 px-2 text-sm' />
+                                    <input type="text" placeholder='Mohd' name='firstName' onChange={handleOnChange} className='focus:outline-none w-full rounded border border-gray-100 bg-gray-50 p-1 px-2 text-sm' required />
                                 </div>
                                 <div className="w-full md:w-1/2 mx-1">
                                     <label htmlFor="" className='text-sm font-semibold'>Last Name</label>
-                                    <input type="text" placeholder='Usman' name='lastName' onChange={handleOnChange} className='focus:outline-none w-full rounded border border-gray-100 bg-gray-50 p-1 px-2 text-sm' />
+                                    <input type="text" placeholder='Usman' name='lastName' onChange={handleOnChange} className='focus:outline-none w-full rounded border border-gray-100 bg-gray-50 p-1 px-2 text-sm' required/>
                                 </div>
                             </div>
                             <div className="w-full flex md:flex-row flex-col justify-between my-1">
                                 <div className="w-full  mx-1">
                                     <label htmlFor="" className='text-sm font-semibold'>Email</label>
-                                    <input type="email" placeholder='example@domain.com' name='email' onChange={handleOnChange} className='focus:outline-none w-full rounded border border-gray-100 bg-gray-50 p-1 px-2 text-sm' />
+                                    <input type="email" placeholder='example@domain.com' name='email' onChange={handleOnChange} className='focus:outline-none w-full rounded border border-gray-100 bg-gray-50 p-1 px-2 text-sm' required/>
                                 </div>
                             </div>
                             <div className="w-full flex md:flex-row flex-col justify-between my-1">
                                 <div className="w-full  mx-1">
                                     <label htmlFor="" className='text-sm font-semibold'>Contact Number</label>
-                                    <input type="tel" placeholder='9839098390' name='contact' onChange={handleOnChange} className='focus:outline-none w-full rounded border border-gray-100 bg-gray-50 p-1 px-2 text-sm' />
+                                    <input type="tel" placeholder='9839098390' name='contact' onChange={handleOnChange} className='focus:outline-none w-full rounded border border-gray-100 bg-gray-50 p-1 px-2 text-sm' required/>
                                 </div>
                             </div>
                             <div className="w-full flex md:flex-row flex-col justify-between my-1">
                                 <div className="w-full  mx-1">
                                     <label htmlFor="" className='text-sm font-semibold'>Country</label>
-                                    <select name="country" id="" onChange={handleOnChange} className='focus:outline-none w-full rounded border border-gray-100 bg-gray-50 p-1 px-2 text-sm cursor-pointer'>
+                                    <select name="country" id="" onChange={handleOnChange} className='focus:outline-none w-full rounded border border-gray-100 bg-gray-50 p-1 px-2 text-sm cursor-pointer' required>
                                         <option value="">Select Country</option>
                                         <option value="United Arab Emirates">United Arab Emirated</option>
                                     </select>
@@ -160,7 +200,7 @@ const Checkout = () => {
                             <div className="w-full flex md:flex-row flex-col justify-between my-1">
                                 <div className="w-full  mx-1">
                                     <label htmlFor="" className='text-sm font-semibold'>Pickup Location</label>
-                                    <select name="pickupLocation" id="" onChange={handleOnChange} className='focus:outline-none w-full rounded border border-gray-100 bg-gray-50 p-1 px-2 text-sm cursor-pointer mt-2'>
+                                    <select name="pickupLocation" id="" onChange={handleOnChange} className='focus:outline-none w-full rounded border border-gray-100 bg-gray-50 p-1 px-2 text-sm cursor-pointer mt-2' required>
                                         <option value="">Select Location</option>
                                         {
                                             locationData && locationData.length > 0 &&
@@ -174,15 +214,15 @@ const Checkout = () => {
                         </div>
                     }
                     <div className='w-full border rounded bg-white border-gray-200 my-1 mt-4 p-2'>
-                        <button className="w-full relative  text-lg rounded-t flex items-center justify-between font-semibold">
+                        <div className="w-full relative  text-lg rounded-t flex items-center justify-between font-semibold">
                             Payment Method
-                        </button>
+                        </div>
                         <div id='' className="  border-gray-200 mt-1 border-t overflow-hidden relative transition-all duration-100">
                             <div className="w-full flex md:flex-row flex-col justify-start my-1 mt-2">
-                                <button id='stripe' onClick={() => { selectPaymentMethod('stripe') }} className="px-2 py-1 rounded-sm m-1 bg-gray-50 border border-gray-200">
+                                <button type='button' id='stripe' onClick={() => { selectPaymentMethod('stripe') }} className="px-2 py-1 rounded-sm m-1 bg-gray-50 border border-gray-200">
                                     Stripe Payment
                                 </button>
-                                <button id='bank' onClick={() => { selectPaymentMethod('bank') }} className="px-2 py-1 rounded-sm m-1 bg-gray-50 border border-gray-200">
+                                <button type='button' id='bank' onClick={() => { selectPaymentMethod('bank') }} className="px-2 py-1 rounded-sm m-1 bg-gray-50 border border-gray-200">
                                     Bank Payment
                                 </button>
                             </div>
@@ -191,7 +231,7 @@ const Checkout = () => {
                                     <span className='font-semibold text-sm drop-shadow-sm'>Continue With Stripe Checkout</span>
                                     {
                                         !stripePayClicked && 
-                                        <button onClick={createCheckOutSession} className="bg-green-400 rounded px-2 py-1 text-white text-sm hover:bg-green-500">Pay Now</button>
+                                        <button type='submit' className="bg-green-400 rounded px-2 py-1 text-white text-sm hover:bg-green-500">Pay Now</button>
                                     }
                                     {
                                         stripePayClicked && 
@@ -205,12 +245,12 @@ const Checkout = () => {
                                     <h6 className="text-sm font-semibold my-1">Beneficiary: Beneficiary name here</h6>
                                     <h6 className="text-sm font-semibold my-1">Bank: Bank name here</h6>
                                     <h6 className="text-sm font-semibold my-1">A/C No: 001140785</h6>
-                                    <button className="bg-blue-400 px-2 py-1 rounded text-white text-sm my-1 hover:bg-blue-500">Book Now</button>
+                                    <button type='submit' className="bg-blue-400 px-2 py-1 rounded text-white text-sm my-1 hover:bg-blue-500">Book Now</button>
                                 </div>
                             }
                         </div>
                     </div>
-                </div>
+                </form>
                 <div className="bg-white lg:rounded-tl-[40px] lg:w-[30%] w-full p-6">
                     <h2 className="text-lg font-semibold">Your Cart</h2>
                     {

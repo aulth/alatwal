@@ -1,13 +1,19 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { MdClose, MdCheck, MdOutlineEdit } from 'react-icons/md'
 import { AiOutlineSwap, AiOutlineDelete, AiOutlineClockCircle } from 'react-icons/ai'
 import { TfiReload } from 'react-icons/tfi'
+import Link from 'next/link'
 import '@animxyz/core'
-import Chart from "chart.js";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Head from 'next/head'
-const AdminBookings = () => {
-    let bookingData = [{ "id": "b-1" }, { "id": "b-2" }, { "id": "b-3" }]
-
+const AdminBookings = ({ booking, fetchBooking }) => {
+    let bookingData = []
+    if(booking){
+        for (let item of booking){
+            bookingData.push({bookingNumber:item.bookingNumber, id:item._id});
+        }
+    }
     useEffect(() => {
         if (typeof window !== 'undefined') {
         }
@@ -21,7 +27,7 @@ const AdminBookings = () => {
         if (typeof window !== 'undefined') {
             for (let keyword of query) {
                 for (let booking of bookingData) {
-                    if (booking.id.toLowerCase().match(keyword)) {
+                    if (booking.bookingNumber.match(keyword)) {
                         if (!result.includes(booking.id)) {
                             result.push(booking.id);
                         }
@@ -29,15 +35,32 @@ const AdminBookings = () => {
                 }
             }
             for (let booking of bookingData) {
-                document.querySelector(`#${booking.id}`).classList.add("hidden");
+                document.querySelector(`#b-${booking.id}`).classList.add("hidden");
             }
             for (let booking of result) {
-                document.querySelector(`#${booking}`).classList.remove("hidden");
+                document.querySelector(`#b-${booking}`).classList.remove("hidden");
             }
+        }
+    }
+    const handleOnChangePaymentStatus = async (bookingNumber, paymentStatus)=>{
+        const response = await fetch('/api/booking/paymentstatus', {
+            method:'POST',
+            headers:{
+                'content-type':'application/json'
+            },
+            body:JSON.stringify({bookingNumber:bookingNumber, authtoken:localStorage.getItem('alatwal-admin'), paymentStatus:paymentStatus})
+        })
+        const responseData = await response.json();
+        if(responseData.success){
+            toast.success(responseData.msg);
+            fetchBooking(booking.bookingNumber);
+        }else{
+            toast.error(responseData.msg)
         }
     }
     return (
         <>
+        <ToastContainer/>
             <div className="w-full p-4 overflow-y-auto">
                 <div className="w-full flex justify-between">
                     <h6 className=" font-semibold">Bookings</h6>
@@ -58,72 +81,43 @@ const AdminBookings = () => {
                             <td className='p-1 border-l px-2 uppercase font-semibold'>Actions</td>
                         </thead>
                         <tbody>
-                            <tr id='b-1' className='border-b border-l border-r'>
-                                <td className='p-1 text-center'>B-1</td>
-                                <td className='p-1 border-l px-2'>Tour</td>
-                                <td className='p-1 border-l px-2'>AED 300</td>
-                                <td className='p-1 border-l px-2'>07-01-2023</td>
-                                <td className='p-1 border-l px-2'>
-                                    <span className='flex items-center text-yellow-400'><AiOutlineClockCircle className='mr-1' /> Pending</span>
-                                </td>
-                                <td className='p-1 border-l px-2 flex justify-center items-center'>
-                                    <div className="flex items-center">
-                                        <button className='px-2 py-[3px]  border rounded-l hover:bg-gray-100 text-[12px]'>
-                                            Assign Tickets
-                                        </button>
-                                        <button className='px-2 py-[3px]  border-t border-b hover:bg-gray-100 text-[12px]'>
-                                            Update Booking
-                                        </button>
-                                        <button className='px-2 py-[3px]  border rounded-r hover:bg-gray-100 text-[12px]'>
-                                            View Details
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr id='b-2' className='border-b border-l border-r'>
-                                <td className='p-1 text-center'>B-2</td>
-                                <td className='p-1 border-l px-2'>Tour</td>
-                                <td className='p-1 border-l px-2'>AED 300</td>
-                                <td className='p-1 border-l px-2'>07-01-2023</td>
-                                <td className='p-1 border-l px-2'>
-                                    <span className='flex items-center text-yellow-400'><AiOutlineClockCircle className='mr-1' /> Pending</span>
-                                </td>
-                                <td className='p-1 border-l px-2 flex justify-center items-center'>
-                                    <div className="flex items-center">
-                                        <button className='px-2 py-[3px]  border rounded-l hover:bg-gray-100 text-[12px]'>
-                                            Assign Tickets
-                                        </button>
-                                        <button className='px-2 py-[3px]  border-t border-b hover:bg-gray-100 text-[12px]'>
-                                            Update Booking
-                                        </button>
-                                        <button className='px-2 py-[3px]  border rounded-r hover:bg-gray-100 text-[12px]'>
-                                            View Details
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr id='b-3' className='border-b border-l border-r'>
-                                <td className='p-1 text-center'>B-3</td>
-                                <td className='p-1 border-l px-2'>Tour</td>
-                                <td className='p-1 border-l px-2'>AED 300</td>
-                                <td className='p-1 border-l px-2'>07-01-2023</td>
-                                <td className='p-1 border-l px-2'>
-                                    <span className='flex items-center text-yellow-400'><AiOutlineClockCircle className='mr-1' /> Pending</span>
-                                </td>
-                                <td className='p-1 border-l px-2 flex justify-center items-center'>
-                                    <div className="flex items-center">
-                                        <button className='px-2 py-[3px]  border rounded-l hover:bg-gray-100 text-[12px]'>
-                                            Assign Tickets
-                                        </button>
-                                        <button className='px-2 py-[3px]  border-t border-b hover:bg-gray-100 text-[12px]'>
-                                            Update Booking
-                                        </button>
-                                        <button className='px-2 py-[3px]  border rounded-r hover:bg-gray-100 text-[12px]'>
-                                            View Details
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
+                            {
+                                booking && booking.length>0 &&
+                                booking.map((booking, index)=>{
+                                    return <tr key={index} id={`b-${booking._id}`} className='border-b border-l border-r'>
+                                    <td className='p-1 text-center'>{booking.bookingNumber}</td>
+                                    <td className='p-1 border-l px-2'>{booking.bookingFor[0].toUpperCase()+booking.bookingFor.slice(1).toLowerCase()}</td>
+                                    <td className='p-1 border-l px-2'>AED {booking.price}</td>
+                                    <td className='p-1 border-l px-2'>{booking.item[0].date}</td>
+                                    <td className='p-1 border-l px-2'>
+                                        {
+                                            booking.paymentStatus=='pending'?
+                                            <span className='flex items-center text-red-500'><AiOutlineClockCircle className='mr-1' />
+                                            Pending
+                                            <button onClick={()=>{handleOnChangePaymentStatus(booking.bookingNumber, 'success')}} className='border border-gray-300 rounded inline ml-1 text-gray-400 text-sm hover:bg-gray-600 hover:text-white'><AiOutlineSwap /></button>
+                                            </span>:
+                                            <span className='flex items-center text-green-500'>
+                                                Completed 
+                                                 <button  onClick={()=>{handleOnChangePaymentStatus(booking.bookingNumber, 'pending')}}   className='border border-gray-300 rounded inline ml-1 text-gray-400 text-sm hover:bg-gray-600 hover:text-white'><AiOutlineSwap /></button>
+                                            </span>
+                                        }
+                                    </td>
+                                    <td className='p-1 border-l px-2 flex justify-center items-center'>
+                                        <div className="flex items-center">
+                                            <button className='px-2 py-[3px]  border rounded-l hover:bg-gray-100 text-[12px]'>
+                                                Assign Tickets
+                                            </button>
+                                            {/* <button className='px-2 py-[3px]  border-t border-b hover:bg-gray-100 text-[12px]'>
+                                                Update Booking
+                                            </button> */}
+                                            <Link href={`/admin/bookings/view/${booking.bookingNumber}`} className='px-2 py-[3px]  border-t border-r border-b hover:bg-gray-100 text-[12px]'>
+                                                View Details
+                                            </Link>
+                                        </div>
+                                    </td>
+                                </tr>
+                                })
+                            }
                         </tbody>
                     </table>
                 </div>

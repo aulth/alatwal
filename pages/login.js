@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import Navbar from '../components/Navbar'
 import Link from 'next/link'
-import { ToastContainer, toast } from 'react-toastify';
 import Spinner from '../components/Spinner';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router';
 const Login = () => {
@@ -52,10 +52,11 @@ const Login = () => {
         })
         const apiData = await apiResponse.json();
         console.log(apiData);
+        authtoken = apiData.authtoken;
+        console.log(authtoken)
         if (apiData.success) {
             if (!apiData.verified) {
                 setUserId(apiData.id);
-                authtoken = apiData.authtoken;
                 let otp = Math.floor(1000 + Math.random() * 9000);
                 setSystemOtp(otp);
                 const sendOtp = await fetch("/api/email/sendotp", {
@@ -76,7 +77,7 @@ const Login = () => {
                 }
             }else{
                 toast.success("Login Successful");
-                localStorage.setItem("tour-user", JSON.stringify(authtoken));
+                localStorage.setItem("tour-user", authtoken);
                 setLoading(false)
                 router.push("/");
             }
@@ -107,7 +108,7 @@ const Login = () => {
             if (verifyOtpData.success) {
                 toast.success("Login successful");
                 toast.success("Email Verified");
-                localStorage.setItem("tour-user", JSON.stringify(authtoken));
+                localStorage.setItem("tour-user",authtoken);
                 setLoading(false)
                 router.push("/");
             } else {

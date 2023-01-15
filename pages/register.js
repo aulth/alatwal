@@ -115,7 +115,6 @@ const Register = () => {
             toast.error("wrong otp");
         }
     }
-
     return (
         <>
             <ToastContainer />

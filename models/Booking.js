@@ -1,12 +1,22 @@
-import mongoose from 'mongoose'
+import mongoose, { Mongoose } from 'mongoose'
 const Booking = new mongoose.Schema({
     bookingNumber: String,
+    firstName:String,
+    lastName:String,
+    email:String,
+    contact:String,
+    specialRequest:String,
+    pickupLocation:String,
+    paymentMethod:String,
+    item:Array,
     bookingFor: String,
     price: Number,
     availability: Date,
     paymentStatus: String,
     service:String,
-    serviceId:String
+    serviceId:String,
+    userId:String,
+    sessionId:String
 }, { timestamps: true })
 
 mongoose.models = {};

@@ -1,6 +1,6 @@
 import connectToDb from '../../../middleware/connectToDb';
-import Visa from '../../../models/Visa'
 import jwt from 'jsonwebtoken'
+import Booking from '../../../models/Booking';
 connectToDb();
 
 const add = async (req, res) => {
@@ -9,43 +9,67 @@ const add = async (req, res) => {
         if (req.method != 'POST') {
             return res.json({ success: false, msg: "Method not allowed" })
         }
-        let { title,
-            type,
+        console.log(req.body)
+        let {firstName,
+            lastName,
+            email,
+            contact,
+            specialRequest,
+            pickupLocation,
+            paymentMethod,
+            item,
+            bookingFor,
             price,
-            workingDays,
-            overview,
-            status,
-            images} = req.body;
-        if (!title
-            || !type
-            || !price
-            || !workingDays
-            || !overview
-            || !status
-            || !images) {
+            availability,
+            paymentStatus,
+            service, authtoken
+        } = req.body;
+        let bookingNumber = Math.floor(Math.random() * 1000000000);
+        if ( !firstName 
+            || !lastName 
+            || !email 
+            || !contact 
+            || !paymentMethod 
+            || !item 
+            || !bookingFor 
+            || !price) {
             return res.json({ success: false, msg: "All fields required" })
         }
-        let verifyAuthtoken = jwt.verify(authtoken, JWTSECRET);
-        if (!verifyAuthtoken) {
+        if(!authtoken){
+            return res.json({ success: false, msg: "Please Login" });
+        }
+        let { id } = jwt.verify(authtoken, JWTSECRET);
+        console.log(id)
+        if (!id) {
             return res.json({ success: false, msg: "Invalid token" });
         }
-        let newVisa = await Visa.create({
-            title,
-            type,
+        
+        let newBooking = await Booking.create({
+            bookingNumber,
+            firstName,
+            lastName,
+            email,
+            contact,
+            specialRequest,
+            pickupLocation,
+            paymentMethod,
+            item,
+            bookingFor,
             price,
-            workingDays,
-            overview,
-            status,
-            images
+            availability,
+            paymentStatus,
+            service,
+            userId:id
         })
-        if (newVisa) {
-            return res.json({ success: true, msg: 'Added successfully' })
+        if (newBooking) {
+            return res.json({ success: true, msg: 'Booking successfully', bookingNumber:bookingNumber })
         } else {
             return res.json({ success: false, msg: "Something went wrong" })
         }
 
     } catch (error) {
-        return res.json({ success: false, msg: "Something went wrong 2" })
+        console.log(error)
+        return res.json({ success: false, msg: error.message })
     }
 }
 
