@@ -79,13 +79,13 @@ const AdminSidebar = ({activePage}) => {
                         <Link href={"/admin/bookings"}><button className={`my-1 flex items-center  hover:scale-105 duration-100 ${activePage=="View Bookings"?"font-semibold text-blue-400":""}`}><MdShoppingCart className='mx-1' /> View Bookings</button></Link>
                     </ul>
                 </div>
-                <div className='my-2'>
+                {/* <div className='my-2'>
                     <label htmlFor="" className='uppercase text-gray-600'>Newsletter Subscriptions</label>
                     <ul className='text-gray-800 my-2'>
                         <Link href={"/admin/subscribers"}><button className={`my-1 flex items-center  hover:scale-105 duration-100 ${activePage=="View Subscribers"?"font-semibold text-blue-400":""}`}><HiUsers className='mx-1' /> View Subscribers</button></Link>
                         <Link href={"/"}><button className={`my-1 flex items-center  hover:scale-105 duration-100 ${activePage=="Export Subscribers"?"font-semibold text-blue-400":""}`}><FaFileExport className='mx-1' /> Export Subscribers</button></Link>
                     </ul>
-                </div>
+                </div> */}
                 <div className='my-2'>
                     <label htmlFor="" className='uppercase text-gray-600'>CMS Pages</label>
                     <ul className='text-gray-800 my-2'>

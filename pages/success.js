@@ -17,6 +17,8 @@ const SuccessPage = ({ id }) => {
     console.log(responseData)
     if (responseData.success) {
       setIsOrderFound(true)
+      sendConfirmation(responseData.booking);
+      sendToAdmin(responseData.booking)
       if (responseData.booking.paymentMethod == 'stripe') {
         response = await fetch('/api/stripe/status', {
           method: 'POST',
@@ -30,6 +32,14 @@ const SuccessPage = ({ id }) => {
           setOrderData({ id: bookingNumber, payment_status: 'pending' })
         } else {
           setOrderData({id: bookingNumber, payment_status: 'success' })
+          response = await fetch('/api/booking/success', {
+            method:'POST',
+            headers:{
+              'content-type':'application/json'
+            },
+            body:JSON.stringify({bookingNumber:bookingNumber})
+          })
+          responseData = response.json();
         }
       } else {
         setOrderData({id: bookingNumber, payment_status: responseData.booking.paymentStatus })
@@ -39,7 +49,28 @@ const SuccessPage = ({ id }) => {
   useEffect(() => {
     fetchBooking(id)
   }, [])
-
+  const sendConfirmation = async (booking)=>{
+    let response = await fetch('/api/email/sendconfirmation', {
+      method:'POST',
+      headers:{
+        'content-type':'application/json'
+      },
+      body:JSON.stringify({bookingInfo:booking})
+    })
+    let responseData = response.json();
+    console.log(responseData)
+  }
+  const sendToAdmin = async (booking)=>{
+    let response = await fetch('/api/email/sendtoadmin', {
+      method:'POST',
+      headers:{
+        'content-type':'application/json'
+      },
+      body:JSON.stringify({bookingInfo:booking})
+    })
+    let responseData = response.json();
+    console.log(responseData)
+  }
   return (
     <div className="w-full h-screen flex justify-center items-center p-1 bg-gray-50">
       <div className='md:w-[400px] md:h-[400px] w-full h-[300px] bg-white shadow-lg border-gray-100 border border-l-4 border-l-blue-300 flex justify-center items-center relative'>

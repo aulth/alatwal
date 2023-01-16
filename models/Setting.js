@@ -1,24 +1,29 @@
 import mongoose from 'mongoose'
 const Setting = new mongoose.Schema({
-    title: String,
-    tourId: String,
-    tourTitle: String,
-    language: String,
-    description: String,
-    price: Number,
-    discount: Number,
-    startingTime: Array,
-    withoutTransferAdultRate: Number,
-    withoutTransferChildRate: Number,
-    sharingTransferAdultRate: Number,
-    sharingTransferChildRate: Number,
-    privateTransferAdultRate: Number,
-    privateTransferChildRate: Number,
-    returnSharingBasisTransferAdultRate: Number,
-    returnSharingBasisTransferChildRate: Number,
-    returnPrivateBasisTransferAdultRate: Number,
-    returnPrivateBaisTransferChildRate:Number,
-    transferOptionRemark:String
+    footerFbLink: String,
+    footerInstagramLink: String,
+    footerWhatsappNumber: String,
+    footerTripadvisor: String,
+    service1Title: String,
+    service1Link: String,
+    service2Title: String,
+    service2Link: String,
+    service3Title: String,
+    service3Link: String,
+    quickContact1: String,
+    quickContact2: String,
+    companyAddress: String,
+    companyEmail: String,
+    companyContact: String,
+    companyFax: String,
+    companyVAT: Number,
+    trn: String,
+    beneficiary: String,
+    bankswift: String,
+    bank:String,
+    iban: String,
+    accountNumber: String
+
 }, { timestamps: true })
 
 mongoose.models = {};

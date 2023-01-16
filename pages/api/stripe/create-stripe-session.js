@@ -29,7 +29,6 @@ async function CreateStripeSession(req, res) {
       images: item.image,
     },
   });
-  console.log(session)
   const booking  = await Booking.findOneAndUpdate({bookingNumber:item.bookingNumber}, {
     sessionId:session.id
   })
