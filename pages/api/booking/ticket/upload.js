@@ -33,14 +33,13 @@ const update = async (req, res) => {
         })
         let newBooking = await Booking.findOneAndUpdate({bookingNumber:bookingNumber, item:item});
         if (newBooking) {
-
             return res.json({ success: true, msg: 'Ticket Uploaded' })
         } else {
             return res.json({ success: false, msg: "Something went wrong" })
         }
 
     } catch (error) {
-        return res.json({ success: false, msg: "Something went wrong 2" })
+        return res.json({ success: false, msg: error.message })
     }
 }
 
