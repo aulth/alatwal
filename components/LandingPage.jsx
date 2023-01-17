@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react'
 import { BsChevronCompactDown } from 'react-icons/bs'
 const LandingPage = () => {
   const [service, setService] = useState('');
+  const [allService, setAllService] = useState()
+
   const toggleService = () => {
     if (typeof window !== 'undefined') {
       document.getElementById("service-list").classList.toggle("hidden");
@@ -23,6 +25,16 @@ const LandingPage = () => {
       
     }
   }, [])
+  const fetchService = async ()=>{
+    const response = await fetch("/api/category/fetch");
+    const responseData = await response.json();
+    console.log(responseData.category[0].type)
+    setAllService(responseData.category);
+  }
+  useEffect(() => {
+    fetchService();
+  }, [])
+  
   return (
     <>
     <div className="home">
@@ -30,7 +42,15 @@ const LandingPage = () => {
           <h2 className="md:text-5xl text-3xl text-center font-semibold font-[helvetica] text-white drop-shadow-lg mb-8">Best Partner in Your Travel Dairy!</h2>
           <div className="flex md:flex-row flex-col justify-center items center border-white border rounded md:w-3/4 w-full p-1">
             <div className="flex items-center bg-white md:rounded-l md:rounded-r-none rounded-t  p-1  w-full relative">
-              <button onClick={toggleService} className="w-full px-2 py-1 flex items-center text-gray-500 font-semibold">{service?service:'Burj Khalifa'} <BsChevronCompactDown className='mx-2 ' /></button>
+              <select name="" id="" className='w-full p-2 border-none focus:outline-none'>
+                {
+                  allService && allService.length>0 && 
+                  allService.map((service, index)=>{
+                    return <option key={index} value="">{service.title}</option>
+                  })
+                }
+              </select>
+              {/* <button onClick={toggleService} className="w-full px-2 py-1 flex items-center text-gray-500 font-semibold">{service?service:'Burj Khalifa'} <BsChevronCompactDown className='mx-2 ' /></button>
               <div id='service-list' className="w-full hidden border-b border-l border-r border-gray-400 absolute -ml-[4.5px] top-10  rounded-b bg-white p-1 z-50">
                 <ul className='w-full'>
                   <li className='w-full bg-gray-700 p-1 text-white font-semibold'>UAE Tours</li>
@@ -43,9 +63,9 @@ const LandingPage = () => {
                   <li className='text-gray-400 hover:text-white hover:bg-gray-600 cursor-pointer mb-1 p-1'  onClick={()=>{setService("UAE Visa");toggleService()}}>UAE Visa</li>
                   <li className=' text-gray-400 hover:text-white hover:bg-gray-600 cursor-pointer mb-1 p-1'  onClick={()=>{setService("International Visa");toggleService()}}>International Visa</li>
                 </ul>
-              </div>
+              </div> */}
             </div>
-            <div className="flex md:rounded-r rounded-b items-center bg-white w-full md:my-0 my-1">
+            <div className="flex md:rounded-r rounded-b  md:rounded-bl-none items-center bg-white w-full md:my-0 my-1">
               <input type="date" id='datePicker' className='w-full md:rounded-none rounded-l outline-none border-none focus:border-none focus:outline-none p-2' />
               <input type="submit" value={"Book Now"} className='flex justify-center items-center  md:rounded-r rounded-br w-[200px] bg-orange-400 hover:bg-orange-500 cursor-pointer text-white font-semibold p-2' />
             </div>
