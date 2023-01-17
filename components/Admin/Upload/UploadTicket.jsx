@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { IKContext, IKUpload } from 'imagekitio-react';
 const publicKey = "public_92LmaGdulaemcYl7X2YaL95QGnU=";
 const urlEndpoint = "https://ik.imagekit.io/lgju5gzfspd/";
-const authenticationEndpoint = "http://localhost:3000/api/imagekit/get";
+const authenticationEndpoint = "https://tourism-zeta.vercel.app/api/imagekit/get";
 const UploadTicket = ({ labelWidth, bookingNumber, ticketFromDb, bookedTourId, bookingDetails, email, name }) => {
     const [ticket, setTicket] = useState('')
     const saveTicketToDb = async (ticket) => {
