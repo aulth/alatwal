@@ -117,6 +117,9 @@ const DesertSafari = ({ data }) => {
             let cart = localStorage.getItem('tour-cart') ? JSON.parse(localStorage.getItem('tour-cart')) : [];
             localStorage.setItem('tour-cart', JSON.stringify(cart.concat(tourData)));
             toast.success("Tour added")
+            setTimeout(() => {
+                router.push("/checkout")
+            }, 500);
         }
     }
     useEffect(() => {
