@@ -99,14 +99,36 @@ const sendConfirmation = async (req, res) => {
                                                         ${booking.date}
                                                     </td>
                                                     <td style="font-size: 14px; line-height: 18px; color: #757575; text-align: right;">
-                                                        <b style="color: #666666;">AED${booking.vat?booking.vat:'0'}</b> VAT
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="font-size: 14px; line-height: 18px; color: #757575; padding-bottom: 10px;">
-                                                    ${booking.time?booking.time:booking.isExplorer?booking.typeOfTicket:''}
+                                                    <td style="font-size: 14px; line-height: 18px; color: #757575;">
+                                                    ${booking.time?booking.time:booking.explorer?booking.typeOfTicket:''}
                                                     </td>
-                                                    <td style="font-size: 14px; line-height: 18px; color: #757575; text-align: right; padding-bottom: 10px;">
+                                                    <td style="font-size: 14px; line-height: 18px; color: #757575; text-align: right; ">
+                                                        ${booking.explorer?`<b style="color: #666666;">AED${booking.explorer?booking.transport:''}</b> Transport`:''}
+                                                    </td>
+                                                </tr>
+                                                ${
+                                                    booking.explorer?`<tr>
+                                                    <td style="font-size: 14px; line-height: 18px; color: #757575;">
+                                                    </td>
+                                                    <td style="font-size: 14px; line-height: 18px; color: #757575; text-align: right; ">
+                                                        <b style="color: #666666;">AED${booking.isFastTrackAddOn?booking.fastTrackAddOn:''}</b> FTON
+                                                    </td>
+                                                </tr>`:''
+                                                }
+                                                <tr>
+                                                    <td style="font-size: 14px; line-height: 18px; color: #757575; ">
+                                                    </td>
+                                                    <td style="font-size: 14px; line-height: 18px; color: #757575; text-align: right; ">
+                                                        <b style="color: #666666;">AED${booking.vat}</b> VAT
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-size: 14px; line-height: 18px; color: #757575; ">
+                                                    </td>
+                                                    <td style="font-size: 14px; line-height: 18px; color: #757575; text-align: right; ">
                                                         <b style="color: #666666;">AED${booking.price}</b> Total
                                                     </td>
                                                 </tr>

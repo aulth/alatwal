@@ -12,7 +12,7 @@ const fetchOne = async (req, res) => {
         if (!bookingNumber) {
             return res.json({ success: false, msg: "Id not provided" })
         }
-        let booking = await Booking.findOne({bookingNumber: bookingNumber})
+        let booking = await Booking.findOne({bookingNumber: bookingNumber});
         if (booking) {
             console.log(booking)
             return res.json({ success: true, msg: 'Fetched successfully', booking:booking})

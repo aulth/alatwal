@@ -104,9 +104,9 @@ const AdminBookings = ({ booking, fetchBooking }) => {
                                     </td>
                                     <td className='p-1 border-l px-2 flex justify-center items-center'>
                                         <div className="flex items-center">
-                                            <button className='px-2 py-[3px]  border rounded-l hover:bg-gray-100 text-[12px]'>
+                                            <Link  href={`/admin/bookings/assign-ticket/${booking.bookingNumber}`} className='px-2 py-[3px]  border rounded-l hover:bg-gray-100 text-[12px]'>
                                                 Assign Tickets
-                                            </button>
+                                            </Link>
                                             {/* <button className='px-2 py-[3px]  border-t border-b hover:bg-gray-100 text-[12px]'>
                                                 Update Booking
                                             </button> */}

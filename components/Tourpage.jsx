@@ -15,18 +15,20 @@ import Navbar from './Navbar'
 const DesertSafari = ({ data }) => {
     const router = useRouter();
     const { slag } = router.query;
+    const [settingData, setSettingData] = useState()
     const [overviewStatus, setOverviewStatus] = useState(false)
     const [descriptionStatus, setDescriptionStatus] = useState(false)
     const [highlightStatus, setHighlightStatus] = useState(false)
     const [bookingPolicyStatus, setBookingPolicyStatus] = useState(false)
     const [importantInformationStatus, setImportantInformationStatus] = useState(false)
     const [covidPrecautionStatus, setCovidPrecautionStatus] = useState(false)
-    const [tourData, setTourData] = useState({ id: data._id, title: data.title, adultRate: data.adultRate, adult:0, child:0, infant:0, childRate: data.childRate, infantRate: data.infantRate, adultRatePrime: data.adultRatePrime, childRatePrime: data.childRatePrime, infantRatePrime: data.infantRatePrime, adultRateNonPrime: data.adultRateNonPrime, childRateNonPrime: data.childRateNonPrime, infantRateNonPrime: data.infantRateNonPrime, adultRateTicketOnly: data.adultRateTicketOnly, adultRateSharingTransport: data.adultRateSharingTransport, adultRatePrivateTransport: data.adultRatePrivateTransport, childRateTicketOnly: data.childRateTicketOnly, childRateSharingTransport: data.childRateSharingTransport, childRatePrivateTransport: data.childRatePrivateTransport, infantRateTicketOnly: data.infantRateTicketOnly, infantRateSharingTransport: data.infantRateSharingTransport, infantRatePrivateTransport: data.infantRatePrivateTransport, date: null, time: null, price: null, tax: null, totalPrice: null, lastDateToCancel: null, basic: data.basic, platinum: data.platinum, explorer: data.explorer, pickup:data.pickup, transport:data.transport, fastTrackAddOn:data.fastTrackAddOn, isFastTrackAddOn:false, typeOfTicket:'onlyTicket' })
+    const [tourData, setTourData] = useState({ id: data._id, title: data.title, adultRate: data.adultRate, adult:0, child:0, infant:0, childRate: data.childRate, infantRate: data.infantRate, adultRatePrime: data.adultRatePrime, childRatePrime: data.childRatePrime, infantRatePrime: data.infantRatePrime, adultRateNonPrime: data.adultRateNonPrime, childRateNonPrime: data.childRateNonPrime, infantRateNonPrime: data.infantRateNonPrime, adultRateTicketOnly: data.adultRateTicketOnly, adultRateSharingTransport: data.adultRateSharingTransport, adultRatePrivateTransport: data.adultRatePrivateTransport, childRateTicketOnly: data.childRateTicketOnly, childRateSharingTransport: data.childRateSharingTransport, childRatePrivateTransport: data.childRatePrivateTransport, infantRateTicketOnly: data.infantRateTicketOnly, infantRateSharingTransport: data.infantRateSharingTransport, infantRatePrivateTransport: data.infantRatePrivateTransport, date: null, time: null, price: null, tax: null, totalPrice: null, lastDateToCancel: null, basic: data.basic, platinum: data.platinum, explorer: data.explorer, pickup:data.pickup, transport:data.transport, fastTrackAddOn:data.fastTrackAddOn, isFastTrackAddOn:false, typeOfTicket:'onlyTicket', ticket:'' })
     const [isPrime, setIsPrime] = useState(false)
     const [typeOfTicket, setTypeOfTicket] = useState('');
     let time = ['7:00 AM']
     // let price = { adult: data.adultRate, child: data.childRate, infant: data.infantRate };
     const [price, setPrice] = useState({ adult: 0, child: 0, infant: 0 })
+    const [vat, setVat] = useState()
     const toggleAccordian = id => {
         if (typeof window !== 'undefined') {
             let accordian = document.querySelector(`#${id}`);
@@ -103,7 +105,7 @@ const DesertSafari = ({ data }) => {
                 return;
             }
             document.querySelector('#price-breakdown').classList.remove('hidden')
-            setTourData({ ...tourData, price: (price.adult * tourData.adult) + (price.child * tourData.child) + (price.infant * tourData.infant) })
+            setTourData({ ...tourData, price: (price.adult * tourData.adult) + (price.child * tourData.child) + (price.infant * tourData.infant), vat:((price.adult * tourData.adult) + (price.child * tourData.child) + (price.infant * tourData.infant))*(vat/100), totalPrice:(price.adult * tourData.adult) + (price.child * tourData.child) + (price.infant * tourData.infant)+((price.adult * tourData.adult) + (price.child * tourData.child) + (price.infant * tourData.infant))*(vat/100) })
         }
     }
     const addToCart = () => {
@@ -264,6 +266,14 @@ const DesertSafari = ({ data }) => {
         }
         
     }
+    const fetchSetting = async ()=>{
+        let response = await fetch('/api/setting/fetch');
+        let responseData = await response.json();
+        if(responseData.success){
+            setSettingData(responseData.setting[0])
+            setVat(responseData.setting[0].companyVAT)
+        }
+    }
     useEffect(() => {
         if (isPrime) {
             setPrice({ adult: tourData.adultRatePrime, child: tourData.childRatePrime, infant: tourData.infantRatePrime })
@@ -289,6 +299,10 @@ const DesertSafari = ({ data }) => {
             setPrice({ adult: tourData.adultRateTicketOnly, child: tourData.childRateTicketOnly, infant: tourData.infantRateTicketOnly })
         }
     }, [])
+    useEffect(() => {
+      fetchSetting();
+    }, [])
+    
 
 
     return (

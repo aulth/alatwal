@@ -6,10 +6,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import Navbar from '../components/Navbar'
 import CartItem from '../components/CartItem'
 import Spinner from '../components/Spinner'
-
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 const Checkout = () => {
     const router = useRouter();
+    const [settingData, setSettingData] = useState()
     const [paymentMethod, setPaymentMethod] = useState('')
     const [cartData, setCartData] = useState();
     const [finalPayment, setFinalPayment] = useState({ totalAmount: 0, totalVat: 0, finalPayment: 0 })
@@ -48,6 +49,7 @@ const Checkout = () => {
                 let cart = JSON.parse(localStorage.getItem('tour-cart'))
                 for (let item of cart) {
                     totalAmount += item.price;
+                    totalVat += item.vat;
                     if (item.isFastTrackAddOn) {
                         totalAmount += item.fastTrackAddOn
                     }
@@ -139,8 +141,37 @@ const Checkout = () => {
             alert(result.error.message);
         }
     };
+    const fetchSetting = async ()=>{
+        let response = await fetch('/api/setting/fetch');
+        let responseData = await response.json();
+        if(responseData.success){
+            setSettingData(responseData.setting[0])
+        }
+    }
+    useEffect(() => {
+        fetchSetting()
+    }, [])
+    
     return (
         <>
+        <Head>
+                <title>Al Atwal - Checkout</title>
+                <meta name="title" content="Al Atwal - Best Partner in Your Travel Dairy!"/>
+                    <meta name="description" content="Up and running, Alatwal Travel & Tourism is one stop solution for all your travel needs. We are a destination management company based in UAE offering the best of UAE tours, UEA Visa services and International Visa services." />
+                    {/* <!-- Open Graph / Facebook --> */}
+                    <meta property="og:type" content="website" />
+                    <meta property="og:url" content="https://tourism-zeta.vercel.app" />
+                    <meta property="og:title" content="Al Atwal - Best Partner in Your Travel Dairy!" />
+                    <meta property="og:description" content="Up and running, Alatwal Travel & Tourism is one stop solution for all your travel needs. We are a destination management company based in UAE offering the best of UAE tours, UEA Visa services and International Visa services." />
+                    <meta property="og:image" content="https://tourism-zeta.vercel.app/logo.png" />
+
+                    {/* <!-- Twitter --> */}
+                    <meta property="twitter:card" content="summary_large_image" />
+                    <meta property="twitter:url" content="https://tourism-zeta.vercel.app/" />
+                    <meta property="twitter:title" content="Al Atwal - Best Partner in Your Travel Dairy!" />
+                    <meta property="twitter:description" content="Up and running, Alatwal Travel & Tourism is one stop solution for all your travel needs. We are a destination management company based in UAE offering the best of UAE tours, UEA Visa services and International Visa services." />
+                    <meta property="twitter:image" content="https://tourism-zeta.vercel.app/logo.png" />
+            </Head>
             <Navbar />
             <ToastContainer />
             <div className="w-full flex lg:flex-row  flex-col bg-gray-50 m-auto lg:rounded-l rounded">
@@ -240,11 +271,12 @@ const Checkout = () => {
                                 </div>
                             }
                             {
-                                paymentMethod && paymentMethod == 'bank' && <div className="w-full p-2">
+                                paymentMethod && paymentMethod == 'bank' && settingData && 
+                                <div className="w-full p-2">
                                     <h6 className="text-sm ">Kindly Transfer To the Following Bank Account Details:</h6>
-                                    <h6 className="text-sm font-semibold my-1">Beneficiary: Beneficiary name here</h6>
-                                    <h6 className="text-sm font-semibold my-1">Bank: Bank name here</h6>
-                                    <h6 className="text-sm font-semibold my-1">A/C No: 001140785</h6>
+                                    <h6 className="text-sm font-semibold my-1">Beneficiary: {settingData.beneficiary}</h6>
+                                    <h6 className="text-sm font-semibold my-1">Bank: {settingData.bank}</h6>
+                                    <h6 className="text-sm font-semibold my-1">A/C No: {settingData.accountNumber}</h6>
                                     <button type='submit' className="bg-blue-400 px-2 py-1 rounded text-white text-sm my-1 hover:bg-blue-500">Book Now</button>
                                 </div>
                             }

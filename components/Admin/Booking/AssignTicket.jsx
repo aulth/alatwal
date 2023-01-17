@@ -4,7 +4,8 @@ import { AiOutlineSwap, AiOutlineDelete, AiOutlineClockCircle } from 'react-icon
 import { TfiReload } from 'react-icons/tfi'
 import '@animxyz/core'
 import Head from 'next/head'
-const ViewBooking = ({ bookingNumber }) => {
+import UploadTicket from '../Upload/UploadTicket'
+const AssignTicket = ({ bookingNumber }) => {
     const [bookingDetails, setBookingDetails] = useState();
     const [isError, setIsError] = useState('')
     const fetchBooking = async (bookingNumber) => {
@@ -13,7 +14,9 @@ const ViewBooking = ({ bookingNumber }) => {
             body: JSON.stringify({ bookingNumber: bookingNumber })
         })
         const responseData = await response.json();
+        console.log(responseData)
         if (responseData.success) {
+            console.log(responseData)
             setBookingDetails(responseData.booking)
         } else {
             setIsError(responseData.msg)
@@ -28,8 +31,8 @@ const ViewBooking = ({ bookingNumber }) => {
         <>
             <div className="w-full p-4 overflow-y-auto">
                 <div className="w-full flex justify-between">
-                    <h6 className=" font-semibold ">Booking Details</h6>
-                    <button className="flex items-center text-[#1F41AF]"> <span className='text-gray-700 mr-1'>Bookings / <span className='mx-1 text-blue-500'>View Details</span> </span></button>
+                    <h6 className=" font-semibold ">Assign Booking Ticket</h6>
+                    <button className="flex items-center text-[#1F41AF]"> <span className='text-gray-700 mr-1'>Bookings / <span className='mx-1 text-blue-500'>Ticket</span> </span></button>
                 </div>
                 <div className="w-full  my-2 box-border rounded bg-white ">
                     <h2 className="text-lg p-4 border-b font-semibold border-gray-300 w-full text-left ">Booking Details</h2>
@@ -65,7 +68,7 @@ const ViewBooking = ({ bookingNumber }) => {
                             </div>
                             <div className='flex items-center my-3'>
                                 <label htmlFor="" className='font-semibold'>Date: </label>
-                                <label htmlFor="" className='mx-2'>{bookingDetails.item[0].date}  </label>
+                                <label htmlFor="" className='mx-2'> {new Date(bookingDetails.createdAt).getDate() + '/' + new Date(bookingDetails.createdAt).getMonth() + 1 + "/" + new Date(bookingDetails.createdAt).getFullYear()}  </label>
                             </div>
                             <div className='flex items-center my-3'>
                                 <label htmlFor="" className='font-semibold'>Pickup Location: </label>
@@ -107,6 +110,9 @@ const ViewBooking = ({ bookingNumber }) => {
                                         <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">VAT</label>
                                         <input type="text" value={booking.vat} className='w-full focus:outline focus:outline-blue-400 p-1 rounded border text-sm' disabled />
                                     </div>
+                                    <div className="w-full flex flex-col md:justify-between my-3">
+                                        <UploadTicket labelWidth={"w-52"} bookingNumber={bookingDetails.bookingNumber} bookedTourId={booking.id} ticketFromDb={booking.ticket} bookingDetails={booking} email={bookingDetails.email} name={bookingDetails.firstName + " " + bookingDetails.lastName} />
+                                    </div>
                                 </div>
                             </div>
                         })
@@ -118,4 +124,4 @@ const ViewBooking = ({ bookingNumber }) => {
     )
 }
 
-export default ViewBooking
+export default AssignTicket

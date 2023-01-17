@@ -70,7 +70,7 @@ const AdminNavbar = () => {
                 <div className="hidden md:flex lg:ml-auto lg:mr-3 text-gray-900 lg:flex items-center">
                     <div onMouseEnter={() => { showList('admin-menu') }} className="flex items-center relative">
                         <img src="https://i.pravatar.cc/100?img=2" className='w-8 h-8 rounded-full aspect-square' alt="" />
-                        <button className='flex items-center mx-1 font-semibold'>Mohd Usman <BiChevronDown className='text-xl' /></button>
+                        {/* <button className='flex items-center mx-1 font-semibold'>Mohd Usman <BiChevronDown className='text-xl' /></button> */}
                         <div id='admin-menu' className="w-full hidden  absolute bg-white rounded-b border border-gray-300 text-gray-400 text-sm top-0 mt-[45px] transition-all xyz-in p-2 z-50" xyz="fade">
                             <ul>
                                 <li className='flex items-center py-2 cursor-pointer hover:text-gray-500'><FaUserEdit className='text-base mx-1 ' />Edit My Profile</li>

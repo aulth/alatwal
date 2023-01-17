@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import Link from 'next/link';
 
 const Service = () => {
-  const [allService, setAllService] = useState([])
+  const [allService, setAllService] = useState()
   const fetchService = async ()=>{
     const response = await fetch("/api/category/fetch");
     const responseData = await response.json();
@@ -34,7 +34,32 @@ const Service = () => {
             </div>
             })
           }
-          
+          {
+            !allService &&
+            <>
+            <div className='md:w-[200px] m-2 mt-4 flex flex-col items-center rounded font-[helvetica] border border-transparent hover:border   md:p-2 py-8 '>
+              <div className='md:w-[200px] rounded h-52 bg-gray-200 animate-pulse' src="" alt="" />
+              <h3 className="text-lg font-semibold text-black text-center py-2 w-[200px] bg-gray-200 animate-pulse rounded-sm my-1 ">&nbsp;</h3>
+               <button className="w-[100px]   font-extralight rounded px-2 py-2 text-center text-sm bg-gray-200 animate-pulse">
+                &nbsp;
+              </button>                                                                                                                                                                                                                           
+            </div>
+            <div className='md:w-[200px] m-2 mt-4 flex flex-col items-center rounded font-[helvetica] border border-transparent hover:border   md:p-2 py-8 '>
+              <div className='md:w-[200px] rounded h-52 bg-gray-200 animate-pulse' src="" alt="" />
+              <h3 className="text-lg font-semibold text-black text-center py-2 w-[200px] bg-gray-200 animate-pulse rounded-sm my-1 ">&nbsp;</h3>
+               <button className="w-[100px]   font-extralight rounded px-2 py-2 text-center text-sm bg-gray-200 animate-pulse">
+                &nbsp;
+              </button>                                                                                                                                                                                                                           
+            </div>
+            <div className='md:w-[200px] m-2 mt-4 flex flex-col items-center rounded font-[helvetica] border border-transparent hover:border   md:p-2 py-8 '>
+              <div className='md:w-[200px] rounded h-52 bg-gray-200 animate-pulse' src="" alt="" />
+              <h3 className="text-lg font-semibold text-black text-center py-2 w-[200px] bg-gray-200 animate-pulse rounded-sm my-1 ">&nbsp;</h3>
+               <button className="w-[100px]   font-extralight rounded px-2 py-2 text-center text-sm bg-gray-200 animate-pulse">
+                &nbsp;
+              </button>                                                                                                                                                                                                                           
+            </div>
+            </>
+          }
         </div>
       </div>
   )

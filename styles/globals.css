@@ -17,4 +17,32 @@ html {
 option:hover{
     background-color: #1BA1E2 !important;
   }
+
+  .card-slider {
+  display: flex;
+  overflow: hidden;
+}
+
+.card-slide {
+  flex: 1;
+}
+
+.card-slider {
+  display: flex;
+  overflow: hidden;
+}
+
+.card-slide {
+  flex: 1;
+  animation: slide 20s infinite;
+}
+@keyframes slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
   
