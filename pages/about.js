@@ -29,7 +29,7 @@ const About = () => {
             <div className="w-full flex flex-col justify-center p-4 ">
                 <div className="w-full flex lg:flex-row flex-col border border-gray-300 ">
                     <div className="w-full lg:w-1/2  ">
-                        <img src="http://alatwal.com/images/dubaitours.jpg" className='w-full object-cover overflow-hidden' alt="" />
+                        <img src="/images/about.jpg" className='w-full object-cover overflow-hidden' alt="" />
                     </div>
                     <div className="w-full lg:w-1/2   p-4 md:p-8 md:pb-4">
                         <h2 className="font-semibold text-xl md:text-2xl">ALATWAL TRAVEL & TOURISM</h2>
@@ -40,7 +40,7 @@ const About = () => {
                 <div className="w-full flex lg:flex-row flex-col  mt-4">
                     <div className="w-full flex md:flex-row flex-col   border border-gray-300 my-2">
                         <div className="w-full md:w-1/2  h-[22rem]">
-                            <img src="http://alatwal.com/images/dubaivisa.jpg" className='w-full object-cover overflow-hidden h-[22rem]' alt="" />
+                            <img src="/images/our-mission.jpg" className='w-full object-cover overflow-hidden h-[22rem]' alt="" />
                         </div>
                         <div className="w-full md:w-1/2   p-2 md:p-4 md:pb-2">
                             <h2 className="font-semibold text-xl md:text-2xl">Our Mission</h2>
@@ -49,7 +49,7 @@ const About = () => {
                     </div>
                     <div className="w-full flex md:flex-row flex-col  border border-gray-300  my-2">
                         <div className="w-full md:w-1/2 h-[22rem]">
-                            <img src="http://alatwal.com/images/safari.jpg" className='w-full object-cover overflow-hidden h-[22rem]' alt="" />
+                            <img src="/images/our-vision.jpg" className='w-full object-cover overflow-hidden h-[22rem]' alt="" />
                         </div>
                         <div className="w-full md:w-1/2  p-2 md:p-4 md:pb-2">
                             <h2 className="font-semibold text-xl md:text-2xl">Our Vision</h2>
