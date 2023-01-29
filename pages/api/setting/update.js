@@ -38,6 +38,8 @@ const add = async (req, res) => {
             menu3Link: settingData.menu3Link,
             menu4Title: settingData.menu4Title,
             menu4Link: settingData.menu4Link,
+            menu5Title: settingData.menu5Title,
+            menu5Link: settingData.menu5Link,
             quickContact1: settingData.quickContact1,
             quickContact2: settingData.quickContact2,
             companyAddress: settingData.companyAddress,

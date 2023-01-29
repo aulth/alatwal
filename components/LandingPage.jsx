@@ -1,9 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import { BsChevronCompactDown } from 'react-icons/bs'
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 const LandingPage = () => {
   const [service, setService] = useState('');
-  const [allService, setAllService] = useState()
-
+  const [allService, setAllService] = useState();
+  const [allTour, setAllTour] = useState();
+  const [tourUrl, setTourUrl] = useState('');
+  const router = useRouter();
   const toggleService = () => {
     if (typeof window !== 'undefined') {
       document.getElementById("service-list").classList.toggle("hidden");
@@ -25,16 +29,18 @@ const LandingPage = () => {
       
     }
   }, [])
-  const fetchService = async ()=>{
-    const response = await fetch("/api/category/fetch");
+  const fetchTour = async ()=>{
+    const response = await fetch("/api/tour/fetch");
     const responseData = await response.json();
-    console.log(responseData.category[0].type)
-    setAllService(responseData.category);
+    setAllTour(responseData.tour);
+    console.log(responseData.tour);
   }
   useEffect(() => {
-    fetchService();
+    fetchTour();
   }, [])
-  
+  const navigateToTour = (e)=>{
+    router.push(`/tour/${e.target.value}`);
+  }
   return (
     <>
     <div className="home">
@@ -42,11 +48,12 @@ const LandingPage = () => {
           <h2 className="md:text-5xl text-3xl text-center font-semibold font-[helvetica] text-white drop-shadow-lg mb-8">Best Partner in Your Travel Dairy!</h2>
           <div className="flex md:flex-row flex-col justify-center items center border-white border rounded md:w-3/4 w-full p-1">
             <div className="flex items-center bg-white md:rounded-l md:rounded-r-none rounded-t  p-1  w-full relative">
-              <select name="" id="" className='w-full p-2 border-none focus:outline-none'>
+              <select name="" onChange={navigateToTour} id="" className='w-full p-2 border-none focus:outline-none'>
+                <option value="">Select Tour</option>
                 {
-                  allService && allService.length>0 && 
-                  allService.map((service, index)=>{
-                    return <option key={index} value="">{service.title}</option>
+                  allTour && allTour.length>0 && 
+                  allTour.map((tour, index)=>{
+                    return <option key={index} value={tour.url}>{tour.title}</option>
                   })
                 }
               </select>

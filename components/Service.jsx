@@ -2,11 +2,10 @@ import React, {useState, useEffect} from 'react'
 import Link from 'next/link';
 
 const Service = () => {
-  const [allService, setAllService] = useState()
+  const [allService, setAllService] = useState();
   const fetchService = async ()=>{
     const response = await fetch("/api/category/fetch");
     const responseData = await response.json();
-    console.log(responseData.category[0].type)
     setAllService(responseData.category);
   }
   useEffect(() => {

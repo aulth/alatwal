@@ -77,33 +77,33 @@ const Navbar = () => {
                     {
                         settingData && 
                         <ul className="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:items-center lg:w-auto lg:space-x-6">
-                        <li><Link className="text-sm text-blue-400 hover:text-orange-500 hover:font-semibold" href="/">Home</Link></li>
+                        <li><a className="text-sm text-blue-400 hover:text-orange-500 hover:font-semibold" href={settingData.menu1Link}>{settingData.menu1Title}</a></li>
                         <li className="text-gray-300">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" className="w-4 h-4 current-fill" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
                             </svg>
                         </li>
-                        <li><a href={settingData.menu4Link} className="text-sm text-blue-400 hover:text-orange-500 hover:font-semibold" > {settingData.menu1Title} </a>
-                        </li>
-                        <li className="text-gray-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" className="w-4 h-4 current-fill" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-                            </svg>
-                        </li>
-                        <li id="visa-btn"><a className="text-sm text-blue-400 hover:text-orange-500 hover:font-semibold" href={settingData.menu2Link}> {settingData.menu2Title} </a>
+                        <li><a href={settingData.menu2Link} className="text-sm text-blue-400 hover:text-orange-500 hover:font-semibold" > {settingData.menu2Title} </a>
                         </li>
                         <li className="text-gray-300">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" className="w-4 h-4 current-fill" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
                             </svg>
                         </li>
-                        <li><a className="text-sm text-blue-400 hover:text-orange-500" href={settingData.menu3Link}> {settingData.menu3Title} </a></li>
+                        <li id="visa-btn"><a className="text-sm text-blue-400 hover:text-orange-500 hover:font-semibold" href={settingData.menu3Link}> {settingData.menu3Title} </a>
+                        </li>
                         <li className="text-gray-300">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" className="w-4 h-4 current-fill" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
                             </svg>
                         </li>
                         <li><a className="text-sm text-blue-400 hover:text-orange-500" href={settingData.menu4Link}> {settingData.menu4Title} </a></li>
+                        <li className="text-gray-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" className="w-4 h-4 current-fill" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+                            </svg>
+                        </li>
+                        <li><a className="text-sm text-blue-400 hover:text-orange-500" href={settingData.menu5Link}> {settingData.menu5Title} </a></li>
                     </ul>
                     }
                     {
@@ -140,7 +140,7 @@ const Navbar = () => {
                                 settingData &&
                                 <ul>
                                 <li className="mb-1">
-                                    <Link className="block p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="/">Home</Link>
+                                    <Link className="block p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="/">UAE Tour</Link>
                                 </li>
                                 <li className="mb-1">
                                     <a className="block p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600 rounded" href={settingData.menu1Link}>{settingData.menu1Title}</a>

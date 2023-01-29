@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Head from 'next/head'
 import Spinner from './../components/Spinner'
+import Footer from './../components/Footer'
 const About = () => {
     const [contactData, setContactData] = useState({ name: '', email: '', subject: '', message: '' });
     const [loading, setLoading] = useState(false)
@@ -96,6 +97,10 @@ const About = () => {
                     </form>
                 </div>
             </div>
+            <div className="w-full h-[26rem] flex justify-center items-center mt-2">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14433.260655501066!2d55.4241387!3d25.2599814!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x6c394dafd7d14c0d!2sAlatwal%20Travel%20%26%20Tourism%20LLC!5e0!3m2!1sen!2sin!4v1675009151851!5m2!1sen!2sin" width="100%" height="100%" style={{border:0}} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <Footer />
         </>
     )
 }

@@ -1,6 +1,8 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
 import Head from 'next/head'
+import Footer from '../components/Footer'
+import Link from 'next/link'
 const About = () => {
     return (
         <>
@@ -34,7 +36,7 @@ const About = () => {
                     <div className="w-full lg:w-1/2   p-4 md:p-8 md:pb-4">
                         <h2 className="font-semibold text-xl md:text-2xl">ALATWAL TRAVEL & TOURISM</h2>
                         <p className='text-lg mt-1'>Up and running, Alatwal Travel & Tourism is one stop solution for all your travel needs. We are a destination management company based in UAE offering the best of local tours for your leisure while in UAE. We provide you the guidance for best local activities complemented with best price offer thourgh the direct sale aggrement with the organizer. Conveninet and hassle free dealing with 24x7 customer support that will gurantee your full satisfaction and a reason for our rocommendation to others. Travel desk, B2B, B2C, international holidays, UAE visas, flight services, coorporate services are some of our accomplished and known services.</p>
-                        <button className='bg-orange-400 hover:bg-orange-500 duration-75 mt-2 rounded text-black px-4 py-2'>Get Started</button>
+                        <Link href={"/"}><button className='bg-orange-400 hover:bg-orange-500 duration-75 mt-2 rounded text-black px-4 py-2'>Get Started</button></Link>
                     </div>
                 </div>
                 <div className="w-full flex lg:flex-row flex-col  mt-4">
@@ -58,7 +60,9 @@ const About = () => {
                     </div>
                 </div>
             </div>
+            <Footer/>
         </>
+
     )
 }
 

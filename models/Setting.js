@@ -31,6 +31,8 @@ const Setting = new mongoose.Schema({
     menu3Title:String,
     menu4Link:String,
     menu4Title:String,
+    menu5Link:String,
+    menu5Title:String,
 
 }, { timestamps: true })
 

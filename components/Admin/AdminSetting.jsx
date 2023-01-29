@@ -150,6 +150,13 @@ const AdminSetting = () => {
                                     <input type="text" value={settingData.menu4Link} name="menu4Link" onChange={handleOnChange} placeholder="link" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border mx-1' />
                                 </div>
                             </div>
+                            <div className="w-full flex flex-col md:flex-row md:justify-between mb-6">
+                                <label className='font-semibold   mr-2 md:mb-0 mb-1 w-52' htmlFor="">Menu 5 <span className='text-sm'>(Title/Link)</span></label>
+                                <div className="w-full flex items-center justify-center">
+                                    <input type="text" value={settingData.menu5Title} name="menu5Title" onChange={handleOnChange} placeholder="title" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border mx-1' />
+                                    <input type="text" value={settingData.menu5Link} name="menu5Link" onChange={handleOnChange} placeholder="link" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border mx-1' />
+                                </div>
+                            </div>
                             <hr />
                             <div className="w-full flex flex-col md:flex-row md:justify-between my-6">
                                 <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">Company Address</label>
