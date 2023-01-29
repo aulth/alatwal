@@ -47,6 +47,18 @@ const Navbar = () => {
      }
     }, [isLoggedIn])
     
+    const [settingData, setSettingData] = useState()
+    const fetchSetting = async ()=>{
+        let response = await fetch('/api/setting/fetch');
+        let responseData = await response.json();
+        if(responseData.success){
+            setSettingData(responseData.setting[0])
+        }
+    }
+    useEffect(() => {
+      fetchSetting();
+    }, [])
+    
     return (
         <>
             <div className='sticky top-0 z-50'>
@@ -62,50 +74,38 @@ const Navbar = () => {
                             </svg>
                         </button>
                     </div>
-                    <ul className="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:items-center lg:w-auto lg:space-x-6">
+                    {
+                        settingData && 
+                        <ul className="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:items-center lg:w-auto lg:space-x-6">
                         <li><Link className="text-sm text-blue-400 hover:text-orange-500 hover:font-semibold" href="/">Home</Link></li>
                         <li className="text-gray-300">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" className="w-4 h-4 current-fill" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
                             </svg>
                         </li>
-                        <li onMouseEnter={() => { showList('tour-list') }} ><Link href="/tours" className="text-sm text-blue-400 hover:text-orange-500 hover:font-semibold" > Tours</Link>
-                            <div onMouseLeave={() => { hideList('tour-list') }} id='tour-list' className="rounded-b hidden bg-white border border-gray-200 p-4 absolute mt-6 -ml-6">
-                                <ul>
-                                    <li><Link href="/tours/desert-safari" className="text-sm text-blue-400 hover:text-orange-500 flex mb-2">Desert Safari</Link></li>
-                                    <li><Link href="/tours/burj-khalifa" className="text-sm text-blue-400 hover:text-orange-500 flex mb-2">Burj Khalifa</Link></li>
-                                    <li><Link href="/tours/dhow-cruise" className="text-sm text-blue-400 hover:text-orange-500 flex mb-2">Dhow Cruise</Link></li>
-                                    <li><Link href="/tours/wild-wide-water-park" className="text-sm text-blue-400 hover:text-orange-500 flex mt-2">Wild Wadi Water Park</Link></li>
-                                </ul>
-                            </div>
+                        <li><a href={settingData.menu4Link} className="text-sm text-blue-400 hover:text-orange-500 hover:font-semibold" > {settingData.menu1Title} </a>
                         </li>
                         <li className="text-gray-300">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" className="w-4 h-4 current-fill" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
                             </svg>
                         </li>
-                        <li id="visa-btn" onMouseEnter={() => { showList('visa-list') }} ><a className="text-sm text-blue-400 hover:text-orange-500 hover:font-semibold" href="#">Visas</a>
-                            <div onMouseLeave={() => { hideList('visa-list') }} id='visa-list' className="rounded-b hidden bg-white border border-gray-200 p-4 absolute mt-6 -ml-6">
-                                <ul>
-                                    <li><a className="text-sm text-blue-400 hover:text-orange-500 flex mb-2" href="#">UAE Visa</a></li>
-                                    <li><a className="text-sm text-blue-400 hover:text-orange-500 flex mt-2" href="#">International Visa</a></li>
-                                </ul>
-                            </div>
+                        <li id="visa-btn"><a className="text-sm text-blue-400 hover:text-orange-500 hover:font-semibold" href={settingData.menu2Link}> {settingData.menu2Title} </a>
                         </li>
-
                         <li className="text-gray-300">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" className="w-4 h-4 current-fill" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
                             </svg>
                         </li>
-                        <li><Link className="text-sm text-blue-400 hover:text-orange-500" href={'/p/about'}>About</Link></li>
+                        <li><a className="text-sm text-blue-400 hover:text-orange-500" href={settingData.menu3Link}> {settingData.menu3Title} </a></li>
                         <li className="text-gray-300">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" className="w-4 h-4 current-fill" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
                             </svg>
                         </li>
-                        <li><Link className="text-sm text-blue-400 hover:text-orange-500" href={'/p/contact'}>Contact</Link></li>
+                        <li><a className="text-sm text-blue-400 hover:text-orange-500" href={settingData.menu4Link}> {settingData.menu4Title} </a></li>
                     </ul>
+                    }
                     {
                         isLoggedIn && <>
                             <button className="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200">My Bookings</button>
@@ -136,27 +136,26 @@ const Navbar = () => {
                             </button>
                         </div>
                         <div>
-                            <ul>
+                            {
+                                settingData &&
+                                <ul>
                                 <li className="mb-1">
                                     <Link className="block p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="/">Home</Link>
                                 </li>
-
                                 <li className="mb-1">
-                                    <Link className="block p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="/tours">UAE Tours</Link>
+                                    <a className="block p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600 rounded" href={settingData.menu1Link}>{settingData.menu1Title}</a>
                                 </li>
                                 <li className="mb-1">
-                                    <a className="block p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="#">UAE Visa</a>
+                                    <a className="block p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600 rounded" href={settingData.menu3Link}>{settingData.menu2Title}</a>
                                 </li>
                                 <li className="mb-1">
-                                    <a className="block p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600 rounded" href="#">International Visa</a>
+                                    <a className="block p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600 rounded" href={settingData.menu3Link}>{settingData.menu3Title}</a>
                                 </li>
                                 <li className="mb-1">
-                                    <Link className="block p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600 rounded"  href={'/p/about'}>About Us</Link>
-                                </li>
-                                <li className="mb-1">
-                                    <Link className="block p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600 rounded"  href={'/p/contact'}>Contact</Link>
+                                    <a className="block p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600 rounded"  href={settingData.menu4Link}>{settingData.menu4Title}</a>
                                 </li>
                             </ul>
+                            }
                         </div>
                         <div className="mt-auto">
                             <div className="pt-6">

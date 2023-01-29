@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import Navbar from '../components/Navbar'
 import Link from 'next/link'
 import Spinner from '../components/Spinner';
-import { ToastContainer, toast } from 'react-toastify';
 import Head from 'next/head';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router';
 const Login = () => {

@@ -22,7 +22,15 @@ const Setting = new mongoose.Schema({
     bankswift: String,
     bank:String,
     iban: String,
-    accountNumber: String
+    accountNumber: String,
+    menu1Link:String,
+    menu1Title:String,
+    menu2Link:String,
+    menu2Title:String,
+    menu3Link:String,
+    menu3Title:String,
+    menu4Link:String,
+    menu4Title:String,
 
 }, { timestamps: true })
 

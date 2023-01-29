@@ -44,6 +44,24 @@ const AddNewCategory = () => {
     }
     return (
         <>
+        <Head>
+                <title>Add New Category</title>
+                <meta name="title" content="Al Atwal - Best Partner in Your Travel Dairy!"/>
+                    <meta name="description" content="Up and running, Alatwal Travel & Tourism is one stop solution for all your travel needs. We are a destination management company based in UAE offering the best of UAE tours, UEA Visa services and International Visa services." />
+                    {/* <!-- Open Graph / Facebook --> */}
+                    <meta property="og:type" content="website" />
+                    <meta property="og:url" content="https://tourism-zeta.vercel.app" />
+                    <meta property="og:title" content="Al Atwal - Best Partner in Your Travel Dairy!" />
+                    <meta property="og:description" content="Up and running, Alatwal Travel & Tourism is one stop solution for all your travel needs. We are a destination management company based in UAE offering the best of UAE tours, UEA Visa services and International Visa services." />
+                    <meta property="og:image" content="https://tourism-zeta.vercel.app/logo.png" />
+
+                    {/* <!-- Twitter --> */}
+                    <meta property="twitter:card" content="summary_large_image" />
+                    <meta property="twitter:url" content="https://tourism-zeta.vercel.app/" />
+                    <meta property="twitter:title" content="Al Atwal - Best Partner in Your Travel Dairy!" />
+                    <meta property="twitter:description" content="Up and running, Alatwal Travel & Tourism is one stop solution for all your travel needs. We are a destination management company based in UAE offering the best of UAE tours, UEA Visa services and International Visa services." />
+                    <meta property="twitter:image" content="https://tourism-zeta.vercel.app/logo.png" />
+            </Head>
             <ToastContainer />
             <div className="w-full p-4 overflow-y-auto">
                 <div className="w-full flex justify-between">
@@ -57,8 +75,8 @@ const AddNewCategory = () => {
                             <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-14' htmlFor="">Title  <sup className='text-red-600'>*</sup></label>
                             <input type="text" onChange={handleOnChange} name='title' className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' />
                         </div>
-                        <div className="w-full flex flex-col md:flex-row md:justify-between mb-6">
-                            <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-14' htmlFor="">Description  <sup className='text-red-600'>*</sup></label>
+                        <div className="w-full flex flex-col md:items-start md:flex-row md:justify-between mb-6">
+                            <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-24' htmlFor="">Description  <sup className='text-red-600'>*</sup></label>
                             <textarea onChange={handleOnChange} name='description' className='w-full focus:outline focus:outline-blue-400 p-1 rounded border' />
                         </div>
                         <div>

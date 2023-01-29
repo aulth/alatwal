@@ -89,10 +89,10 @@ const AdminSidebar = ({activePage}) => {
                 <div className='my-2'>
                     <label htmlFor="" className='uppercase text-gray-600'>CMS Pages</label>
                     <ul className='text-gray-800 my-2'>
-                        <Link href={"/admin/cms/contact"}><button className={`my-1 flex items-center  hover:scale-105 duration-100 ${activePage=="Contact"?"font-semibold text-blue-400":""}`}><MdContacts className='mx-1' /> Contact </button></Link>
+                        {/* <Link href={"/admin/cms/contact"}><button className={`my-1 flex items-center  hover:scale-105 duration-100 ${activePage=="Contact"?"font-semibold text-blue-400":""}`}><MdContacts className='mx-1' /> Contact </button></Link> */}
                         <Link href={"/admin/cms/service"}><button className={`my-1 flex items-center  hover:scale-105 duration-100 ${activePage=="Service"?"font-semibold text-blue-400":""}`}><FaFileExport className='mx-1' /> Services</button></Link>
                         <Link href={"/admin/cms/faq"}><button className={`my-1 flex items-center  hover:scale-105 duration-100 ${activePage=="FAQ"?"font-semibold text-blue-400":""}`}><FaQuestionCircle className='mx-1' /> FAQ</button></Link>
-                        <Link href={"/admin/cms/about"}><button className={`my-1 flex items-center  hover:scale-105 duration-100 ${activePage=="About"?"font-semibold text-blue-400":""}`}><MdInfo className='mx-1' /> About</button></Link>
+                        {/* <Link href={"/admin/cms/about"}><button className={`my-1 flex items-center  hover:scale-105 duration-100 ${activePage=="About"?"font-semibold text-blue-400":""}`}><MdInfo className='mx-1' /> About</button></Link> */}
                     </ul>
                 </div>
                 
@@ -100,7 +100,7 @@ const AdminSidebar = ({activePage}) => {
                     <label htmlFor="" className='uppercase text-gray-600'>Setting</label>
                     <ul className='text-gray-800 my-2'>
                         <Link href={"/admin/setting"}><button className={`my-1 flex items-center  hover:scale-105 duration-100 ${activePage=="Setting"?"font-semibold text-blue-400":""}`}><AiFillSetting className='mx-1' /> Setting </button></Link>
-                        <button onClick={handleOnLogout} className={`my-1 flex items-center  hover:scale-105 duration-100 ${activePage=="Setting"?"font-semibold text-blue-400":""}`}><FiLogOut className='mx-1' /> Logout </button>
+                        <button onClick={handleOnLogout} className={`my-1 flex items-center  hover:scale-105 duration-100}`}><FiLogOut className='mx-1' /> Logout </button>
                     </ul>
                 </div>
             </div>

@@ -8,6 +8,7 @@ import {RxUpdate} from 'react-icons/rx'
 import '@animxyz/core'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Head from 'next/head'
 const AdminSetting = () => {
     const [settingData, setSettingData] = useState()
     const handleOnChange = (e) => {
@@ -45,6 +46,24 @@ const AdminSetting = () => {
     
     return (
         <>
+        <Head>
+                <title>Setting</title>
+                <meta name="title" content="Al Atwal - Best Partner in Your Travel Dairy!"/>
+                    <meta name="description" content="Up and running, Alatwal Travel & Tourism is one stop solution for all your travel needs. We are a destination management company based in UAE offering the best of UAE tours, UEA Visa services and International Visa services." />
+                    {/* <!-- Open Graph / Facebook --> */}
+                    <meta property="og:type" content="website" />
+                    <meta property="og:url" content="https://tourism-zeta.vercel.app" />
+                    <meta property="og:title" content="Al Atwal - Best Partner in Your Travel Dairy!" />
+                    <meta property="og:description" content="Up and running, Alatwal Travel & Tourism is one stop solution for all your travel needs. We are a destination management company based in UAE offering the best of UAE tours, UEA Visa services and International Visa services." />
+                    <meta property="og:image" content="https://tourism-zeta.vercel.app/logo.png" />
+
+                    {/* <!-- Twitter --> */}
+                    <meta property="twitter:card" content="summary_large_image" />
+                    <meta property="twitter:url" content="https://tourism-zeta.vercel.app/" />
+                    <meta property="twitter:title" content="Al Atwal - Best Partner in Your Travel Dairy!" />
+                    <meta property="twitter:description" content="Up and running, Alatwal Travel & Tourism is one stop solution for all your travel needs. We are a destination management company based in UAE offering the best of UAE tours, UEA Visa services and International Visa services." />
+                    <meta property="twitter:image" content="https://tourism-zeta.vercel.app/logo.png" />
+            </Head>
         <ToastContainer/>
             <div className="w-full p-4 overflow-y-auto">
                 <div className="w-full flex justify-between">
@@ -91,6 +110,34 @@ const AdminSetting = () => {
                             <div className="w-full flex items-center justify-center">
                                 <input type="text" value={settingData.service3Title}  name="service3Title" onChange={handleOnChange} placeholder="title" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border mx-1' />
                                 <input type="text" value={settingData.service3Link}  name="service3Link" onChange={handleOnChange} placeholder="link" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border mx-1' />
+                            </div>
+                        </div>
+                        <div className="w-full flex flex-col md:flex-row md:justify-between mb-6">
+                            <label className='font-semibold   mr-2 md:mb-0 mb-1 w-52' htmlFor="">Menu 1 <span className='text-sm'>(Title/Link)</span></label>
+                            <div className="w-full flex items-center justify-center">
+                                <input type="text" value={settingData.menu1Title}  name="menu1Title" onChange={handleOnChange} placeholder="title" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border mx-1' />
+                                <input type="text" value={settingData.menu1Link}  name="menu1Link" onChange={handleOnChange} placeholder="link" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border mx-1' />
+                            </div>
+                        </div>
+                        <div className="w-full flex flex-col md:flex-row md:justify-between mb-6">
+                            <label className='font-semibold   mr-2 md:mb-0 mb-1 w-52' htmlFor="">Menu 2 <span className='text-sm'>(Title/Link)</span></label>
+                            <div className="w-full flex items-center justify-center">
+                                <input type="text" value={settingData.menu2Title}  name="menu2Title" onChange={handleOnChange} placeholder="title" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border mx-1' />
+                                <input type="text" value={settingData.menu2Link}  name="menu2Link" onChange={handleOnChange} placeholder="link" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border mx-1' />
+                            </div>
+                        </div>
+                        <div className="w-full flex flex-col md:flex-row md:justify-between mb-6">
+                            <label className='font-semibold   mr-2 md:mb-0 mb-1 w-52' htmlFor="">Menu 3 <span className='text-sm'>(Title/Link)</span></label>
+                            <div className="w-full flex items-center justify-center">
+                                <input type="text" value={settingData.menu3Title}  name="menu3Title" onChange={handleOnChange} placeholder="title" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border mx-1' />
+                                <input type="text" value={settingData.menu3Link}  name="menu3Link" onChange={handleOnChange} placeholder="link" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border mx-1' />
+                            </div>
+                        </div>
+                        <div className="w-full flex flex-col md:flex-row md:justify-between mb-6">
+                            <label className='font-semibold   mr-2 md:mb-0 mb-1 w-52' htmlFor="">Menu 4 <span className='text-sm'>(Title/Link)</span></label>
+                            <div className="w-full flex items-center justify-center">
+                                <input type="text" value={settingData.menu4Title}  name="menu4Title" onChange={handleOnChange} placeholder="title" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border mx-1' />
+                                <input type="text" value={settingData.menu4Link}  name="menu4Link" onChange={handleOnChange} placeholder="link" className='w-full focus:outline focus:outline-blue-400 p-1 rounded border mx-1' />
                             </div>
                         </div>
                         <div className="w-full flex flex-col md:flex-row md:justify-between mb-6">
