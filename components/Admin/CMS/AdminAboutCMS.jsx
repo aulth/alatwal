@@ -8,6 +8,7 @@ import {RxUpdate} from 'react-icons/rx'
 import { useRouter } from 'next/router'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Head from 'next/head'
 import '@animxyz/core'
 import 'react-quill/dist/quill.snow.css'
 
@@ -97,6 +98,24 @@ const AdminABoutCMS = () => {
     ]
     return (
         <>
+         <Head>
+                <title>About Page Edit</title>
+                <meta name="title" content="Order Placed successfully"/>
+                    <meta name="description" content="Up and running, Alatwal Travel & Tourism is one stop solution for all your travel needs. We are a destination management company based in UAE offering the best of UAE tours, UEA Visa services and International Visa services." />
+                    {/* <!-- Open Graph / Facebook --> */}
+                    <meta property="og:type" content="website" />
+                    <meta property="og:url" content="https://tourism-zeta.vercel.app" />
+                    <meta property="og:title" content="Al Atwal - Best Partner in Your Travel Dairy!" />
+                    <meta property="og:description" content="Up and running, Alatwal Travel & Tourism is one stop solution for all your travel needs. We are a destination management company based in UAE offering the best of UAE tours, UEA Visa services and International Visa services." />
+                    <meta property="og:image" content="https://tourism-zeta.vercel.app/logo.png" />
+
+                    {/* <!-- Twitter --> */}
+                    <meta property="twitter:card" content="summary_large_image" />
+                    <meta property="twitter:url" content="https://tourism-zeta.vercel.app/" />
+                    <meta property="twitter:title" content="Al Atwal - Best Partner in Your Travel Dairy!" />
+                    <meta property="twitter:description" content="Up and running, Alatwal Travel & Tourism is one stop solution for all your travel needs. We are a destination management company based in UAE offering the best of UAE tours, UEA Visa services and International Visa services." />
+                    <meta property="twitter:image" content="https://tourism-zeta.vercel.app/logo.png" />
+            </Head>
         <ToastContainer/>
             <div className="w-full p-4 overflow-y-auto">
                 <div className="w-full flex justify-between">

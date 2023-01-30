@@ -119,7 +119,7 @@ const Register = () => {
     return (
         <>
         <Head>
-                <title>Al Atwal - Signup</title>
+                <title>Al Atwal - Register</title>
                 <meta name="title" content="Al Atwal - Best Partner in Your Travel Dairy!"/>
                     <meta name="description" content="Up and running, Alatwal Travel & Tourism is one stop solution for all your travel needs. We are a destination management company based in UAE offering the best of UAE tours, UEA Visa services and International Visa services." />
                     {/* <!-- Open Graph / Facebook --> */}

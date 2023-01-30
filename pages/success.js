@@ -75,8 +75,8 @@ const SuccessPage = ({ id }) => {
   return (
     <>
     <Head>
-                <title>Al Atwal - Best Partner in Your Travel Dairy!</title>
-                <meta name="title" content="Al Atwal - Best Partner in Your Travel Dairy!"/>
+                <title>Order - Success</title>
+                <meta name="title" content="Order Placed successfully"/>
                     <meta name="description" content="Up and running, Alatwal Travel & Tourism is one stop solution for all your travel needs. We are a destination management company based in UAE offering the best of UAE tours, UEA Visa services and International Visa services." />
                     {/* <!-- Open Graph / Facebook --> */}
                     <meta property="og:type" content="website" />
