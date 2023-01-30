@@ -82,12 +82,12 @@ const Footer = () => {
                                 <nav aria-label="Footer Navigation - Company" className="mt-6">
                                     <ul className="space-y-4 text-sm">
                                         <li>
-                                            <Link href={'/p/about'} className="text-gray-700 transition hover:opacity-75">
+                                            <Link href={'/about'} className="text-gray-700 transition hover:opacity-75">
                                                 About
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link  href={'/p/contact'} className="text-gray-700 transition hover:opacity-75">
+                                            <Link  href={'/contact'} className="text-gray-700 transition hover:opacity-75">
                                                 Contact
                                             </Link>
                                         </li>

@@ -45,7 +45,8 @@ const LandingPage = () => {
     <>
     <div className="home">
         <div style={{ height: 'calc(100vh - 72px)' }} className="flex flex-col justify-center items-center p-1">
-          <h2 className="md:text-5xl text-3xl text-center font-semibold font-[helvetica] text-white drop-shadow-lg mb-8">Best Partner in Your Travel Dairy!</h2>
+          <h2 className="md:text-5xl text-3xl text-center font-semibold font-[helvetica] text-white drop-shadow-lg mb-8">Alatwal Travel & Tourism LLC</h2>
+          <h2 className="md:text-4xl text-2xl text-center font-semibold font-[helvetica] text-white drop-shadow-lg mb-8">Best Partner in Your Travel Dairy!</h2>
           <div className="flex md:flex-row flex-col justify-center items center border-white border rounded md:w-3/4 w-full p-1">
             <div className="flex items-center bg-white md:rounded-l md:rounded-r-none rounded-t  p-1  w-full relative">
               <select name="" onChange={navigateToTour} id="" className='w-full p-2 border-none focus:outline-none'>
@@ -57,20 +58,6 @@ const LandingPage = () => {
                   })
                 }
               </select>
-              {/* <button onClick={toggleService} className="w-full px-2 py-1 flex items-center text-gray-500 font-semibold">{service?service:'Burj Khalifa'} <BsChevronCompactDown className='mx-2 ' /></button>
-              <div id='service-list' className="w-full hidden border-b border-l border-r border-gray-400 absolute -ml-[4.5px] top-10  rounded-b bg-white p-1 z-50">
-                <ul className='w-full'>
-                  <li className='w-full bg-gray-700 p-1 text-white font-semibold'>UAE Tours</li>
-                  <li className=' text-gray-400 hover:text-white hover:bg-gray-600 cursor-pointer mb-1 p-1' onClick={()=>{setService("Desert Safari");toggleService()}}>Desert Safari</li>
-                  <li className='text-gray-400 hover:text-white hover:bg-gray-600 cursor-pointer mb-1 p-1'  onClick={()=>{setService("Burj Khalifa");toggleService()}}>Burj Khalifa</li>
-                  <li className=' text-gray-400 hover:text-white hover:bg-gray-600 cursor-pointer mb-1 p-1'  onClick={()=>{setService("Dhow Cruise");toggleService()}}>Dhow Cruise</li>
-                  <li className='text-gray-400 hover:text-white hover:bg-gray-600 cursor-pointer mb-1 p-1'  onClick={()=>{setService("Wild Wadi Water Park");toggleService()}}>Wild Wadi Water Park</li>
-                  <hr />
-                  <li className='w-full bg-gray-700 p-1 text-white font-semibold'>Visa</li>
-                  <li className='text-gray-400 hover:text-white hover:bg-gray-600 cursor-pointer mb-1 p-1'  onClick={()=>{setService("UAE Visa");toggleService()}}>UAE Visa</li>
-                  <li className=' text-gray-400 hover:text-white hover:bg-gray-600 cursor-pointer mb-1 p-1'  onClick={()=>{setService("International Visa");toggleService()}}>International Visa</li>
-                </ul>
-              </div> */}
             </div>
             <div className="flex md:rounded-r rounded-b  md:rounded-bl-none items-center bg-white w-full md:my-0 my-1">
               <input type="date" id='datePicker' className='w-full md:rounded-none rounded-l outline-none border-none focus:border-none focus:outline-none p-2' />
