@@ -205,7 +205,7 @@ const Checkout = () => {
                                     <input type="tel" placeholder='9839098390' name='contact' onChange={handleOnChange} className='focus:outline-none w-full rounded border border-gray-100 bg-gray-50 p-1 px-2 text-sm' required/>
                                 </div>
                             </div>
-                            <div className="w-full flex md:flex-row flex-col justify-between my-1">
+                            {/* <div className="w-full flex md:flex-row flex-col justify-between my-1">
                                 <div className="w-full  mx-1">
                                     <label htmlFor="" className='text-sm font-semibold'>Country</label>
                                     <select name="country" id="" onChange={handleOnChange} className='focus:outline-none w-full rounded border border-gray-100 bg-gray-50 p-1 px-2 text-sm cursor-pointer' required>
@@ -213,7 +213,7 @@ const Checkout = () => {
                                         <option value="United Arab Emirates">United Arab Emirated</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div> */}
                             <div className="w-full flex md:flex-row flex-col justify-between my-1">
                                 <div className="w-full  mx-1">
                                     <label htmlFor="" className='text-sm font-semibold'>Special Request</label>
