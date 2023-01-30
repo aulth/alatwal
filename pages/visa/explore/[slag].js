@@ -4,6 +4,7 @@ import Navbar from '../../../components/Navbar'
 import Head from 'next/head'
 import Visacard from '../../../components/Visacard'
 import VisaPage from '../../../components/VisaPage'
+import Footer from '../../../components/Footer'
 const DesertSafari = ({ url }) => {
   const [visaData, setVisaData] = useState();
   const fetchVisa = async (url) => {
@@ -49,7 +50,7 @@ const DesertSafari = ({ url }) => {
       {
         visaData && console.log(visaData)
       }
-
+  <Footer />
     </>
   )
 }

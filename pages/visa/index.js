@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Navbar from '../../components/Navbar'
 import Link from 'next/link'
 import Head from 'next/head'
+import Footer from './../../components/Footer'
 const Tours = () => {
     const [serviceData, setServiceData] = useState([])// tour/burj-khalifa
     const [visaData, setVisaData] = useState([])
@@ -84,6 +85,7 @@ const Tours = () => {
                     })
                 }
             </div>
+            <Footer />
         </>
     )
 }

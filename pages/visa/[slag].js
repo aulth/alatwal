@@ -5,6 +5,7 @@ import Tourcard from '../../components/Tourcard'
 import Tourpage from '../../components/Tourpage'
 import Head from 'next/head'
 import Visacard from '../../components/Visacard'
+import Footer from '../../components/Footer'
 const DesertSafari = ({ categoryUrl }) => {
   const [visaData, setVisaData] = useState();
   const fetchVisa = async (type) => {
@@ -61,7 +62,7 @@ const DesertSafari = ({ categoryUrl }) => {
           })
         }
       </div>
-
+<Footer />
     </>
   )
 }
