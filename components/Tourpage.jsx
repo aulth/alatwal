@@ -337,7 +337,6 @@ const DesertSafari = ({ data }) => {
                             </div>
                         </div>
                     </div>
-
                     {/* Accordian starts here  */}
                     <div className='w-full border rounded bg-white border-gray-200 my-2 p-2'>
                         <button onClick={() => { toggleAccordian('overview') }} className="w-full relative  rounded-t flex items-center justify-between font-semibold">

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { BiImageAdd } from 'react-icons/bi'
 import { AiOutlineDelete } from 'react-icons/ai'
 
-const UploadImage = ({ labelWidth, image, setImage, multiple, preset }) => {
+const UploadImage = ({ labelWidth, image, setImage, multiple, preset, hideLabel }) => {
     let images = [];
     console.log(image)
     const [uploading, setUploading] = useState(false)
@@ -43,7 +43,10 @@ const UploadImage = ({ labelWidth, image, setImage, multiple, preset }) => {
     return (
         <>
             <div className="w-full flex flex-col md:flex-row md:justify-between my-6">
-                <label className={`font-semibold flex items-center mr-2 md:mb-0 mb-1 ${labelWidth ? labelWidth : 'w-14'}`} htmlFor="">Image  <sup className='text-red-600'>*</sup></label>
+                {
+                    !hideLabel &&
+                    <label className={`font-semibold flex items-center mr-2 md:mb-0 mb-1 ${labelWidth ? labelWidth : 'w-14'}`} htmlFor="">Image  <sup className='text-red-600'>*</sup></label>
+                }
                 {
                     !uploading &&
                     <div onClick={handleOnClick} className="w-full bg-white h-8 rounded flex justify-end hover:bg-gray-50 border hover:border-blue-400 cursor-pointer">
@@ -58,7 +61,7 @@ const UploadImage = ({ labelWidth, image, setImage, multiple, preset }) => {
                             Uploading..
                         </button>
                     </div>}
-                <input type="file" onChange={uploadFile} id='upload-image' className='w-full focus:outline focus:outline-blue-400 p-1 rounded border-black' multiple={multiple?multiple:false} hidden />
+                <input type="file" onChange={uploadFile} id='upload-image' className='w-full focus:outline focus:outline-blue-400 p-1 rounded border-black' multiple={multiple ? multiple : false} hidden />
             </div>
             {
                 image && image.length > 0 &&

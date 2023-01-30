@@ -7,9 +7,9 @@ const fetchData = async (req, res) => {
         if (req.method != 'GET') {
             return res.json({ success: false, msg: "Method not allowed" })
         }
-        let allVisa = await Package.find({});
+        let allVisa = await Visa.find({});
         if (allVisa) {
-            return res.json({ success: true, msg: 'Visa Fetched', allVisa:allVisa})
+            return res.json({ success: true, msg: 'Visa Fetched', visa:allVisa})
         }else{
             return res.json({success:false, msg:"No Visa Found"})
         }

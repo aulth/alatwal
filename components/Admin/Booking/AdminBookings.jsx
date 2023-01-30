@@ -61,6 +61,24 @@ const AdminBookings = ({ booking, fetchBooking }) => {
     return (
         <>
         <ToastContainer/>
+        <Head>
+                <title>Al Atwal Booking</title>
+                <meta name="title" content="Al Atwal - Best Partner in Your Travel Dairy!" />
+                <meta name="description" content="Up and running, Alatwal Travel & Tourism is one stop solution for all your travel needs. We are a destination management company based in UAE offering the best of UAE tours, UEA Visa services and International Visa services." />
+                {/* <!-- Open Graph / Facebook --> */}
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="https://tourism-zeta.vercel.app" />
+                <meta property="og:title" content="Al Atwal - Best Partner in Your Travel Dairy!" />
+                <meta property="og:description" content="Up and running, Alatwal Travel & Tourism is one stop solution for all your travel needs. We are a destination management company based in UAE offering the best of UAE tours, UEA Visa services and International Visa services." />
+                <meta property="og:image" content="https://tourism-zeta.vercel.app/logo.png" />
+
+                {/* <!-- Twitter --> */}
+                <meta property="twitter:card" content="summary_large_image" />
+                <meta property="twitter:url" content="https://tourism-zeta.vercel.app/" />
+                <meta property="twitter:title" content="Al Atwal - Best Partner in Your Travel Dairy!" />
+                <meta property="twitter:description" content="Up and running, Alatwal Travel & Tourism is one stop solution for all your travel needs. We are a destination management company based in UAE offering the best of UAE tours, UEA Visa services and International Visa services." />
+                <meta property="twitter:image" content="https://tourism-zeta.vercel.app/logo.png" />
+            </Head>
             <div className="w-full p-4 overflow-y-auto">
                 <div className="w-full flex justify-between">
                     <h6 className=" font-semibold">Bookings</h6>
@@ -88,7 +106,7 @@ const AdminBookings = ({ booking, fetchBooking }) => {
                                     <td className='p-1 text-center'>{booking.bookingNumber}</td>
                                     <td className='p-1 border-l px-2'>{booking.bookingFor[0].toUpperCase()+booking.bookingFor.slice(1).toLowerCase()}</td>
                                     <td className='p-1 border-l px-2'>AED {booking.price}</td>
-                                    <td className='p-1 border-l px-2'>{booking.item[0].date}</td>
+                                    <td className='p-1 border-l px-2'>{booking.bookingFor=='tour'?booking.item[0].date:booking.date}</td>
                                     <td className='p-1 border-l px-2'>
                                         {
                                             booking.paymentStatus=='pending'?

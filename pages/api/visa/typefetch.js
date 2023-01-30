@@ -3,17 +3,21 @@ import jwt from 'jsonwebtoken'
 import Visa from '../../../models/Visa';
 connectToDb();
 
-const fetchOne = async (req, res) => {
+const typeFetch = async (req, res) => {
     try {
         if (req.method != 'POST') {
             return res.json({ success: false, msg: "Method not allowed" })
         }
-        let { url} = JSON.parse(req.body);
-        console.log(req.body)
+        let { url} = req.body;
         if (!url) {
-            return res.json({ success: false, msg: "Url not provided" })
+            return res.json({ success: false, msg: "Type not provided" })
         }
-        let visa = await Visa.findOne({url: url})
+        let visa;
+        if(url=='all'){
+            visa = await Visa.find({});
+        } else{
+            visa = await Visa.find({typeUrl: url})
+        }
         if (visa) {
             return res.json({ success: true, msg: 'Fetched successfully', visa:visa})
         }else{
@@ -25,4 +29,4 @@ const fetchOne = async (req, res) => {
     }
 }
 
-export default fetchOne;
+export default typeFetch;

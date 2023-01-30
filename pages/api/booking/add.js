@@ -22,13 +22,16 @@ const add = async (req, res) => {
             price,
             availability,
             paymentStatus,
-            service, authtoken
+            service,
+            date,
+            image,
+             authtoken
         } = req.body;
+        console.log(req.body.price)
         let bookingNumber = Math.floor(Math.random() * 1000000000);
         if ( !firstName 
             || !lastName 
             || !email 
-            || !contact 
             || !paymentMethod 
             || !item 
             || !bookingFor 
@@ -59,7 +62,9 @@ const add = async (req, res) => {
             availability,
             paymentStatus,
             service,
-            userId:id
+            userId:id,
+            date,
+            image:image
         })
         if (newBooking) {
             return res.json({ success: true, msg: 'Booking successfully', bookingNumber:bookingNumber })

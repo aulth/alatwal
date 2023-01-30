@@ -2,10 +2,21 @@ import mongoose from 'mongoose'
 const Visa = new mongoose.Schema({
     title: String,
     type: String,
-    price: String,
-    workingDays: String,
+    typeUrl: String,
+    url: String,
+    description: String,
     overview: String,
-    status: String,
+    highlights: String,
+    bookingPolicy: String,
+    importantInformation: String,
+    price:Number,
+    workingDays: String,
+    price30Days: Number,
+    price60Days: Number,
+    status: {
+        type:String,
+        default: 'active',
+    },
     image: Array
 }, { timestamps: true })
 
