@@ -67,7 +67,7 @@ const UserComponent = ({ user, fetchUser }) => {
                 <>
                     {
                         editWindow ? <td className='p-1 border-l px-2 flex items-center'><input type="text" value={userData.name} name='name' className='w-full border-none focus:outline-none ' onChange={handleOnChange} /></td> :
-                            <td className='p-1 border-l px-2 flex items-center'><span className='mr-1 '>{user.name}</span>{user.admin ? <MdVerifiedUser className='text-yellow-500' /> : user.verified ? <MdVerified className='text-green-500' /> : <GoUnverified className='text-gray-500' />}</td>
+                            <td className='p-1 border-l px-2 flex items-center'><span className='mr-1 '>{user.name}</span>{user.admin && user.verified && <MdVerifiedUser className='text-yellow-500' />} {user.verified? <MdVerified className='text-green-500' /> : <GoUnverified className='text-gray-500' />}</td>
                     }
                     <td className='p-1 border-l px-2'>{new Date(user.createdAt).getDate() + '/' + new Date(user.createdAt).getMonth() + 1 + "/" + new Date(user.createdAt).getFullYear()}</td>
                     {

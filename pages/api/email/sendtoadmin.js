@@ -206,7 +206,7 @@ const sendConfirmation = async (req, res) => {
     }
     const mailOption = {
         from: `AlAtwal <${process.env.email}>`,
-        to: 'mohdusman.you@gmail.com',
+        to: 'Info@alatwal.com',
         subject: "New Order Received",
         html: htmlMsg
     };

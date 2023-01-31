@@ -21,7 +21,7 @@ const sendContactForm = async (req, res) => {
     }
     const mailOption = {
         from: `AlAtwal Contact <${process.env.email}>`,
-        to: 'mohdusman.you@gmail.com',
+        to: 'Info@alatwal.com',
         subject: data.subject,
         html: `<div style="width: 100%; padding: 10px; box-sizing: border-box;overflow-x: hidden;margin-left:-5px;">
         <div  style="width: 100%;background-color: #557DA1; padding: 5px 10px 5px 10px;">

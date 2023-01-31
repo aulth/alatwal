@@ -37,7 +37,9 @@ const Dashboard = () => {
             setBooking(responseData.booking);
         }
         for (let booking of responseData.booking) {
-            amount += booking.price + (booking.explorer ? booking.transport : 0) + (booking.isFastTrackAddOn ? booking.fastTrackAddOn : 0);
+            if(booking.paymentStatus=='success'){
+                amount += booking.price + (booking.explorer ? booking.transport : 0) + (booking.isFastTrackAddOn ? booking.fastTrackAddOn : 0);
+            }
         }
         setRevenue(amount)
         let thisMonthBooking = responseData.booking.filter((booking) => {
@@ -252,7 +254,7 @@ const Dashboard = () => {
                                     </button>
                                 </div>
                                 <div className="w-full">
-                                    <span className='text-4xl font-bold font-[helvetica] block'>{booking.length}</span>
+                                    <span className='text-4xl font-bold font-[helvetica] block'>{booking.filter(item=>item.paymentStatus=='success').length}</span>
                                     <span className='block font-semibold text-gray-500'>Trips Completed</span>
                                 </div>
                             </div>
