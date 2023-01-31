@@ -79,12 +79,13 @@ const EditVisa = ({url}) => {
                 { indent: '-1' },
                 { indent: '+1' },
             ],
-            ['link', 'image', 'video'],
+            ['link', 'image'],
             ['clean'],
         ],
         clipboard: {
             matchVisual: false,
         },
+        
     }
     const formats = [
         'header',
@@ -102,6 +103,7 @@ const EditVisa = ({url}) => {
         'image',
         'video',
     ]
+    
     return (
         <>
         <ToastContainer/>
