@@ -15,7 +15,7 @@ const login = async (req, res)=>{
             if(!user.admin){
                 return res.json({success:false, msg:"Sorry, you are not an admin"})
             }
-            let authtoken = jwt.sign({ name: user.name, email: user.email, id: user._id }, JWTSECRET)
+            let authtoken = jwt.sign({ name: user.name, email: user.email, id: user._id, isAdmin:true }, JWTSECRET)
             return res.json({ success: true, msg: 'Login succesfull', authtoken: authtoken, id:user._id, name:user.name, email:user.email, verified:user.verified})
         }
         return res.json({success:false, msg:'Password Incorrect'})

@@ -4,7 +4,8 @@ const nextConfig = {
   env:{
     email:process.env.email,
     key:process.env.key,
-    mongodburl:process.env.mongodburl
+    mongodburl:process.env.mongodburl,
+    adminpin:process.env.adminpin
   }
 }
 

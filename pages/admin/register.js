@@ -51,8 +51,13 @@ const Register = () => {
             toast.info("Please fill all the fields");
             return;
         }
-        if (!userData.agree) {
-            toast.info("Accept the terms & conditions")
+        if (!userData.pin) {
+            toast.info("Please enter the admin pin")
+            return;
+        }
+        if(userData.pin !==process.env.adminpin){
+            toast.error("Please enter correct admin pin")
+            return
         }
         setLoading(true)
         const apiResponse = await fetch("/api/admin/register", {
@@ -166,14 +171,11 @@ const Register = () => {
                                     <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                                     <input type="password" onChange={handleOnChange} name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                                 </div>
-                                <div className="flex items-start">
-                                    <div className="flex items-center h-5">
-                                        <input id="terms" onChange={handleOnChange} aria-describedby="terms" name='agree' type="checkbox" value={"agree"} className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" required />
-                                    </div>
-                                    <div className="ml-3 text-sm">
-                                        <label htmlFor="terms" className="font-light text-gray-500 dark:text-gray-300">I accept the <a className="font-medium text-blue-600 hover:underline dark:text-blue-500" href="#">Terms and Conditions</a></label>
-                                    </div>
+                                <div>
+                                    <label htmlFor="pin" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Admin Pin</label>
+                                    <input type="password" onChange={handleOnChange} name="pin" id="pin" placeholder="••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                                 </div>
+                                
                                 {
                                     loading &&
                                     <div className="w-full flex justify-center -ml-3"><Spinner /></div>

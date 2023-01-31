@@ -53,6 +53,30 @@ const AdminNavbar = () => {
             list.classList.add("hidden");
         }
     }
+    const validateAdmin = async (authtoken) => {
+        const response = await fetch('/api/admin/validate', {
+            method:'POST',
+            headers:{
+                'content-type':'application/json',
+            },
+            body:JSON.stringify({authtoken})
+        })
+        const json = await response.json();
+        if(!json.success){
+            // localStorage.removeItem('alatwal-admin');
+            router.push('/admin/login')
+        }
+    }
+    useEffect(() => {
+      if(typeof window!=='undefined'){
+        if(localStorage.getItem('alatwal-admin')){
+            validateAdmin(localStorage.getItem('alatwal-admin'));
+        }else{
+            router.push('/admin/login')
+        }
+      }
+    }, [])
+    
     return (
         <>
             <nav onMouseLeave={() => hideList("admin-menu")} className="relative px-4 py-2 flex justify-between items-center bg-white border-b border-gray-200">

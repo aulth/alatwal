@@ -27,7 +27,7 @@ const register = async (req, res) => {
             admin:true,
         })
         if (user) {
-            let authtoken = jwt.sign({ name: user.name, email: user.email, id: user._id }, JWTSECRET)
+            let authtoken = jwt.sign({ name: user.name, email: user.email, id: user._id, isAdmin:true }, JWTSECRET)
             return res.json({ success: true, msg: 'Signup succesfull', authtoken: authtoken, id:user._id})
         }else{
             return res.json({success:false, msg:"Sign up failed 1"})
