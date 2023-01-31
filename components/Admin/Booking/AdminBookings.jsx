@@ -7,7 +7,7 @@ import '@animxyz/core'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Head from 'next/head'
-const AdminBookings = ({ booking, fetchBooking }) => {
+const AdminBookings = ({ booking, fetchBooking, reloading, setReloading }) => {
     let bookingData = []
     if(booking){
         for (let item of booking){
@@ -82,7 +82,7 @@ const AdminBookings = ({ booking, fetchBooking }) => {
             <div className="w-full p-4 overflow-y-auto">
                 <div className="w-full flex justify-between">
                     <h6 className=" font-semibold">Bookings</h6>
-                    <button className="flex items-center text-[#1F41AF]"> <TfiReload className='mx-2' /> Reload Data</button>
+                    <button onClick={fetchBooking} className="flex items-center text-[#1F41AF]"> {reloading?<img src="https://media.tenor.com/On7kvXhzml4AAAAj/loading-gif.gif" className='w-4 h-4 mr-2 mt-1' alt="" />:<TfiReload className='mx-2' />} Reload Data</button>
                 </div>
                 <div className="w-full flex justify-between items-center my-4 rounded border border-gray-300">
                     <input onChange={performSearch} type="text" className='w-full h-full p-2 border-none focus:outline-none' />
@@ -123,7 +123,7 @@ const AdminBookings = ({ booking, fetchBooking }) => {
                                     <td className='p-1 border-l px-2 flex justify-center items-center'>
                                         <div className="flex items-center">
                                             <Link  href={`/admin/bookings/assign-ticket/${booking.bookingNumber}`} className='px-2 py-[3px]  border rounded-l hover:bg-gray-100 text-[12px]'>
-                                                Assign Tickets
+                                                {booking.bookingFor=='tour'?'Assign Ticket':booking.bookingFor=='visa'?'Upload Visa':''}
                                             </Link>
                                             {/* <button className='px-2 py-[3px]  border-t border-b hover:bg-gray-100 text-[12px]'>
                                                 Update Booking

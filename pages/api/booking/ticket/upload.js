@@ -12,9 +12,9 @@ const update = async (req, res) => {
         let { bookingNumber,
             authtoken,
             bookedTourId,
-            ticket
+            ticket, type
         } = req.body;
-        if (!bookingNumber || !bookedTourId || !ticket ) {
+        if (!bookingNumber || !ticket ) {
             return res.json({ success: false, msg: "All fields required" })
         }
         if (!authtoken ) {
@@ -25,15 +25,24 @@ const update = async (req, res) => {
             return res.json({success:false, msg:"Invalid token"});
         }
         let {item} = await Booking.findOne({bookingNumber: bookingNumber});
-        item = item.map((item, index)=>{
-            if(item.id==bookedTourId){
-                item.ticket = ticket 
-            }
-            return item;
-        })
-        let newBooking = await Booking.findOneAndUpdate({bookingNumber:bookingNumber, item:item});
+        console.log(item)
+        if(type=="Ticket"){
+            item = item.map((item, index)=>{
+                if(item.id==bookedTourId){
+                    item.ticket = ticket 
+                }
+                return item;
+            })
+        }else{
+            item = item.map((item, index)=>{
+                item.ticket = ticket
+                return item;
+            })
+        }
+        console.log(item)
+        let newBooking = await Booking.findOneAndUpdate({bookingNumber:bookingNumber}, {item:item});
         if (newBooking) {
-            return res.json({ success: true, msg: 'Ticket Uploaded' })
+            return res.json({ success: true, msg: type + ' Uploaded' })
         } else {
             return res.json({ success: false, msg: "Something went wrong" })
         }

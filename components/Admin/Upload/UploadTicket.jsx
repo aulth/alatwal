@@ -8,8 +8,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { IKContext, IKUpload } from 'imagekitio-react';
 const publicKey = "public_92LmaGdulaemcYl7X2YaL95QGnU=";
 const urlEndpoint = "https://ik.imagekit.io/lgju5gzfspd/";
-const authenticationEndpoint = "https://tourism-zeta.vercel.app/api/imagekit/get";
-const UploadTicket = ({ labelWidth, bookingNumber, ticketFromDb, bookedTourId, bookingDetails, email, name }) => {
+const authenticationEndpoint = "http://localhost:3000/api/imagekit/get";
+const UploadTicket = ({ labelWidth, label, type, date, bookingNumber, ticketFromDb, bookedTourId, bookingDetails, email, name }) => {
     const [ticket, setTicket] = useState('')
     const saveTicketToDb = async (ticket) => {
         const response = await fetch('/api/booking/ticket/upload', {
@@ -17,7 +17,7 @@ const UploadTicket = ({ labelWidth, bookingNumber, ticketFromDb, bookedTourId, b
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify({ ticket, bookingNumber, bookedTourId, authtoken: localStorage.getItem('alatwal-admin') })
+            body: JSON.stringify({ ticket, type, bookingNumber, bookedTourId, authtoken: localStorage.getItem('alatwal-admin') })
         })
         let responseData = await response.json();
         console.log(responseData)
@@ -36,7 +36,7 @@ const UploadTicket = ({ labelWidth, bookingNumber, ticketFromDb, bookedTourId, b
             headers:{
                 'content-type':'application/json'
             },
-            body:JSON.stringify({ email, ticket, bookingDetails, bookingNumber, name})
+            body:JSON.stringify({ email, ticket, bookingDetails, bookingNumber, name, type:type, date:date})
         })
         let responseData = await response.json();
         if(responseData.success){
@@ -63,7 +63,7 @@ const UploadTicket = ({ labelWidth, bookingNumber, ticketFromDb, bookedTourId, b
         <>
             <ToastContainer />
             <div className="w-full flex flex-col md:flex-row md:justify-start my-6">
-                <label className={`font-semibold flex items-center mr-2   md:mb-0 mb-1 ${labelWidth ? labelWidth : 'w-14'}`} htmlFor="">Assign Ticket</label>
+                <label className={`font-semibold flex items-center mr-2   md:mb-0 mb-1 ${labelWidth ? labelWidth : 'w-14'}`} htmlFor="">{label}</label>
                 {/* <input type="file"  onChange={uploadFile} id='upload-ticket' className='w-full focus:outline focus:outline-blue-400 p-1 rounded border-black' multiple={false}  /> */}
                 <div className='w-full '>
                 <IKContext publicKey={publicKey} urlEndpoint={urlEndpoint} authenticationEndpoint={authenticationEndpoint}>

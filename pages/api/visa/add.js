@@ -39,6 +39,7 @@ const add = async (req, res) => {
             workingDays: data.workingDays,
             price30Days: data.price30Days?data.price30Days:null,
             price60Days: data.price60Days?data.price60Days:null,
+            
         });
         if (newVisa) {
             return res.json({ success: true, msg: 'Added successfully' })

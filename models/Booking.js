@@ -18,7 +18,9 @@ const Booking = new mongoose.Schema({
     userId:String,
     sessionId:String,
     date:String,
-    image: Array
+    image: Array,
+    type: String,
+    visaDays: String,
 }, { timestamps: true })
 
 mongoose.models = {};

@@ -14,13 +14,16 @@ import AdminSidebar from '../../../components/Admin/AdminSidebar'
 import AdminBookings from '../../../components/Admin/Booking/AdminBookings'
 const BookingsPage = () => {
     const [booking, setBooking] = useState([])
+    const [reloading, setReloading] = useState(false)
     const fetchBooking = async ()=>{
+        setReloading(true)
         const response = await fetch("/api/booking/fetch", {
             method:'GET'
         });
         const responseData = await response.json();
         if(responseData.success){
             setBooking(responseData.booking);
+            setReloading(false)
         }
     }
     useEffect(() => {
@@ -52,12 +55,12 @@ const BookingsPage = () => {
                 <div style={{ height: 'calc(100vh - 57px)' }} className="w-full flex justify-center ">
                     <AdminSidebar activePage={"View Bookings"}/>
                     {
-                        (booking && booking.length>0)?<AdminBookings booking={booking} fetchBooking={fetchBooking}/>:
+                        (booking && booking.length>0)?<AdminBookings reloading={reloading} setReloading={setReloading} booking={booking} fetchBooking={fetchBooking}/>:
                         <>
                                 <div className="w-full p-4 overflow-y-auto">
                                     <div className="w-full flex justify-between">
-                                        <h6 className=" font-semibold">Bookings</h6>
-                                        <button className="flex items-center text-[#1F41AF]"> <TfiReload className='mx-2' /> Reload Data</button>
+                                        <h6 className=" font-semibold">Bookingss</h6>
+                                        <button onClick={fetchBooking} className="flex items-center text-[#1F41AF]"> <TfiReload className='mx-2' /> Reload Data</button>
                                     </div>
                                     <div className="w-full flex justify-between items-center my-4 rounded border border-gray-300">
                                         <input   type="text" className='w-full h-full p-2 border-none focus:outline-none' />

@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 const ApplyVisa = ({ setApplyClicked, data }) => {
-    const [bookingData, setBookingData] = useState({ item: data, price: data.type == 'UAE Visa' ? data.price30Days : data.price });
+    const [bookingData, setBookingData] = useState({ item: data, type:data.type, price: data.type == 'UAE Visa' ? data.price30Days : data.price });
     const [image, setImage] = useState([])
     const [passport, setPassport] = useState([])
     const [photograph, setPhotograph] = useState([])
@@ -63,6 +63,16 @@ const ApplyVisa = ({ setApplyClicked, data }) => {
             toast.info("Please select the date")
             return;
         }
+        if (image.length <= 0) {
+            toast.info("Please upload passport and photograph")
+            return;
+        }
+        console.log(bookingData.type)
+        console.log(bookingData.visaDays)
+        if(bookingData.type=='UAE Visa' && !bookingData.visaDays){
+            toast.info("Please select visa duration")
+            return;
+        }
         const response = await fetch('/api/booking/add', {
             method: 'POST',
             headers: {
@@ -80,6 +90,8 @@ const ApplyVisa = ({ setApplyClicked, data }) => {
                 paymentStatus: 'pending',
                 date: bookingData.date,
                 image: image,
+                type:bookingData.type,
+                visaDays:bookingData.visaDays,
                 authtoken: localStorage.getItem('tour-user')
             })
         })
@@ -126,7 +138,7 @@ const ApplyVisa = ({ setApplyClicked, data }) => {
         setBookingData({ ...bookingData, [e.target.name]: e.target.value });
         console.log(bookingData)
         if (e.target.name == 'visaDays') {
-            setBookingData({ ...bookingData, price: e.target.value == '30 Days Visa' ? data.price30Days : e.target.value == '60 Days Visa' ? data.price60Days : data.price })
+            setBookingData({ ...bookingData, type: e.target.value, price: e.target.value == '30 Days Visa' ? data.price30Days : e.target.value == '60 Days Visa' ? data.price60Days : data.price })
         }
     }
 
@@ -143,6 +155,7 @@ const ApplyVisa = ({ setApplyClicked, data }) => {
                     <>
                         <label className="block my-2 text-sm font-medium text-gray-900 dark:text-white">Type of Visa</label>
                         <select name="visaDays" onChange={handleOnChange} className="  rounded-r-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="">
+                            <option value="">Select Duration</option>
                             <option value="30 Days Visa">30 Days Visa</option>
                             <option value="60 Days Visa">60 Days Visa</option>
                         </select>

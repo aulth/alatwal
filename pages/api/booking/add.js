@@ -10,7 +10,7 @@ const add = async (req, res) => {
             return res.json({ success: false, msg: "Method not allowed" })
         }
         console.log(req.body)
-        let {firstName,
+        let { firstName,
             lastName,
             email,
             contact,
@@ -25,20 +25,22 @@ const add = async (req, res) => {
             service,
             date,
             image,
-             authtoken
+            authtoken,
+            type,
+            visaDays
         } = req.body;
         console.log(req.body.price)
         let bookingNumber = Math.floor(Math.random() * 1000000000);
-        if ( !firstName 
-            || !lastName 
-            || !email 
-            || !paymentMethod 
-            || !item 
-            || !bookingFor 
+        if (!firstName
+            || !lastName
+            || !email
+            || !paymentMethod
+            || !item
+            || !bookingFor
             || !price) {
             return res.json({ success: false, msg: "All fields required" })
         }
-        if(!authtoken){
+        if (!authtoken) {
             return res.json({ success: false, msg: "Please Login" });
         }
         let { id } = jwt.verify(authtoken, JWTSECRET);
@@ -46,7 +48,7 @@ const add = async (req, res) => {
         if (!id) {
             return res.json({ success: false, msg: "Invalid token" });
         }
-        
+
         let newBooking = await Booking.create({
             bookingNumber,
             firstName,
@@ -62,12 +64,14 @@ const add = async (req, res) => {
             availability,
             paymentStatus,
             service,
-            userId:id,
+            userId: id,
             date,
-            image:image
+            image: image,
+            type,
+            visaDays,
         })
         if (newBooking) {
-            return res.json({ success: true, msg: 'Booking successfully', bookingNumber:bookingNumber })
+            return res.json({ success: true, msg: 'Booking successfully', bookingNumber: bookingNumber })
         } else {
             return res.json({ success: false, msg: "Something went wrong" })
         }
