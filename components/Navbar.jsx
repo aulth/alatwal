@@ -147,9 +147,9 @@ const Navbar = () => {
                             {
                                 settingData &&
                                 <ul>
-                                {/* <li className="mb-1">
+                                <li className="mb-1">
                                     <a className="block p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600 rounded" href={settingData.menu1Link}>{settingData.menu1Title}</a>
-                                </li> */}
+                                </li>
                                 <li className="mb-1">
                                     <a className="block p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600 rounded" href={settingData.menu2Link}>{settingData.menu2Title}</a>
                                 </li>
@@ -167,10 +167,10 @@ const Navbar = () => {
                             {
                                 !settingData &&
                                 <ul>
-                                    <li className="block mb-4 p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600  bg-gray-50 h-6 w-full  animate-pulse rounded" href={settingData.menu1Link}>{settingData.menu1Title}</li>
-                                    <li className="block my-4 p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600  bg-gray-50 h-6 w-full  animate-pulse rounded" href={settingData.menu1Link}>{settingData.menu1Title}</li>
-                                    <li className="block my-4 p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600  bg-gray-50 h-6 w-full  animate-pulse rounded" href={settingData.menu1Link}>{settingData.menu1Title}</li>
-                                    <li className="block my-4 p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600  bg-gray-50 h-6 w-full  animate-pulse rounded" href={settingData.menu1Link}>{settingData.menu1Title}</li>
+                                    <li className="block mb-4 p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600  bg-gray-50 h-6 w-full  animate-pulse rounded"></li>
+                                    <li className="block my-4 p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600  bg-gray-50 h-6 w-full  animate-pulse rounded"></li>
+                                    <li className="block my-4 p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600  bg-gray-50 h-6 w-full  animate-pulse rounded"></li>
+                                    <li className="block my-4 p-4 text-sm font-semibold text-blue-400 hover:bg-blue-50 hover:text-blue-600  bg-gray-50 h-6 w-full  animate-pulse rounded"></li>
                             </ul>
                             }
                         </div>
