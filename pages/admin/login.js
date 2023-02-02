@@ -58,7 +58,6 @@ const Login = () => {
             body: JSON.stringify({ email: userData.email, password: userData.password })
         })
         const apiData = await apiResponse.json();
-        console.log(apiData);
         if (apiData.success) {
             if (!apiData.verified) {
                 setUserId(apiData.id);
@@ -84,7 +83,6 @@ const Login = () => {
             }else{
                 toast.success("Login Successful");
                 localStorage.setItem("alatwal-admin", JSON.stringify(apiData.authtoken));
-                console.log(localStorage.getItem('alatwal-admin'));
                 setLoading(false)
                 setIsAdmin(true);
                 router.push("/admin");
@@ -97,13 +95,11 @@ const Login = () => {
     const handleOnEnterOtp = (e) => {
         e.preventDefault();
         setUserOtp(e.target.value);
-        console.log(userOtp);
     }
     const handleOnVerifyOtp = async (e) => {
         e.preventDefault();
         if (userOtp == systemOtp) {
             setLoading(true);
-            console.log(userId)
             const verifyOtp = await fetch("/api/admin/verify", {
                 method: "POST",
                 header: {
@@ -112,7 +108,6 @@ const Login = () => {
                 body: JSON.stringify({ id: userId })
             })
             const verifyOtpData = await verifyOtp.json();
-            console.log(verifyOtpData)
             if (verifyOtpData.success) {
                 toast.success("Login successful");
                 toast.success("Email Verified");

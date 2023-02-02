@@ -68,7 +68,6 @@ const Register = () => {
             body: JSON.stringify({ name: userData.name, email: userData.email, password: userData.password })
         })
         const apiData = await apiResponse.json();
-        console.log(apiData);
         if (apiData.success) {
             setUserId(apiData.id);
             authtoken = apiData.authtoken;
@@ -99,12 +98,10 @@ const Register = () => {
     const handleOnEnterOtp = (e) => {
         e.preventDefault();
         setUserOtp(e.target.value);
-        console.log(userOtp);
     }
     const handleOnVerifyOtp = async (e) => {
         e.preventDefault();
         if (userOtp == systemOtp) {
-            console.log(userId)
             const verifyOtp = await fetch("/api/admin/verify", {
                 method: "POST",
                 header: {
@@ -113,11 +110,9 @@ const Register = () => {
                 body: JSON.stringify({ id: userId })
             })
             const verifyOtpData = await verifyOtp.json();
-            console.log(verifyOtpData)
             if (verifyOtpData.success) {
-                toast.success("Sign up successful");
-                toast.success("Sign up successful");
-                localStorage.setItem("alatwal-admin", JSON.stringify(apiData.authtoken));
+                toast.success("Email verified");
+                localStorage.setItem("alatwal-admin", JSON.stringify(authtoken));
                 setLoading(false)
                 setIsAdmin(true);
                 router.push("/");
@@ -150,7 +145,7 @@ const Register = () => {
                     <meta property="twitter:image" content="https://tourism-zeta.vercel.app/logo.png" />
             </Head>
             <ToastContainer />
-            <Navbar />
+            {/* <Navbar /> */}
             <section style={{ minHeight: 'calc(100vh - 72px)' }} className="bg-gray-50 dark:bg-gray-900">
                 <div style={{ minHeight: 'calc(100vh - 57px)' }} className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
                     <div id='register-box' className="w-full  bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
