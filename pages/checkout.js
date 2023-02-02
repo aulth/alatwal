@@ -51,9 +51,9 @@ const Checkout = () => {
                     totalAmount += item.price;
                     totalVat += item.vat;
                     if (item.isFastTrackAddOn) {
-                        totalAmount += item.fastTrackAddOn
+                        totalAmount += item.fastTrackAddOn*(Number(item.child) + Number(item.adult) + Number(item.infant))
                     }
-                    if (item.explorer) {
+                    if (item.explorer && item.typeOfTicket=='privateTransfer') {
                         totalAmount += item.transport
                     }
                 }
@@ -78,14 +78,15 @@ const Checkout = () => {
     const handleOnChange = (e) => {
         e.preventDefault();
         setBookingInfo({ ...bookingInfo, [e.target.name]: e.target.value });
-        console.log(bookingInfo)
     }
     const initiateBooking = async(e)=>{
         e.preventDefault();
+        if(typeof window!=='undefined'){
+            localStorage.removeItem('tour-cart');
+        }
         if(paymentMethod=='stripe'){
             setStripePayClicked(true)
         }
-        console.log('initiate booking')
         const response = await fetch('/api/booking/add', {
             method:'POST',
             headers:{
@@ -105,9 +106,7 @@ const Checkout = () => {
                 authtoken:localStorage.getItem('tour-user')})
         })
         const responseData = await response.json();
-        console.log(responseData)
         if(responseData.success){
-            console.log(responseData)
             if(paymentMethod=='stripe'){
                 createCheckOutSession(responseData.bookingNumber);
             }else{

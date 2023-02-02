@@ -1,6 +1,7 @@
 import React from 'react'
 import { AiOutlineCloseCircle } from 'react-icons/ai'
 const CartItem = ({ cart, cartData, setCartData, setDeleteState }) => {
+    console.log(cart)
     const deletItem = (id) => {
         if (typeof window !== 'undefined') {
             let cart = cartData;
@@ -59,24 +60,30 @@ const CartItem = ({ cart, cartData, setCartData, setDeleteState }) => {
                     </div>
                 }
                 {
-                    cart.explorer &&
+                    cart.explorer && cart.typeOfTicket=='privateTransfer' &&
                     <div className="w-full flex justify-between text-sm border-b border-gray-100 p-1 my-1">
                         <span className='font-semibold'>Transport:</span>
                         <p>{cart.transport ? cart.transport : 'time here'}</p>
                     </div>
                 }
                 {
+                    <div className="w-full flex justify-between text-sm border-b border-gray-100 p-1 my-1">
+                        <span className='font-semibold'>Ticket:</span>
+                        <p>{cart.price?cart.price:''}</p>
+                    </div>
+                }
+                {
                     cart.isFastTrackAddOn &&
                     <div className="w-full flex justify-between text-sm border-b border-gray-100 p-1 my-1">
                         <span className='font-semibold'>Fast Track Add On:</span>
-                        <p>{cart.fastTrackAddOn ? cart.fastTrackAddOn : 'time here'}</p>
+                        <p>{cart.fastTrackAddOn ? cart.fastTrackAddOn*(Number(cart.child) + Number(cart.adult) + Number(cart.infant)) : 'time here'}</p>
                     </div>
                 }
                 <div className="w-full flex justify-between text-sm  p-1 my-1">
                     {/* <span className='font-semibold'>Total (Inc VAT):</span> */}
                     <span className='font-semibold'>Total:</span>
                     {/* <p> {cart.price + (cart.explorer? cart.transport: 0 ) + (cart.isFastTrackAddOn?cart.fastTrackAddOn:0) + (cart.vat?cart.vat:0)} AED</p> */}
-                    <p> {cart.price + (cart.explorer? cart.transport: 0 ) + (cart.isFastTrackAddOn?cart.fastTrackAddOn:0)} AED</p>
+                    <p> {cart.price + (cart.explorer? cart.typeOfTicket=='privateTransfer'? cart.transport: 0:0 ) + (cart.isFastTrackAddOn?cart.fastTrackAddOn*(Number(cart.child) + Number(cart.adult) + Number(cart.infant)):0)} AED</p>
                 </div>
             </div>
         </>

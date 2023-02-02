@@ -104,7 +104,7 @@ const DesertSafari = ({ data }) => {
                 toast.info("Please choose the tour date");
                 return;
             }
-            document.querySelector('#price-breakdown').classList.remove('hidden')
+            document.querySelector('#price-breakdown').classList.remove('hidden');
             setTourData({ ...tourData, price: (price.adult * tourData.adult) + (price.child * tourData.child) + (price.infant * tourData.infant), vat:((price.adult * tourData.adult) + (price.child * tourData.child) + (price.infant * tourData.infant))*(vat/100), totalPrice:(price.adult * tourData.adult) + (price.child * tourData.child) + (price.infant * tourData.infant)+((price.adult * tourData.adult) + (price.child * tourData.child) + (price.infant * tourData.infant))*(vat/100) })
         }
     }
@@ -116,6 +116,7 @@ const DesertSafari = ({ data }) => {
         if (typeof window !== 'undefined') {
             let cart = localStorage.getItem('tour-cart') ? JSON.parse(localStorage.getItem('tour-cart')) : [];
             localStorage.setItem('tour-cart', JSON.stringify(cart.concat(tourData)));
+            console.log(localStorage.getItem('tour-cart'));
             toast.success("Tour added")
             setTimeout(() => {
                 router.push("/checkout")
@@ -305,8 +306,6 @@ const DesertSafari = ({ data }) => {
     useEffect(() => {
       fetchSetting();
     }, [])
-    
-
 
     return (
         <>
@@ -537,11 +536,11 @@ const DesertSafari = ({ data }) => {
                         {
                             tourData.isFastTrackAddOn >= 1 && <div className="w-full flex justify-between border-b border-gray-100 py-2 text-sm">
                                 <span>Fast Track Add On </span>
-                                <span className='uppercase font-semibold'>Aed {tourData.fastTrackAddOn}</span>
+                                <span className='uppercase font-semibold'>Aed {tourData.fastTrackAddOn * (Number(tourData.child) + Number(tourData.adult) + Number(tourData.infant))}</span>
                             </div>
                         }
                         {
-                            tourData.explorer  && <div className="w-full flex justify-between border-b border-gray-100 py-2 text-sm">
+                            tourData.explorer && tourData.typeOfTicket=='privateTransfer'  && <div className="w-full flex justify-between border-b border-gray-100 py-2 text-sm">
                                 <span>Transportation </span>
                                 <span className='uppercase font-semibold'>Aed {tourData.transport}</span>
                             </div>

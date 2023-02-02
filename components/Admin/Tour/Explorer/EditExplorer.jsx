@@ -5,6 +5,7 @@ import { AiOutlineSwap, AiOutlineDelete } from 'react-icons/ai'
 import { TfiReload } from 'react-icons/tfi'
 import { BiImageAdd } from 'react-icons/bi'
 import '@animxyz/core'
+import {BiSave} from 'react-icons/bi'
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-quill/dist/quill.snow.css'
@@ -287,7 +288,7 @@ const EditTour = ({ tourUrl }) => {
                             </div>
                             <UploadImage labelWidth={'w-52'} multiple={true} image={image} setImage={setImage} prset={'category'} />
                             <div className="w-full flex flex-row md:justify-end justify-center mb-3">
-                                <button type='submit' className="bg-blue-400 px-2 py-1 text-white md:w-auto w-full justify-center rounded flex items-center hover:bg-blue-500">Edit <MdOutlineEdit className='ml-1 text-xl' /></button>
+                                <button type='submit' className="bg-blue-400 px-2 py-1 text-white md:w-auto w-full justify-center rounded flex items-center hover:bg-blue-500">Save Changes <BiSave className='ml-1 text-xl' /></button>
                             </div>
                         </form>
 

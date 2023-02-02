@@ -19,7 +19,7 @@ const EditPage = ({tourUrl}) => {
             <div className="w-full bg-gray-50">
                 <AdminNavbar/>
                 <div style={{ height: 'calc(100vh - 57px)' }} className="w-full flex justify-center ">
-                    <AdminSidebar activePage={"Add Location"}/>
+                    <AdminSidebar activePage={"Add Tour"}/>
                     <EditExplorer tourUrl={tourUrl} />
                 </div>
             </div>

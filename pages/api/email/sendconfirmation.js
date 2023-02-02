@@ -110,7 +110,7 @@ const sendConfirmation = async (req, res) => {
                                                         ${booking.time ? booking.time : booking.explorer ? booking.typeOfTicket : ''}
                                                         </td>
                                                         <td style="font-size: 14px; line-height: 18px; color: #757575; text-align: right; ">
-                                                            ${booking.explorer ? `<b style="color: #666666;">AED${booking.explorer ? booking.transport : ''}</b> Transport` : ''}
+                                                            ${booking.explorer ? booking.typeOfTicket == 'privateTransfer' ? `<b style="color: #666666;">AED${booking.explorer ? booking.transport : ''}</b> Transport` : '' : ''}
                                                         </td>
                                                     </tr>`: ''
             }
@@ -118,7 +118,16 @@ const sendConfirmation = async (req, res) => {
                                                         <td style="font-size: 14px; line-height: 18px; color: #757575;">
                                                         </td>
                                                         <td style="font-size: 14px; line-height: 18px; color: #757575; text-align: right; ">
-                                                            <b style="color: #666666;">AED${booking.isFastTrackAddOn ? booking.fastTrackAddOn : ''}</b> FTON
+                                                            ${booking.isFastTrackAddOn ? `<b style="color: #666666;">AED${booking.fastTrackAddOn * (Number(booking.adult) + Number(booking.child) + Number(booking.infant))}</b> FTON` : ''}
+                                                        </td>
+                                                    </tr>`: ''
+            }                   
+                                                    ${bookingInfo.bookingFor == 'tour' ?
+                                                    `<tr>
+                                                        <td style="font-size: 14px; line-height: 18px; color: #757575; ">
+                                                        </td>
+                                                        <td style="font-size: 14px; line-height: 18px; color: #757575; text-align: right; ">
+                                                            <b style="color: #666666;">AED${booking.price}</b> Ticket
                                                         </td>
                                                     </tr>`: ''
             }
@@ -126,7 +135,7 @@ const sendConfirmation = async (req, res) => {
                                                         <td style="font-size: 14px; line-height: 18px; color: #757575; ">
                                                         </td>
                                                         <td style="font-size: 14px; line-height: 18px; color: #757575; text-align: right; ">
-                                                            <b style="color: #666666;">AED${bookingInfo.bookingFor == 'tour' ? booking.price : bookingInfo.price}</b> Total
+                                                            <b style="color: #666666;">AED${bookingInfo.bookingFor == 'tour' ? (booking.price + Number(booking.explorer?booking.typeOfTicket=='privateTransfer'?booking.transport:0:0) + Number(booking.isFastTrackAddOn?(booking.fastTrackAddOn*(Number(booking.adult)+Number(booking.child)+Number(booking.infant))):0)) : bookingInfo.price}</b> Total
                                                         </td>
                                                     </tr>
                                                     </tbody>

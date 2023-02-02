@@ -3,7 +3,7 @@ import { MdClose, MdCheck, MdOutlineEdit, MdFileDownloadDone } from 'react-icons
 import { IoAdd } from 'react-icons/io5'
 import { AiOutlineSwap, AiOutlineDelete } from 'react-icons/ai'
 import { TfiReload } from 'react-icons/tfi'
-import { BiImageAdd } from 'react-icons/bi'
+import { BiSave } from 'react-icons/bi'
 import '@animxyz/core'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -199,7 +199,7 @@ const EditVisa = ({url}) => {
                                     <div className='p-4'>
                                         <Spinner />
                                     </div> :
-                                    <button type='submit' className="bg-blue-400 px-2 py-1 text-white md:w-auto w-full justify-center rounded flex items-center hover:bg-blue-500">Update <MdOutlineEdit className='ml-1 text-xl' /></button>
+                                    <button type='submit' className="bg-blue-400 px-2 py-1 text-white md:w-auto w-full justify-center rounded flex items-center hover:bg-blue-500">Save Changes <BiSave className='ml-1 text-xl' /></button>
                             }
 
                         </div>

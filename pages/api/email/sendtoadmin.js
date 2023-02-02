@@ -78,68 +78,77 @@ const sendConfirmation = async (req, res) => {
                                     </td>
                                 </tr>
                                 ${bookingInfo.item.map((booking, index) => {
-                                return `<tr>
-                                        <td style="padding-top: 0;">
-                                            <table width="560" align="center" cellpadding="0" cellspacing="0" border="0" class="devicewidthinner" style="border-bottom: 1px solid #eeeeee;">
-                                                <tbody>
-                                                    <tr>
-                                                        <td colspan="2" style="font-size: 14px; font-weight: bold; color: #666666; padding-bottom: 5px;">
-                                                           ${booking.title}
-                                                        </td>
-                                                    </tr>
-                                                    ${bookingInfo.bookingFor == 'tour' ?
-                                                        `<tr>
-                                                            <td style="font-size: 14px; line-height: 18px; color: #757575; width: 440px;">
-                                                                ${booking.adult}x Adult, ${booking.child}x Child, ${booking.infant}x Infant
-                                                            </td>
-                                                            <td style="width: 130px;"></td>
-                                                        </tr>` : ''
-                                                    }
-                                                    <tr>
-                                                    <td style="font-size: 14px; line-height: 18px; color: #757575;">
-                                                        ${bookingInfo.bookingFor == 'tour' ? booking.date : bookingInfo.date}
+        return `<tr>
+                                <td style="padding-top: 0;">
+                                    <table width="560" align="center" cellpadding="0" cellspacing="0" border="0" class="devicewidthinner" style="border-bottom: 1px solid #eeeeee;">
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="2" style="font-size: 14px; font-weight: bold; color: #666666; padding-bottom: 5px;">
+                                                   ${booking.title}
+                                                </td>
+                                            </tr>
+                                            ${bookingInfo.bookingFor == 'tour' ?
+                `<tr>
+                                                    <td style="font-size: 14px; line-height: 18px; color: #757575; width: 440px;">
+                                                        ${booking.adult}x Adult, ${booking.child}x Child, ${booking.infant}x Infant
                                                     </td>
-                                                    <td style="font-size: 14px; line-height: 18px; color: #757575; text-align: right;">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="font-size: 14px; line-height: 18px; color: #757575;">
-                                                        ${bookingInfo.bookingFor == 'tour' ? '' : bookingInfo.type=='UAE Visa'?bookingInfo.visaDays:bookingInfo.type}
-                                                    </td>
-                                                    <td style="font-size: 14px; line-height: 18px; color: #757575; text-align: right;">
-                                                    </td>
-                                                </tr>
-                                                ${bookingInfo.bookingFor == 'tour'?
-                                                `<tr>
-                                                    <td style="font-size: 14px; line-height: 18px; color: #757575;">
-                                                    ${booking.time ? booking.time : booking.explorer ? booking.typeOfTicket : ''}
-                                                    </td>
-                                                    <td style="font-size: 14px; line-height: 18px; color: #757575; text-align: right; ">
-                                                        ${booking.explorer ? `<b style="color: #666666;">AED${booking.explorer ? booking.transport : ''}</b> Transport` : ''}
-                                                    </td>
-                                                </tr>`:''
-                                                }
-                                                ${booking.explorer ? `<tr>
-                                                    <td style="font-size: 14px; line-height: 18px; color: #757575;">
-                                                    </td>
-                                                    <td style="font-size: 14px; line-height: 18px; color: #757575; text-align: right; ">
-                                                        <b style="color: #666666;">AED${booking.isFastTrackAddOn ? booking.fastTrackAddOn : ''}</b> FTON
-                                                    </td>
-                                                </tr>`: ''
-                                                }
-                                                <tr>
-                                                    <td style="font-size: 14px; line-height: 18px; color: #757575; ">
-                                                    </td>
-                                                    <td style="font-size: 14px; line-height: 18px; color: #757575; text-align: right; ">
-                                                        <b style="color: #666666;">AED${bookingInfo.bookingFor == 'tour' ? booking.price : bookingInfo.price}</b> Total
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
+                                                    <td style="width: 130px;"></td>
+                                                </tr>` : ''
+            }
+                                            <tr>
+                                            <td style="font-size: 14px; line-height: 18px; color: #757575;">
+                                                ${bookingInfo.bookingFor == 'tour' ? booking.date : bookingInfo.date}
+                                            </td>
+                                            <td style="font-size: 14px; line-height: 18px; color: #757575; text-align: right;">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                        <td style="font-size: 14px; line-height: 18px; color: #757575;">
+                                            ${bookingInfo.bookingFor == 'tour' ? '' : bookingInfo.type == 'UAE Visa' ? bookingInfo.visaDays : bookingInfo.type}
                                         </td>
-                                    </tr>`
-                                    })
-                                }
+                                        <td style="font-size: 14px; line-height: 18px; color: #757575; text-align: right;">
+                                        </td>
+                                    </tr>
+                                        ${bookingInfo.bookingFor == 'tour' ?
+                `<tr>
+                                            <td style="font-size: 14px; line-height: 18px; color: #757575;">
+                                            ${booking.time ? booking.time : booking.explorer ? booking.typeOfTicket : ''}
+                                            </td>
+                                            <td style="font-size: 14px; line-height: 18px; color: #757575; text-align: right; ">
+                                                ${booking.explorer ? booking.typeOfTicket == 'privateTransfer' ? `<b style="color: #666666;">AED${booking.explorer ? booking.transport : ''}</b> Transport` : '' : ''}
+                                            </td>
+                                        </tr>`: ''
+            }
+                                        ${booking.explorer ? `<tr>
+                                            <td style="font-size: 14px; line-height: 18px; color: #757575;">
+                                            </td>
+                                            <td style="font-size: 14px; line-height: 18px; color: #757575; text-align: right; ">
+                                                ${booking.isFastTrackAddOn ? `<b style="color: #666666;">AED${booking.fastTrackAddOn * (Number(booking.adult) + Number(booking.child) + Number(booking.infant))}</b> FTON` : ''}
+                                            </td>
+                                        </tr>`: ''
+            }                   
+                                        ${bookingInfo.bookingFor == 'tour' ?
+                `<tr>
+                                            <td style="font-size: 14px; line-height: 18px; color: #757575; ">
+                                            </td>
+                                            <td style="font-size: 14px; line-height: 18px; color: #757575; text-align: right; ">
+                                                <b style="color: #666666;">AED${booking.price}</b> Ticket
+                                            </td>
+                                        </tr>`: ''
+            }
+                                        <tr>
+                                            <td style="font-size: 14px; line-height: 18px; color: #757575; ">
+                                            </td>
+                                            <td style="font-size: 14px; line-height: 18px; color: #757575; text-align: right; ">
+                                                <b style="color: #666666;">AED${bookingInfo.bookingFor == 'tour' ? (booking.price + Number(booking.explorer ? booking.typeOfTicket == 'privateTransfer' ? booking.transport : 0 : 0) + Number(booking.isFastTrackAddOn ? (booking.fastTrackAddOn * (Number(booking.adult) + Number(booking.child) + Number(booking.infant))) : 0)) : bookingInfo.price}</b> Total
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>`
+    })
+        }
                                 <tr>
                                     <td style="padding-top: 0;">
                                         <table width="560" align="center" cellpadding="0" cellspacing="0" border="0" class="devicewidthinner" style="border-bottom: 1px solid #bbbbbb; margin-top: -5px;">
@@ -193,7 +202,7 @@ const sendConfirmation = async (req, res) => {
     }
     const mailOption = {
         from: `AlAtwal <${process.env.email}>`,
-        to: 'Info@alatwal.com',
+        to: 'info@alatwal.com',
         subject: "New Order Received",
         html: htmlMsg
     };
