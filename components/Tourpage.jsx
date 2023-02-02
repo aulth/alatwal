@@ -501,7 +501,7 @@ const DesertSafari = ({ data }) => {
                                 <option value="">Select Type of Ticket</option>
                                 <option value="onlyTicket">Only Entry Ticket</option>
                                 <option value="sharingTransfer">Sharing Transfer</option>
-                                <option value="privateTransfer">Private Transfer</option>
+                                <option value="privateTransfer">Private Transfer (Max 6 Pax)</option>
                             </select>
                         </div>
                             <button onClick={toggleFastTrackAddOn} id='fastTrackBtn' className='w-full flex items-center  border border-gray-100 rounded-lg p-2 my-2 '>Fast Track Add On</button>
