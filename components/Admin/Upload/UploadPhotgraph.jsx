@@ -4,7 +4,7 @@ import { AiOutlineDelete } from 'react-icons/ai'
 import { IKContext, IKUpload } from 'imagekitio-react';
 const publicKey = "public_92LmaGdulaemcYl7X2YaL95QGnU=";
 const urlEndpoint = "https://ik.imagekit.io/lgju5gzfspd/";
-const authenticationEndpoint = "http://localhost:3000/api/imagekit/get";
+const authenticationEndpoint = "https://www.alatwal.com/api/imagekit/get";
 
 const UploadPassport = ({ setPhotograph }) => {
     const onError = (err) => {
