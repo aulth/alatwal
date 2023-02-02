@@ -21,6 +21,8 @@ const Booking = new mongoose.Schema({
     image: Array,
     type: String,
     visaDays: String,
+    passport:String,
+    photograph:String,
 }, { timestamps: true })
 
 mongoose.models = {};

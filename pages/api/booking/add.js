@@ -27,7 +27,9 @@ const add = async (req, res) => {
             image,
             authtoken,
             type,
-            visaDays
+            visaDays,
+            passport,
+            photograph
         } = req.body;
         console.log(req.body.price)
         let bookingNumber = Math.floor(Math.random() * 1000000000);
@@ -69,6 +71,8 @@ const add = async (req, res) => {
             image: image,
             type,
             visaDays,
+            passport,
+            photograph
         })
         if (newBooking) {
             return res.json({ success: true, msg: 'Booking successfully', bookingNumber: bookingNumber })

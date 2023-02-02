@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import UploadImage from './../components/Admin/Upload/UploadImage'
+import UploadPassport from './../components/Admin/Upload/UploadPassport'
+import UploadPhotograph from './../components/Admin/Upload/UploadPhotgraph'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router';
 import { loadStripe } from '@stripe/stripe-js';
+import Spinner from './../components/Spinner'
 import axios from 'axios';
 const ApplyVisa = ({ setApplyClicked, data }) => {
-    const [bookingData, setBookingData] = useState({ item: data, type:data.type, price: data.type == 'UAE Visa' ? data.price30Days : data.price });
+    const [bookingData, setBookingData] = useState({ item: data, type: data.type, price: data.type == 'UAE Visa' ? data.price30Days : data.price });
     const [image, setImage] = useState([])
-    const [passport, setPassport] = useState([])
-    const [photograph, setPhotograph] = useState([])
+    const [passport, setPassport] = useState('');
+    const [photograph, setPhotograph] = useState('');
     const [paymentMethod, setPaymentMethod] = useState('');
     const [stripePayClicked, setStripePayClicked] = useState(false)
     const router = useRouter();
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -58,21 +62,23 @@ const ApplyVisa = ({ setApplyClicked, data }) => {
         if (paymentMethod == 'stripe') {
             setStripePayClicked(true)
         }
-        console.log('initiate booking')
         if (!bookingData.date) {
             toast.info("Please select the date")
             return;
         }
-        if (image.length <= 0) {
-            toast.info("Please upload passport and photograph")
+        if (!passport) {
+            toast.info("Please upload passport copy")
             return;
         }
-        console.log(bookingData.type)
-        console.log(bookingData.visaDays)
-        if(bookingData.type=='UAE Visa' && !bookingData.visaDays){
+        if (!photograph) {
+            toast.info("Please upload photograph")
+            return;
+        }
+        if (bookingData.type == 'UAE Visa' && !bookingData.visaDays) {
             toast.info("Please select visa duration")
             return;
         }
+        setLoading(true)
         const response = await fetch('/api/booking/add', {
             method: 'POST',
             headers: {
@@ -90,15 +96,16 @@ const ApplyVisa = ({ setApplyClicked, data }) => {
                 paymentStatus: 'pending',
                 date: bookingData.date,
                 image: image,
-                type:bookingData.type,
-                visaDays:bookingData.visaDays,
-                authtoken: localStorage.getItem('tour-user')
+                type: bookingData.type,
+                visaDays: bookingData.visaDays,
+                authtoken: localStorage.getItem('tour-user'),
+                passport: passport,
+                photograph: photograph
             })
         })
         const responseData = await response.json();
-        console.log(responseData)
         if (responseData.success) {
-            console.log(responseData)
+            setLoading(false)
             if (paymentMethod == 'stripe') {
                 createCheckOutSession(responseData.bookingNumber);
             } else {
@@ -136,7 +143,6 @@ const ApplyVisa = ({ setApplyClicked, data }) => {
     const handleOnChange = (e) => {
         e.preventDefault();
         setBookingData({ ...bookingData, [e.target.name]: e.target.value });
-        console.log(bookingData)
         if (e.target.name == 'visaDays') {
             setBookingData({ ...bookingData, type: e.target.value, price: e.target.value == '30 Days Visa' ? data.price30Days : e.target.value == '60 Days Visa' ? data.price60Days : data.price })
         }
@@ -172,8 +178,10 @@ const ApplyVisa = ({ setApplyClicked, data }) => {
                 <input type="email" onChange={handleOnChange} name="email" className=" rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="" required />
                 <label className="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white">Contact Number (optional)</label>
                 <input type="tel" onChange={handleOnChange} name="contact" className="  rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="" />
-                <label className="block mt-4 -mb-4 text-sm font-medium text-gray-900 dark:text-white">Attach Passport Scanned Copy + Recent Photograph</label>
-                <UploadImage hideLabel={true} multiple={true} image={image} setImage={setImage} prset={'category'} />
+                <label className="block mt-4 -mb-4 text-sm font-medium text-gray-900 dark:text-white">Attach Passport (pdf)</label>
+                <UploadPassport setPassport={setPassport} />
+                <label className="block  -mb-4 text-sm font-medium text-gray-900 dark:text-white">Attach Recent Photograph</label>
+                <UploadPhotograph setPhotograph={setPhotograph} />
                 <div className="w-full flex md:flex-row flex-col justify-start my-1 mt-2">
                     <button type='button' id='stripe' onClick={() => { selectPaymentMethod('stripe') }} className="px-2 py-1 rounded-sm m-1 bg-gray-50 border border-gray-200">
                         Stripe Payment
@@ -182,8 +190,17 @@ const ApplyVisa = ({ setApplyClicked, data }) => {
                         Bank Payment
                     </button>
                 </div>
-                <input type="button" onClick={initiateBooking} disabled={paymentMethod == ''} value={"Apply"} className="  bg-blue-500 rounded-lg border border-gray-300 text-white cursor-pointer hover:bg-blue-600 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 my-4" id="" />
-                <button type='button' onClick={() => { setApplyClicked(false) }} className='className="  bg-gray-50 border border-gray-300 text-gray-900 cursor-pointer hover:bg-gray-100 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 my-4" '>Cancel</button>
+                {loading &&
+                    <div className="w-full flex justify-center items-center">
+                        <Spinner />
+                    </div>
+                }{
+                    !loading &&
+                    <>
+                        <input type="button" onClick={initiateBooking} disabled={paymentMethod == ''} value={"Apply"} className="  bg-blue-500 rounded-lg border border-gray-300 text-white cursor-pointer hover:bg-blue-600 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 my-4" id="" />
+                        <button type='button' onClick={() => { setApplyClicked(false) }} className='className="  bg-gray-50 border border-gray-300 text-gray-900 cursor-pointer hover:bg-gray-100 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 my-4" '>Cancel</button>
+                    </>
+                }
             </form>
         </>
 

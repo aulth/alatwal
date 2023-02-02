@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { MdClose, MdCheck, MdOutlineEdit } from 'react-icons/md'
 import { AiOutlineSwap, AiOutlineDelete, AiOutlineClockCircle } from 'react-icons/ai'
+import PDFObject from 'pdfobject'
 import { TfiReload } from 'react-icons/tfi'
 import '@animxyz/core'
 import Head from 'next/head'
 const ViewBooking = ({ bookingNumber }) => {
     const [bookingDetails, setBookingDetails] = useState();
+    const [passport, setPassport] = useState('')
+    const [photograph, setPhotograph] = useState('');
     const [isError, setIsError] = useState('')
     const fetchBooking = async (bookingNumber) => {
         const response = await fetch('/api/booking/fetchone', {
@@ -21,9 +24,16 @@ const ViewBooking = ({ bookingNumber }) => {
 
     }
     useEffect(() => {
-        fetchBooking(bookingNumber)
+        fetchBooking(bookingNumber);
+        //eslint-disable-next-line
     }, [])
 
+    useEffect(() => {
+      if(typeof window!=='undefined'){
+        PDFObject.embed(bookingDetails?.passport, '#passport');
+      }
+    }, [bookingDetails])
+    
     return (
         <>
             <Head>
@@ -151,12 +161,12 @@ const ViewBooking = ({ bookingNumber }) => {
                                         bookingDetails.bookingFor == 'visa' &&
                                         <div className="w-full flex md:flex-row flex-col mt-6">
                                             <div className="flex flex-col w-80">
-                                                <img src={bookingDetails.image[0]} className='w-80 h-64' alt="passport" />
-                                                <a className='px-2 py-1  text-center rounded bg-gray-200 hover:bg-gray-300 my-2 cursor-pointer' href={bookingDetails.image[0]} download>Download</a>
+                                                <img src={bookingDetails.photograph} className='w-80 h-64' alt="photograph" />
+                                                <a className='px-2 py-1  text-center rounded bg-gray-200 hover:bg-gray-300 my-2 cursor-pointer' href={bookingDetails.photograph} download>Download</a>
                                             </div>
                                             <div className="flex flex-col w-60 md:ml-2 ml-0 md:mt-0 mt-2">
-                                                <img src={bookingDetails.image[1]} className='w-80 h-64' alt="photograph" />
-                                                <a className='px-2 py-1 text-center  rounded bg-gray-200 hover:bg-gray-300 my-2 cursor-pointer' href={bookingDetails.image[1]} download>Download</a>
+                                                <div id="passport" className='h-64 w80'></div>
+                                                <a className='px-2 py-1 text-center  rounded bg-gray-200 hover:bg-gray-300 my-2 cursor-pointer' href={bookingDetails.passport} download>Download</a>
                                             </div>
                                         </div>
                                     }

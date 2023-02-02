@@ -59,7 +59,7 @@ const BookingsPage = () => {
                         <>
                                 <div className="w-full p-4 overflow-y-auto">
                                     <div className="w-full flex justify-between">
-                                        <h6 className=" font-semibold">Bookingss</h6>
+                                        <h6 className=" font-semibold">Bookings</h6>
                                         <button onClick={fetchBooking} className="flex items-center text-[#1F41AF]"> <TfiReload className='mx-2' /> Reload Data</button>
                                     </div>
                                     <div className="w-full flex justify-between items-center my-4 rounded border border-gray-300">
