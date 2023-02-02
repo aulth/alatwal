@@ -140,13 +140,13 @@ const AssignTicket = ({ bookingNumber }) => {
                                                 <input type="text" value={bookingDetails.price} className='w-full focus:outline focus:outline-blue-400 p-1 rounded border text-sm' disabled />
                                         }
                                     </div>
-                                    {
+                                    {/* {
                                         bookingDetails.bookingFor == 'tour' &&
                                         <div className="w-full flex flex-col md:flex-row md:justify-between my-3">
                                             <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">VAT</label>
                                             <input type="text" value={booking.vat} className='w-full focus:outline focus:outline-blue-400 p-1 rounded border text-sm' disabled />
                                         </div>
-                                    }
+                                    } */}
                                     <div className="w-full flex flex-col md:justify-between my-3">
                                         <UploadTicket type={bookingDetails.bookingFor == 'tour' ? 'Ticket' : 'Visa'} date={bookingDetails.date} label={bookingDetails.bookingFor == 'tour' ? 'Assign Ticket' : 'Upload Visa'} labelWidth={"w-52"} bookingNumber={bookingDetails.bookingNumber} bookedTourId={booking.id} ticketFromDb={booking.ticket} bookingDetails={booking} email={bookingDetails.email} name={bookingDetails.firstName + " " + bookingDetails.lastName} />
                                     </div>

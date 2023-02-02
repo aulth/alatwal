@@ -386,7 +386,6 @@ const DesertSafari = ({ data }) => {
                     </div>
                     <div className="w-full  py-2 my-2 flex justify-between ">
                         <span></span>
-                        <button className="bg-blue-400 rounded px-2 py-1 text-white hover:bg-blue-500">Book This Tour</button>
                     </div>
                     {/* Rating and Review section  */}
                     {/* <div className='w-full border rounded bg-white border-gray-200 my-2 p-2'>
@@ -512,7 +511,7 @@ const DesertSafari = ({ data }) => {
                     <div className="w-full  border border-gray-100 rounded-lg p-1 my-2">
                         <input type="date" name="date" pattern="\d{4}-\d{2}-\d{2}" placeholder="yyyy-mm-dd" onChange={handleOnChange} id="date" className='w-full p-1 focus:outline-none cursor-pointer' />
                     </div>
-                    <button onClick={showPriceBreakdown} className="w-full  border border-gray-100 rounded-lg p-1 my-2 bg-gray-50 hover:bg-gray-100">
+                    <button onClick={showPriceBreakdown} className="w-full  border border-gray-100 rounded-lg p-1 my-2 bg-blue-500 hover:bg-blue-600 text-white">
                         Book Now
                     </button>
                     <div id='price-breakdown' className="w-full hidden  border border-gray-100 rounded-lg p-2 my-2 mb-4">
@@ -560,7 +559,7 @@ const DesertSafari = ({ data }) => {
                         </div> */}
                         <div className="w-full flex justify-between border-b border-gray-100 py-2 text-sm">
                             <span></span>
-                            <button onClick={addToCart} className='uppercase font-semibold bg-gray-50 border-gray-100 border rounded px-2 py-1 hover:bg-gray-100'>Add to cart</button>
+                            <button onClick={addToCart} className='uppercase font-semibold bg-blue-500 text-white border-gray-100 border rounded px-2 py-1 hover:bg-blue-600'>Add to cart</button>
                         </div>
                     </div>
                     <div className="w-full  border border-gray-100 rounded-lg p-1 my-2">

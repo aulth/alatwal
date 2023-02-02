@@ -57,7 +57,8 @@ const Checkout = () => {
                         totalAmount += item.transport
                     }
                 }
-                setFinalPayment({ totalAmount: totalAmount, totalVat: totalVat, finalPayment: totalAmount + totalVat });
+                // setFinalPayment({ totalAmount: totalAmount, totalVat: totalVat, finalPayment: totalAmount + totalVat });
+                setFinalPayment({ totalAmount: totalAmount, totalVat: totalVat, finalPayment: totalAmount });
                 setCartData(JSON.parse(localStorage.getItem('tour-cart')));
                 setBookingInfo({ ...bookingInfo, item: cart })
                 for (let item of cart) {
@@ -293,14 +294,14 @@ const Checkout = () => {
                     }
                     <div className="w-full  border border-gray-100 rounded-lg p-1 my-2 mt-4">
                         <h2 className="text-lg font-semibold border-b border-gray-100 p-1">Final Payment</h2>
-                        <div className="w-full flex justify-between text-sm border-b border-gray-100 p-1 mb-1">
+                        {/* <div className="w-full flex justify-between text-sm border-b border-gray-100 p-1 mb-1">
                             <span className='font-semibold'>Total Amount:</span>
                             <p>{finalPayment.totalAmount} AED</p>
-                        </div>
-                        <div className="w-full flex justify-between text-sm border-b border-gray-100 p-1 my-1">
+                        </div> */}
+                        {/* <div className="w-full flex justify-between text-sm border-b border-gray-100 p-1 my-1">
                             <span className='font-semibold'>Total VAT</span>
                             <p>{finalPayment.totalVat} AED</p>
-                        </div>
+                        </div> */}
                         <div className="w-full flex justify-between text-sm  p-1 my-1">
                             <span className='font-semibold'>Final Payment</span>
                             <p className='font-semibold'>{finalPayment.finalPayment} AED</p>

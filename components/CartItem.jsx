@@ -35,7 +35,6 @@ const CartItem = ({ cart, cartData, setCartData, setDeleteState }) => {
                         <p>{cart.time ? cart.time : 'time here'}</p>
                     </div>
                 }
-               
                 <div className="w-full flex justify-between text-sm border-b border-gray-100 p-1 my-1">
                     <span className='font-semibold'>Pax:</span>
                     <p>{cart.adult ? `${cart.adult}x Adult, ` : ''}{cart.child ? `${cart.child}x Children, ` : ''}{cart.infant ? `${cart.infant}x Infant` : ''}</p>
@@ -44,14 +43,14 @@ const CartItem = ({ cart, cartData, setCartData, setDeleteState }) => {
                     <span className='font-semibold'>Last Date To Cancel:</span>
                     <p>{cart.lastDateToCancel ? cart.lastDateToCancel : 'last date here'}</p>
                 </div> */}
-                <div className="w-full flex justify-between text-sm border-b border-gray-100 p-1 my-1">
+                {/* <div className="w-full flex justify-between text-sm border-b border-gray-100 p-1 my-1">
                     <span className='font-semibold'>Amount (Ex VAT):</span>
                     <p>{cart.price ? cart.price : '00'} AED</p>
-                </div>
-                <div className="w-full flex justify-between text-sm border-b border-gray-100 p-1 my-1">
+                </div> */}
+                {/* <div className="w-full flex justify-between text-sm border-b border-gray-100 p-1 my-1">
                     <span className='font-semibold'>VAT Amount:</span>
                     <p>{cart.vat ? cart.vat : '00'} AED</p>
-                </div>
+                </div> */}
                 {
                     cart.explorer &&
                     <div className="w-full flex justify-between text-sm border-b border-gray-100 p-1 my-1">
@@ -74,8 +73,10 @@ const CartItem = ({ cart, cartData, setCartData, setDeleteState }) => {
                     </div>
                 }
                 <div className="w-full flex justify-between text-sm  p-1 my-1">
-                    <span className='font-semibold'>Total (Inc VAT):</span>
-                    <p> {cart.price + (cart.explorer? cart.transport: 0 ) + (cart.isFastTrackAddOn?cart.fastTrackAddOn:0) + (cart.vat?cart.vat:0)} AED</p>
+                    {/* <span className='font-semibold'>Total (Inc VAT):</span> */}
+                    <span className='font-semibold'>Total:</span>
+                    {/* <p> {cart.price + (cart.explorer? cart.transport: 0 ) + (cart.isFastTrackAddOn?cart.fastTrackAddOn:0) + (cart.vat?cart.vat:0)} AED</p> */}
+                    <p> {cart.price + (cart.explorer? cart.transport: 0 ) + (cart.isFastTrackAddOn?cart.fastTrackAddOn:0)} AED</p>
                 </div>
             </div>
         </>

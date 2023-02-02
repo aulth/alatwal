@@ -140,13 +140,13 @@ const ViewBooking = ({ bookingNumber }) => {
                                                 <input type="text" value={bookingDetails.price} className='w-full focus:outline focus:outline-blue-400 p-1 rounded border text-sm' disabled />
                                             </div>
                                     }
-                                    {
+                                    {/* {
                                         bookingDetails.bookingFor == 'tour' &&
                                         <div className="w-full flex flex-col md:flex-row md:justify-between my-3">
                                             <label className='font-semibold flex items-center mr-2 md:mb-0 mb-1 w-52' htmlFor="">VAT</label>
                                             <input type="text" value={booking.vat} className='w-full focus:outline focus:outline-blue-400 p-1 rounded border text-sm' disabled />
                                         </div>
-                                    }
+                                    } */}
                                     {
                                         bookingDetails.bookingFor == 'visa' &&
                                         <div className="w-full flex md:flex-row flex-col mt-6">

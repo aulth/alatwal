@@ -136,13 +136,6 @@ const sendConfirmation = async (req, res) => {
                                                     <td style="font-size: 14px; line-height: 18px; color: #757575; ">
                                                     </td>
                                                     <td style="font-size: 14px; line-height: 18px; color: #757575; text-align: right; ">
-                                                        ${bookingInfo.bookingFor == 'tour'?`<b style="color: #666666;">AED${booking.vat}</b> VAT`:''}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="font-size: 14px; line-height: 18px; color: #757575; ">
-                                                    </td>
-                                                    <td style="font-size: 14px; line-height: 18px; color: #757575; text-align: right; ">
                                                         <b style="color: #666666;">AED${bookingInfo.bookingFor == 'tour' ? booking.price : bookingInfo.price}</b> Total
                                                     </td>
                                                 </tr>
