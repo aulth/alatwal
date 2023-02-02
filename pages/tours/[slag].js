@@ -18,7 +18,6 @@ const DesertSafari = ({ categoryUrl }) => {
         body: JSON.stringify({ categoryUrl: categoryUrl, type:type })
       });
       const responseData = await response.json();
-      console.log(responseData)
       setAllTour(responseData.tour)
     } catch (error) {
       console.log(error)

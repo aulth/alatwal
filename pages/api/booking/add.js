@@ -40,14 +40,14 @@ const add = async (req, res) => {
             || !price) {
             return res.json({ success: false, msg: "All fields required" })
         }
-        if (!authtoken) {
-            return res.json({ success: false, msg: "Please Login" });
-        }
-        let { id } = jwt.verify(authtoken, JWTSECRET);
-        console.log(id)
-        if (!id) {
-            return res.json({ success: false, msg: "Invalid token" });
-        }
+        // if (!authtoken) {
+        //     return res.json({ success: false, msg: "Please Login" });
+        // }
+        // let { id } = jwt.verify(authtoken, JWTSECRET);
+        // console.log(id)
+        // if (!id) {
+        //     return res.json({ success: false, msg: "Invalid token" });
+        // }
 
         let newBooking = await Booking.create({
             bookingNumber,
@@ -64,7 +64,7 @@ const add = async (req, res) => {
             availability,
             paymentStatus,
             service,
-            userId: id,
+            // userId: id?id:'',
             date,
             image: image,
             type,

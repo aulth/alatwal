@@ -273,10 +273,11 @@ const Checkout = () => {
                             {
                                 paymentMethod && paymentMethod == 'bank' && settingData && 
                                 <div className="w-full p-2">
-                                    <h6 className="text-sm ">Kindly Transfer To the Following Bank Account Details:</h6>
+                                    <h6 className="text-sm ">Please deposit the amount in this bank and send the slip to info@alatwal.com :</h6>
                                     <h6 className="text-sm font-semibold my-1">Beneficiary: {settingData.beneficiary}</h6>
                                     <h6 className="text-sm font-semibold my-1">Bank: {settingData.bank}</h6>
                                     <h6 className="text-sm font-semibold my-1">A/C No: {settingData.accountNumber}</h6>
+                                    <h6 className="text-sm font-semibold my-1">IBAN: {settingData.iban}</h6>
                                     <button type='submit' className="bg-blue-400 px-2 py-1 rounded text-white text-sm my-1 hover:bg-blue-500">Book Now</button>
                                 </div>
                             }
