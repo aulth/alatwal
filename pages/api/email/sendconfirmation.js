@@ -32,12 +32,7 @@ const sendConfirmation = async (req, res) => {
                                                 </tr>
                                                 <tr>
                                                     <td style="font-size: 14px; line-height: 18px; color: #666666;border-collapse: collapse;">
-                                                        New Delhi
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="font-size: 14px; line-height: 18px; color: #666666;border-collapse: collapse;">
-                                                        India 110025
+                                                        UAE Dubai
                                                     </td>
                                                 </tr>
                                                 <tr>
