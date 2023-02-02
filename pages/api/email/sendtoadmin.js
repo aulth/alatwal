@@ -42,7 +42,7 @@ const sendConfirmation = async (req, res) => {
                                                 </tr>
                                                 <tr>
                                                     <td style="font-size: 14px; line-height: 18px; color: #666666;border-collapse: collapse;">
-                                                        Phone: +971-45752644 | Email: info@example.com
+                                                        Phone: +971-45752644 | Email: info@alatwal.com
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -186,7 +186,6 @@ const sendConfirmation = async (req, res) => {
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2" style="width: 100%; text-align: center; font-style: italic; font-size: 13px; font-weight: 600; color: #666666; padding: 15px 0; border-top: 1px solid #eeeeee;">
-                                                        <b style="font-size: 14px;">Note:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit
                                                     </td>
                                                 </tr>
                                             </tbody>
