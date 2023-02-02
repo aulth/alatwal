@@ -17,6 +17,8 @@ const ApplyVisa = ({ setApplyClicked, data }) => {
     const [stripePayClicked, setStripePayClicked] = useState(false)
     const router = useRouter();
     const [loading, setLoading] = useState(false)
+    const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+    const stripePromise = loadStripe(publishableKey);
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
