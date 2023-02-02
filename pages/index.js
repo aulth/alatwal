@@ -30,6 +30,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
         {/* <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.5/dist/flowbite.min.css" /> */}
         <script src="https://unpkg.com/flowbite@1.5.5/dist/flowbite.js" async></script>
+        
       </Head>
       <Navbar />
       <LandingPage />
