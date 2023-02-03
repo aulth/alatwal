@@ -9,7 +9,7 @@ const Testimonial = () => {
             {/* first widget  */}
             {/* <script src="https://apps.elfsight.com/p/platform.js" defer></script>
             <div className="elfsight-app-54e7b8ce-f26a-418a-ac47-df6b3d101bb8"></div> */}
-            {/* 03-02-2023 */}
+            {/* 03-02-2023 New widget added */}
             <script src="https://apps.elfsight.com/p/platform.js" defer></script>
             <div class="elfsight-app-60a4fb15-fe5d-4fab-ab20-143b4a65721e"></div>
             {/* <script src="https://widget.trustmary.com/Y8oa9ta6K" async></script> */}
