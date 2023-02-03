@@ -6,6 +6,7 @@ const Testimonial = () => {
       <div>
         <div className="min-w-screen  flex items-center justify-center">
           <div className="w-full bg-white  px-5 py-16 md:py-24 text-gray-800">
+            {/* first widget  */}
             {/* <script src="https://apps.elfsight.com/p/platform.js" defer></script>
             <div className="elfsight-app-54e7b8ce-f26a-418a-ac47-df6b3d101bb8"></div> */}
             {/* 03-02-2023 */}
