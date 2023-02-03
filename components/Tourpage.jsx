@@ -411,7 +411,7 @@ const DesertSafari = ({ data }) => {
                 </div>
                 <div className="bg-white lg:rounded-tl-[40px] lg:w-[30%] w-full p-6">
                     <h2 className="text-lg font-semibold">Select your booking</h2>
-                    <div className="w-full  border border-gray-100 rounded-lg p-1 my-2">
+                    <div className="w-full  border border-gray-100 rounded-lg p-1 my-2 ">
                         <select name="adult" id="" onChange={handleOnChange} className='w-full p-1 focus:outline-none cursor-pointer'>
                             <option value="0">Adult x 0</option>
                             <option value="1">Adult x 1</option>
@@ -426,7 +426,8 @@ const DesertSafari = ({ data }) => {
                             <option value="10">Adult x 10</option>
                         </select>
                     </div>
-                    <div className="w-full  border border-gray-100 rounded-lg p-1 my-2">
+                    <div className="w-full  border border-gray-100 rounded-lg p-1 my-2 relative">
+                    <div className=" bg-white absolute -mt-3 px-1 text-[0.75rem] text-gray-400">{data.basic?'0 - 3':data.platinum?'4 - 12':data.explorer?'3 - 10':''} Yrs</div>
                         <select name="child" onChange={handleOnChange} id="" className='w-full p-1 focus:outline-none cursor-pointer'>
                             <option value="0">Child x 0</option>
                             <option value="1">Child x 1</option>
@@ -441,7 +442,8 @@ const DesertSafari = ({ data }) => {
                             <option value="10">Child x 10</option>
                         </select>
                     </div>
-                    <div className="w-full  border border-gray-100 rounded-lg p-1 my-2">
+                    <div className="w-full  border border-gray-100 rounded-lg p-1 my-2 relative">
+                    <div className=" bg-white absolute -mt-3 px-1 text-[0.75rem] text-gray-400">{data.basic?'0 - 0':data.platinum?'0 - 4':data.explorer?'0 - 3':''} Yrs</div>
                         <select name="infant" onChange={handleOnChange} id="" className='w-full p-1 focus:outline-none cursor-pointer'>
                             <option value="0">Infant x 0</option>
                             <option value="1">Infant x 1</option>
